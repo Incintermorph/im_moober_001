@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.intermorph.uss.hstry.service.IMMmbrEduMapper">
+
+    <insert id="insert" parameterType="com.intermorph.uss.hstry.service.IMMmbrEduVO" useGeneratedKeys="false">
+/* IMMmbrEduMapper.insert */
+INSERT INTO im_mmbr_edu (
+    mmbr_edu_id,
+    member_srl,
+    scl_nm,
+    mjr_nm,
+    spec_nm,
+    dge_cdv,
+    dge_ymd,
+    dge_file_id,
+    rech_tpc,
+
+    del_yn,
+    frst_reger_id,
+    frst_reg_dt,
+    frst_reger_ip
+) VALUES (
+    #{mmbrEduId, jdbcType=VARCHAR},
+    #{memberSrl, jdbcType=VARCHAR},
+    #{sclNm, jdbcType=VARCHAR},
+    #{mjrNm, jdbcType=VARCHAR},
+    #{specNm, jdbcType=VARCHAR},
+    #{dgeCdv, jdbcType=VARCHAR},
+    #{dgeYmd, jdbcType=VARCHAR},
+    #{dgeFileId, jdbcType=VARCHAR},
+    #{rechTpc, jdbcType=VARCHAR},
+
+     'N',
+    #{frstRegerId, jdbcType=VARCHAR},
+    TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+    #{frstRegerIp, jdbcType=VARCHAR}
+) 
+    </insert>
+
+    <update id="update" parameterType="com.intermorph.uss.hstry.service.IMMmbrEduVO">
+/* IMMmbrEduMapper.update */
+UPDATE im_mmbr_edu
+   SET 
+       scl_nm = #{sclNm, jdbcType=VARCHAR},
+       mjr_nm = #{mjrNm, jdbcType=VARCHAR},
+       spec_nm = #{specNm, jdbcType=VARCHAR},
+       dge_cdv = #{dgeCdv, jdbcType=VARCHAR},
+       dge_ymd = #{dgeYmd, jdbcType=VARCHAR},
+       dge_file_id = #{dgeFileId, jdbcType=VARCHAR},
+	   rech_tpc = #{rechTpc, jdbcType=VARCHAR},
+	   last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR}
+ WHERE
+       mmbr_edu_id = #{mmbrEduId}
+
+   AND del_yn = 'N' 
+    </update>
+
+    <update id="delete" parameterType="com.intermorph.uss.hstry.service.IMMmbrEduVO">
+/* IMMmbrEduMapper.delete */
+UPDATE im_mmbr_edu 
+   SET last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR},
+       del_yn = 'Y' 
+ WHERE 
+       mmbr_edu_id = #{mmbrEduId}
+
+   AND del_yn = 'N'
+    </update>
+
+
+    <select id="selectDetail" parameterType="com.intermorph.uss.hstry.service.IMMmbrEduVO" resultType="com.intermorph.uss.hstry.service.IMMmbrEduVO">
+        /* IMMmbrEduMapper.selectDetail */
+SELECT 
+       A.mmbr_edu_id AS "mmbrEduId",
+       A.member_srl AS "memberSrl",
+       A.scl_nm AS "sclNm",
+       A.mjr_nm AS "mjrNm",
+       A.spec_nm AS "specNm",
+       A.dge_cdv AS "dgeCdv",
+       A.dge_ymd AS "dgeYmd",
+       A.dge_file_id AS "dgeFileId",
+       A.rech_tpc  AS   "rechTpc",
+       A.del_yn AS "delYn",
+       A.frst_reger_id AS "frstRegerId",
+       A.frst_reg_dt AS "frstRegDt",
+       A.frst_reger_ip AS "frstRegerIp",
+       A.last_mdfer_id AS "lastMdferId",
+       A.last_mdfcn_dt AS "lastMdfcnDt",
+       A.last_mdfer_ip AS "lastMdferIp"
+  
+  FROM im_mmbr_edu A
+ WHERE
+       mmbr_edu_id = #{mmbrEduId}
+
+   AND A.del_yn = 'N'
+    </select>
+
+
+
+
+    <resultMap id="selectListResultMap" type="com.intermorph.uss.hstry.service.IMMmbrEduVO">
+	<collection column="{atchFileId=dgeFileId}" property="fileList" javaType="List" 
+            ofType="egovframework.com.cmm.service.FileVO" select="com.intermorph.cmmn.egov.service.IMEgovMapper.selectFileList"/>
+    </resultMap>
+    <select id="selectList" parameterType="map" resultMap="selectListResultMap">
+/* IMMmbrEduMapper.selectList */
+SELECT
+       A.mmbr_edu_id AS "mmbrEduId",
+       A.member_srl AS "memberSrl",
+       A.scl_nm AS "sclNm",
+       A.mjr_nm AS "mjrNm",
+       A.spec_nm AS "specNm",
+       A.dge_cdv AS "dgeCdv",
+       A.dge_ymd AS "dgeYmd",
+       A.dge_file_id AS "dgeFileId",
+       A.rech_tpc  AS   "rechTpc",
+       A.del_yn AS "delYn",
+       A.frst_reger_id AS "frstRegerId",
+       A.frst_reg_dt AS "frstRegDt",
+       A.frst_reger_ip AS "frstRegerIp",
+       A.last_mdfer_id AS "lastMdferId",
+       A.last_mdfcn_dt AS "lastMdfcnDt",
+       A.last_mdfer_ip AS "lastMdferIp"
+
+  FROM im_mmbr_edu A
+ WHERE A.del_yn = 'N'
+     AND member_srl = #{memberSrl, jdbcType=VARCHAR}
+ ORDER BY A.frst_reg_dt DESC
+ 
+ 
+     </select>
+
+</mapper>

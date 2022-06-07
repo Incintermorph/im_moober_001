@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.intermorph.uss.objc.service.IMObjcAplyMapper">
+
+    <insert id="insert" parameterType="com.intermorph.uss.objc.service.IMObjcAplyVO" useGeneratedKeys="false">
+/* IMObjcAplyMapper.insert */
+INSERT INTO im_objc_aply (
+    objc_aply_id,
+    mmbr_esntl_id,
+    agncy_id,
+    dvsn_cdv,
+    objc_aply_dtl,
+    aply_nm,
+    aply_desc,
+    objc_dvsn_cdv,
+    stts_cdv,
+
+    del_yn,
+    frst_reger_id,
+    frst_reg_dt,
+    frst_reger_ip
+) VALUES (
+    #{objcAplyId, jdbcType=VARCHAR},
+    #{mmbrEsntlId, jdbcType=VARCHAR},
+    #{agncyId, jdbcType=VARCHAR},
+    #{dvsnCdv, jdbcType=VARCHAR},
+    #{objcAplyDtl, jdbcType=VARCHAR},
+    #{aplyNm, jdbcType=VARCHAR},
+    #{aplyDesc, jdbcType=VARCHAR},
+    #{objcDvsnCdv, jdbcType=VARCHAR},
+    '01',
+
+     'N',
+    #{frstRegerId, jdbcType=VARCHAR},
+    TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+    #{frstRegerIp, jdbcType=VARCHAR}
+) 
+    </insert>
+
+    <update id="update" parameterType="com.intermorph.uss.objc.service.IMObjcAplyVO">
+/* IMObjcAplyMapper.update */
+UPDATE im_objc_aply
+   SET 
+       <if test='dvsnCdv != null'>
+       dvsn_cdv = #{dvsnCdv, jdbcType=VARCHAR},
+       </if>
+       <if test='objcAplyDtl != null'>
+       objc_aply_dtl = #{objcAplyDtl, jdbcType=VARCHAR},
+       </if>
+       <if test='aplyNm != null'>
+       aply_nm = #{aplyNm, jdbcType=VARCHAR},
+       </if>
+       <if test='aplyDesc != null'>
+       aply_desc = #{aplyDesc, jdbcType=VARCHAR},
+       </if>
+       <if test='objcDvsnCdv != null'>
+       objc_dvsn_cdv = #{objcDvsnCdv, jdbcType=VARCHAR},
+       </if>
+       <if test='sttsCdv != null'>
+       stts_cdv = #{sttsCdv, jdbcType=VARCHAR},
+       <if test='sttsCdv.equals("01")'>
+       ans_reg_ymd = null,
+       ans_reger_id = null,
+       </if>
+       <if test='sttsCdv.equals("02")'>
+       ans_reger_id = #{ansRegerId, jdbcType=VARCHAR},
+       ans_reg_ymd = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       </if>
+       </if>
+       <if test='ansDesc != null'>
+       ans_desc = #{ansDesc, jdbcType=VARCHAR},
+       </if>
+
+	   last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR}
+ WHERE
+	objc_aply_id =  #{objcAplyId}
+   AND del_yn = 'N' 
+    </update>
+
+    <update id="delete" parameterType="com.intermorph.uss.objc.service.IMObjcAplyVO">
+/* IMObjcAplyMapper.delete */
+UPDATE im_objc_aply 
+   SET last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR},
+       del_yn = 'Y' 
+ WHERE 
+	objc_aply_id =  #{objcAplyId}
+   AND del_yn = 'N'
+    </update>
+
+    <resultMap id="selectDetailResultMap" type="com.intermorph.uss.objc.service.IMObjcAplyResultSet">
+        <result column="A.objcAplyId" property="objcAply.objcAplyId"/>
+        <result column="A.mmbrEsntlId" property="objcAply.mmbrEsntlId"/>
+        <result column="A.agncyId" property="objcAply.agncyId"/>
+        <result column="A.dvsnCdv" property="objcAply.dvsnCdv"/>
+        <result column="A.objcAplyDtl" property="objcAply.objcAplyDtl"/>
+        <result column="A.aplyNm" property="objcAply.aplyNm"/>
+        <result column="A.aplyDesc" property="objcAply.aplyDesc"/>
+        <result column="A.objcDvsnCdv" property="objcAply.objcDvsnCdv"/>
+        <result column="A.sttsCdv" property="objcAply.sttsCdv"/>
+        <result column="A.ansDesc" property="objcAply.ansDesc"/>
+        <result column="A.ansRegerId" property="objcAply.ansRegerId"/>
+        <result column="A.ansRegYmd" property="objcAply.ansRegYmd"/>
+        <result column="A.delYn" property="objcAply.delYn"/>
+        <result column="A.frstRegerId" property="objcAply.frstRegerId"/>
+        <result column="A.frstRegDt" property="objcAply.frstRegDt"/>
+        <result column="A.frstRegerIp" property="objcAply.frstRegerIp"/>
+        <result column="A.lastMdferId" property="objcAply.lastMdferId"/>
+        <result column="A.lastMdfcnDt" property="objcAply.lastMdfcnDt"/>
+        <result column="A.lastMdferIp" property="objcAply.lastMdferIp"/>
+        <result column="B.mberId" property="mberManage.mberId"/>
+        <result column="B.mberNm" property="mberManage.mberNm"/>
+        <result column="B.mbtlnum" property="mberManage.moblphonNo"/>
+        <result column="B.mberEmailAdres" property="mberManage.mberEmailAdres"/>
+
+    </resultMap>
+    <select id="selectDetail" parameterType="com.intermorph.uss.objc.service.IMObjcAplyVO" resultMap="selectDetailResultMap">
+        /* IMObjcAplyMapper.selectDetail */
+SELECT 
+       A.objc_aply_id AS "A.objcAplyId",
+       A.mmbr_esntl_id AS "A.mmbrEsntlId",
+       A.agncy_id AS "A.agncyId",
+       A.dvsn_cdv AS "A.dvsnCdv",
+       A.objc_aply_dtl AS "A.objcAplyDtl",
+       A.aply_nm AS "A.aplyNm",
+       A.aply_desc AS "A.aplyDesc",
+       A.objc_dvsn_cdv AS "A.objcDvsnCdv",
+       A.stts_cdv AS "A.sttsCdv",
+       A.ans_desc AS "A.ansDesc",
+       A.ans_reger_id AS "A.ansRegerId",
+       A.ans_reg_ymd AS "A.ansRegYmd",
+       A.del_yn AS "A.delYn",
+       A.frst_reger_id AS "A.frstRegerId",
+       A.frst_reg_dt AS "A.frstRegDt",
+       A.frst_reger_ip AS "A.frstRegerIp",
+       A.last_mdfer_id AS "A.lastMdferId",
+       A.last_mdfcn_dt AS "A.lastMdfcnDt",
+       A.last_mdfer_ip AS "A.lastMdferIp",
+	   B.mber_id AS  "B.mberId",
+	   B.mber_nm AS  "B.mberNm",
+	   B.mbtlnum  AS  "B.mbtlnum",
+	   B.mber_email_adres  AS  "B.mberEmailAdres"
+  
+  FROM im_objc_aply A
+  INNER JOIN comtngnrlmber B ON A.mmbr_esntl_id=B.esntl_id
+ WHERE
+	A.objc_aply_id =  #{objcAplyId}
+   AND A.del_yn = 'N'
+    </select>
+
+
+    <resultMap id="selectListResultMap" type="com.intermorph.uss.objc.service.IMObjcAplyResultSet">
+        <result column="A.objcAplyId" property="objcAply.objcAplyId"/>
+        <result column="A.mmbrEsntlId" property="objcAply.mmbrEsntlId"/>
+        <result column="A.agncyId" property="objcAply.agncyId"/>
+        <result column="A.dvsnCdv" property="objcAply.dvsnCdv"/>
+        <result column="A.objcAplyDtl" property="objcAply.objcAplyDtl"/>
+        <result column="A.aplyNm" property="objcAply.aplyNm"/>
+        <result column="A.aplyDesc" property="objcAply.aplyDesc"/>
+        <result column="A.objcDvsnCdv" property="objcAply.objcDvsnCdv"/>
+        <result column="A.sttsCdv" property="objcAply.sttsCdv"/>
+        <result column="A.ansDesc" property="objcAply.ansDesc"/>
+        <result column="A.ansRegerId" property="objcAply.ansRegerId"/>
+        <result column="A.ansRegYmd" property="objcAply.ansRegYmd"/>
+        <result column="A.delYn" property="objcAply.delYn"/>
+        <result column="A.frstRegerId" property="objcAply.frstRegerId"/>
+        <result column="A.frstRegDt" property="objcAply.frstRegDt"/>
+        <result column="A.frstRegerIp" property="objcAply.frstRegerIp"/>
+        <result column="A.lastMdferId" property="objcAply.lastMdferId"/>
+        <result column="A.lastMdfcnDt" property="objcAply.lastMdfcnDt"/>
+        <result column="A.lastMdferIp" property="objcAply.lastMdferIp"/>
+        <result column="B.mberId" property="mberManage.mberId"/>
+        <result column="B.mberNm" property="mberManage.mberNm"/>
+        <result column="B.mbtlnum" property="mberManage.moblphonNo"/>
+        <result column="B.mberEmailAdres" property="mberManage.mberEmailAdres"/>
+
+    </resultMap>
+    <select id="selectList" parameterType="com.intermorph.uss.objc.service.IMObjcAplyCondition" resultMap="selectListResultMap">
+/* IMObjcAplyMapper.selectList */
+         <if test='currentPageNo != 0'>
+SELECT * FROM ( SELECT rownum rn, TB.* FROM (
+        </if>
+SELECT
+       A.objc_aply_id AS "A.objcAplyId",
+       A.mmbr_esntl_id AS "A.mmbrEsntlId",
+       A.agncy_id AS "A.agncyId",
+       A.dvsn_cdv AS "A.dvsnCdv",
+       A.objc_aply_dtl AS "A.objcAplyDtl",
+       A.aply_nm AS "A.aplyNm",
+       A.aply_desc AS "A.aplyDesc",
+       A.objc_dvsn_cdv AS "A.objcDvsnCdv",
+       A.stts_cdv AS "A.sttsCdv",
+       A.ans_desc AS "A.ansDesc",
+       A.ans_reger_id AS "A.ansRegerId",
+       A.ans_reg_ymd AS "A.ansRegYmd",
+       A.del_yn AS "A.delYn",
+       A.frst_reger_id AS "A.frstRegerId",
+       A.frst_reg_dt AS "A.frstRegDt",
+       A.frst_reger_ip AS "A.frstRegerIp",
+       A.last_mdfer_id AS "A.lastMdferId",
+       A.last_mdfcn_dt AS "A.lastMdfcnDt",
+       A.last_mdfer_ip AS "A.lastMdferIp",
+	   B.mber_id AS  "B.mberId",
+	   B.mber_nm AS  "B.mberNm",
+	   B.mbtlnum  AS  "B.mbtlnum",
+	   B.mber_email_adres  AS  "B.mberEmailAdres"
+
+  FROM im_objc_aply A
+  INNER JOIN comtngnrlmber B ON A.mmbr_esntl_id=B.esntl_id
+ WHERE A.del_yn = 'N'
+ 		<if test='scWord != null and !scWord.equals("")'>
+            <if test='scKey.equals("mberId")'>
+       			AND B.mber_id LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("mmbrNm")'>
+       			AND B.mber_nm LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("eml")'>
+       			AND B.mber_email_adres LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("mblTelno")'>
+       			AND B.mber_email_adres LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+        </if>
+        
+        
+ 
+ 
+ 		<if test='scMmbrEsntlId != null and !scMmbrEsntlId.equals("")'>
+ 		AND A.mmbr_esntl_id = #{scMmbrEsntlId}
+ 		</if>
+ 		
+ 		<if test='scDvsnCdv != null and !scDvsnCdv.equals("")'>
+ 		AND A.dvsn_cdv = #{scDvsnCdv}
+ 		</if>
+ 		
+ 		<if test='scObjcDvsnCdv != null and !scObjcDvsnCdv.equals("")'>
+ 		AND A.objc_dvsn_cdv = #{scObjcDvsnCdv}
+ 		</if>
+ 		
+ 		<if test='scSttsCdv != null and !scSttsCdv.equals("")'>
+ 		AND A.stts_cdv = #{scSttsCdv}
+ 		</if>
+ 		
+  		<choose>
+            <when test='orderbyKey == 3'>ORDER BY A.ans_reg_ymd ASC</when>
+            <when test='orderbyKey == -3'>ORDER BY A.ans_reg_ymd DESC</when>
+            <when test='orderbyKey == 2'>ORDER BY B.mber_id ASC</when>
+            <when test='orderbyKey == -2'>ORDER BY B.mber_id DESC</when>
+            <when test='orderbyKey == 2'>ORDER BY B.mber_nm ASC</when>
+            <when test='orderbyKey == -2'>ORDER BY B.mber_nm DESC</when>
+            <when test='orderbyKey == 1'>ORDER BY A.frst_reg_dt ASC</when>
+            <when test='orderbyKey == -1'>ORDER BY A.frst_reg_dt DESC</when>
+            <otherwise>ORDER BY A.frst_reg_dt DESC</otherwise>
+        </choose>
+
+        <if test='currentPageNo != 0'>
+        ) TB ) WHERE rn BETWEEN #{firstItemNo}+1  AND #{firstItemNo} + #{recordCountPerPage}
+        </if>
+    </select>
+
+    <select id="selectListCount" parameterType="com.intermorph.uss.objc.service.IMObjcAplyCondition" resultType="int">
+/* IMObjcAplyMapper.selectListCount */
+SELECT COUNT(*) 
+  FROM im_objc_aply A
+  INNER JOIN comtngnrlmber B ON A.mmbr_esntl_id=B.esntl_id
+ WHERE A.del_yn = 'N'  
+ 		<if test='scWord != null and !scWord.equals("")'>
+            <if test='scKey.equals("mberId")'>
+       			AND B.mber_id LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("mmbrNm")'>
+       			AND B.mber_nm LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("eml")'>
+       			AND B.mber_email_adres LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("mblTelno")'>
+       			AND B.mber_email_adres LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+        </if>
+ 		<if test='scMmbrEsntlId != null and !scMmbrEsntlId.equals("")'>
+ 		AND A.mmbr_esntl_id = #{scMmbrEsntlId}
+ 		</if>
+ 		
+ 		
+ 		<if test='scDvsnCdv != null and !scDvsnCdv.equals("")'>
+ 		AND A.dvsn_cdv = #{scDvsnCdv}
+ 		</if>
+ 		
+ 		<if test='scObjcDvsnCdv != null and !scObjcDvsnCdv.equals("")'>
+ 		AND A.objc_dvsn_cdv = #{scObjcDvsnCdv}
+ 		</if>
+ 		
+ 		<if test='scSttsCdv != null and !scSttsCdv.equals("")'>
+ 		AND A.stts_cdv = #{scSttsCdv}
+ 		</if>
+    </select>
+</mapper>

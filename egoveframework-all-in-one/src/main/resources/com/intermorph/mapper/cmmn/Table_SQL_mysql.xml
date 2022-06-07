@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.intermorph.cmmn.generator.service.TableMapper">
+
+
+    <select id="getListTable" parameterType="String" resultType="com.intermorph.cmmn.generator.service.TableVO">
+SELECT table_name    AS tableName,
+       table_comment AS tableComment
+  FROM information_schema.tables 
+ WHERE table_schema = #{tableSchema}
+ ORDER BY table_name
+    </select>
+
+    <select id="getDetailTable" parameterType="map" resultType="com.intermorph.cmmn.generator.service.TableVO">
+SELECT table_name    AS tableName,
+       table_comment AS tableComment
+  FROM information_schema.tables 
+ WHERE table_schema = #{tableSchema}
+   AND table_name = #{tableName}
+    </select>
+
+    <select id="getListPrimaryKey" parameterType="map" resultType="String">
+SELECT column_name
+  FROM information_schema.columns
+ WHERE table_schema = #{tableSchema}
+   AND table_name = #{tableName}
+   AND column_key = 'PRI'
+    </select>
+
+    <select id="getListColumn" parameterType="map" resultType="com.intermorph.cmmn.generator.service.ColumnVO">
+SELECT column_name              AS columnName,
+       column_comment           AS columnComment,
+       data_type                AS dataType,
+       character_maximum_length AS charLength,
+       numeric_precision        AS numericLength,
+       numeric_scale            AS numericScale
+  FROM information_schema.columns
+ WHERE table_schema = #{tableSchema}
+   AND table_name = #{tableName}
+    </select>
+
+</mapper>

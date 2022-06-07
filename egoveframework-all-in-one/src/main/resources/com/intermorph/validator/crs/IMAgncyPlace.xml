@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC 
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" 
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+    <formset>
+		<form name="iMAgncyPlace">
+			<field property="agncyNm" depends="required,maxlength">
+        		<arg0 key="iMAgncy.placeNm" />
+        		<arg1 key="15" resource="true"/>
+				<var>
+				<var-name>maxlength</var-name>
+				<var-value>15</var-value>
+				</var>
+			</field>
+		
+			
+		
+			
+			
+			<field property="zipc" depends="required">
+        		<arg0 key="iMAgncy.zipc" />
+			</field>
+			
+			
+			<field property="addr" depends="required">
+        		<arg0 key="iMAgncy.addr" />
+			</field>
+			
+			<field property="addrDtl" depends="required">
+        		<arg0 key="iMAgncy.addrDtl" />
+			</field>
+			
+			<field property="areaCdv" depends="required">
+        		<arg0 key="iMAgncy.area" />
+			</field>
+			<field property="areaDtl" depends="required">
+        		<arg0 key="iMAgncy.areaDtl" />
+			</field>
+			
+			
+			<field property="dsgnYn" depends="required">
+        		<arg0 key="iMAgncy.useYn" />
+			</field>
+			
+			
+			
+			
+		</form>
+    </formset>
+
+</form-validation>

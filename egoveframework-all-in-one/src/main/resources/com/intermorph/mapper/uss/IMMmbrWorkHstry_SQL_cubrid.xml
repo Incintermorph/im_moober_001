@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.intermorph.uss.hstry.service.IMMmbrWorkHstryMapper">
+
+    <insert id="insert" parameterType="com.intermorph.uss.hstry.service.IMMmbrWorkHstryVO" useGeneratedKeys="false">
+/* IMMmbrWorkHstryMapper.insert */
+INSERT INTO im_mmbr_work_hstry (
+    mmbr_work_hstry_id,
+    member_srl,
+    work_dvsn_hstry_cdv,
+    agncy_code,
+    agncy_nm,
+    edu_dsgn_yn,
+    work_bgn_ymd,
+    work_end_ymd,
+    work_yn,
+    pstn,
+    work_trgt_cdv,
+    etc_work,
+    evddoc_file_id,
+    dsgn_file_id,
+
+    del_yn,
+    frst_reger_id,
+    frst_reg_dt,
+    frst_reger_ip
+) VALUES (
+    #{mmbrWorkHstryId, jdbcType=VARCHAR},
+    #{memberSrl, jdbcType=VARCHAR},
+    #{workDvsnHstryCdv, jdbcType=VARCHAR},
+    #{agncyCode, jdbcType=VARCHAR},
+    #{agncyNm, jdbcType=VARCHAR},
+    #{eduDsgnYn, jdbcType=VARCHAR},
+    #{workBgnYmd, jdbcType=VARCHAR},
+    #{workEndYmd, jdbcType=VARCHAR},
+    #{workYn, jdbcType=VARCHAR},
+    #{pstn, jdbcType=VARCHAR},
+    #{workTrgtCdv, jdbcType=VARCHAR},
+    #{etcWork, jdbcType=VARCHAR},
+    #{evddocFileId, jdbcType=VARCHAR},
+    #{dsgnFileId, jdbcType=VARCHAR},
+
+     'N',
+    #{frstRegerId, jdbcType=VARCHAR},
+    TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+    #{frstRegerIp, jdbcType=VARCHAR}
+) 
+    </insert>
+
+    <update id="update" parameterType="com.intermorph.uss.hstry.service.IMMmbrWorkHstryVO">
+/* IMMmbrWorkHstryMapper.update */
+UPDATE im_mmbr_work_hstry
+   SET 
+       work_dvsn_hstry_cdv = #{workDvsnHstryCdv, jdbcType=VARCHAR},
+       agncy_code = #{agncyCode, jdbcType=VARCHAR},
+       agncy_nm = #{agncyNm, jdbcType=VARCHAR},
+       edu_dsgn_yn = #{eduDsgnYn, jdbcType=VARCHAR},
+       work_bgn_ymd = #{workBgnYmd, jdbcType=VARCHAR},
+       work_end_ymd = #{workEndYmd, jdbcType=VARCHAR},
+       work_yn = #{workYn, jdbcType=VARCHAR},
+       pstn = #{pstn, jdbcType=VARCHAR},
+       work_trgt_cdv = #{workTrgtCdv, jdbcType=VARCHAR},
+       etc_work = #{etcWork, jdbcType=VARCHAR},
+       evddoc_file_id = #{evddocFileId, jdbcType=VARCHAR},
+       dsgn_file_id = #{dsgnFileId, jdbcType=VARCHAR},
+
+	   last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR}
+ WHERE
+       mmbr_work_hstry_id = #{mmbrWorkHstryId}
+
+   AND del_yn = 'N' 
+    </update>
+
+    <update id="delete" parameterType="com.intermorph.uss.hstry.service.IMMmbrWorkHstryVO">
+/* IMMmbrWorkHstryMapper.delete */
+UPDATE im_mmbr_work_hstry 
+   SET last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR},
+       del_yn = 'Y' 
+ WHERE 
+       mmbr_work_hstry_id = #{mmbrWorkHstryId}
+
+   AND del_yn = 'N'
+    </update>
+
+    <select id="selectDetail" parameterType="com.intermorph.uss.hstry.service.IMMmbrWorkHstryVO" resultType="com.intermorph.uss.hstry.service.IMMmbrWorkHstryVO">
+        /* IMMmbrWorkHstryMapper.selectDetail */
+SELECT 
+       A.mmbr_work_hstry_id AS "mmbrWorkHstryId",
+       A.member_srl AS "memberSrl",
+       A.work_dvsn_hstry_cdv AS "workDvsnHstryCdv",
+       A.agncy_code AS "agncyCode",
+       A.agncy_nm AS "agncyNm",
+       A.edu_dsgn_yn AS "eduDsgnYn",
+       A.work_bgn_ymd AS "workBgnYmd",
+       A.work_end_ymd AS "workEndYmd",
+       A.work_yn AS "workYn",
+       A.pstn AS "pstn",
+       A.work_trgt_cdv AS "workTrgtCdv",
+       A.etc_work AS "etcWork",
+       A.evddoc_file_id AS "evddocFileId",
+       A.dsgn_file_id AS "dsgnFileId",
+       A.del_yn AS "delYn",
+       A.frst_reger_id AS "frstRegerId",
+       A.frst_reg_dt AS "frstRegDt",
+       A.frst_reger_ip AS "frstRegerIp",
+       A.last_mdfer_id AS "lastMdferId",
+       A.last_mdfcn_dt AS "lastMdfcnDt",
+       A.last_mdfer_ip AS "lastMdferIp"
+  
+  FROM im_mmbr_work_hstry A
+ WHERE
+       mmbr_work_hstry_id = #{mmbrWorkHstryId}
+
+   AND A.del_yn = 'N'
+    </select>
+
+
+
+
+    <resultMap id="selectListResultMap" type="com.intermorph.uss.hstry.service.IMMmbrWorkHstryVO">
+	<collection column="{atchFileId=evddocFileId}" property="fileList" javaType="List" 
+            ofType="egovframework.com.cmm.service.FileVO" select="com.intermorph.cmmn.egov.service.IMEgovMapper.selectFileList"/>
+    <collection column="{atchFileId=dsgnFileId}" property="fileList2" javaType="List" 
+            ofType="egovframework.com.cmm.service.FileVO" select="com.intermorph.cmmn.egov.service.IMEgovMapper.selectFileList"/>        
+    </resultMap>
+    <select id="selectList" parameterType="map" resultMap="selectListResultMap">
+/* IMMmbrWorkHstryMapper.selectList */
+SELECT
+       A.mmbr_work_hstry_id AS "mmbrWorkHstryId",
+       A.member_srl AS "memberSrl",
+       A.work_dvsn_hstry_cdv AS "workDvsnHstryCdv",
+       A.agncy_code AS "agncyCode",
+       A.agncy_nm AS "agncyNm",
+       A.edu_dsgn_yn AS "eduDsgnYn",
+       A.work_bgn_ymd AS "workBgnYmd",
+       A.work_end_ymd AS "workEndYmd",
+       A.work_yn AS "workYn",
+       A.pstn AS "pstn",
+       A.work_trgt_cdv AS "workTrgtCdv",
+       A.etc_work AS "etcWork",
+       A.evddoc_file_id AS "evddocFileId",
+       A.dsgn_file_id AS "dsgnFileId",
+       A.del_yn AS "delYn",
+       A.frst_reger_id AS "frstRegerId",
+       A.frst_reg_dt AS "frstRegDt",
+       A.frst_reger_ip AS "frstRegerIp",
+       A.last_mdfer_id AS "lastMdferId",
+       A.last_mdfcn_dt AS "lastMdfcnDt",
+       A.last_mdfer_ip AS "lastMdferIp"
+
+  FROM im_mmbr_work_hstry A
+ WHERE A.del_yn = 'N'
+    AND A.member_srl =   #{memberSrl}
+ 
+ORDER BY A.frst_reg_dt DESC
+    </select>
+    
+    
+
+    <select id="selectListDiffSum" parameterType="map" resultType="com.intermorph.uss.hstry.service.IMMmbrWorkHstryVO">
+/* IMMmbrWorkHstryMapper.selectListDiffSum */
+
+SELECT 
+	FLOOR(SUM(CEIL(CAST(A.dd AS DOUBLE)/31))/12) diffYear,
+	MOD(SUM(CEIL(CAST(A.dd AS DOUBLE)/31)),12) diffMonth
+  FROM 
+(
+	SELECT 
+	 DATEDIFF(CAST(work_end_ymd AS TIMESTAMP),CAST(work_bgn_ymd AS TIMESTAMP)) AS dd
+ FROM im_mmbr_work_hstry
+WHERE  
+ member_srl =   #{memberSrl} AND del_yn='N' AND
+work_bgn_ymd IS NOT NULL AND work_end_ymd IS NOT NULL 
+AND LENGTH(work_bgn_ymd)=14  AND LENGTH(work_end_ymd)=14
+) A
+    </select>
+    
+
+</mapper>

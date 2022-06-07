@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding= "utf-8"?>
+<generator>
+    <filename><![CDATA[IM<!table_name_Pascal!>Service.java]]></filename>
+	<source>
+	<![CDATA[
+/*
+ * Copyright (c) 2022 Intermorph Inc. All right reserved.
+ * This software is the proprietary information of Intermorph Inc.
+ *
+ */
+package <!package_name!>.<!component_name!>.service;
+
+import java.util.List;
+
+
+import com.intermorph.cmmn.base.BaseCondition;
+import com.intermorph.cmmn.base.BasePage;
+import com.intermorph.cmmn.base.BaseResultSet;
+
+
+/**
+ * @Project : <!project_name!>
+ * @Package : <!package_name!>.<!component_name!>.service
+ * @File : IM<!table_name_Pascal!>Service.java
+ * @Title : <!table_comment!>
+ * @date : <!create_date!> generated
+ * @author : <!author_name!>
+ * @descrption : {상세한 프로그램의 용도를 기록}
+ */
+public interface IM<!table_name_Pascal!>Service {
+
+    /**
+     * 등록
+     * 
+     * @param IM<!table_name_Pascal!>VO
+     * @return int
+     * @throws Exception
+     */
+    int insert<!table_name_Pascal!>(IM<!table_name_Pascal!>VO vo) throws Exception;
+
+    /**
+     * 수정
+     * 
+     * @param IM<!table_name_Pascal!>VO
+     * @return int
+     * @throws Exception
+     */
+    int update<!table_name_Pascal!>(IM<!table_name_Pascal!>VO vo) throws Exception;
+
+    /**
+     * 멀티 수정
+     * 
+     * @param List<IM<!table_name_Pascal!>VO>
+     * @return int
+     * @throws Exception
+     */
+    int updatelist<!table_name_Pascal!>(List<IM<!table_name_Pascal!>VO> voList) throws Exception;
+
+    /**
+     * 삭제
+     * 
+     * @param IM<!table_name_Pascal!>VO
+     * @return int
+     * @throws Exception
+     */
+    int delete<!table_name_Pascal!>(IM<!table_name_Pascal!>VO vo) throws Exception;
+
+    /**
+     * 멀티 삭제
+     * 
+     * @param List<IM<!table_name_Pascal!>VO>
+     * @return int
+     * @throws Exception
+     */
+    int deletelist<!table_name_Pascal!>(List<IM<!table_name_Pascal!>VO> voList) throws Exception;
+
+    /**
+	 * 목록 조회
+	 * @param condition
+	 * @return
+	 * @throws Exception
+	 */
+	BasePage<BaseResultSet> selectList<!table_name_Pascal!>(BaseCondition condition) throws Exception;
+	
+	/**
+	 * 상세 조회 (단건)
+	 * @param condition
+	 * @return
+	 * @throws Exception
+	 */
+	BaseResultSet selectDetail<!table_name_Pascal!>(IM<!table_name_Pascal!>VO vo) throws Exception;
+	
+	
+    
+
+  
+
+}
+	]]>
+	</source>
+</generator>

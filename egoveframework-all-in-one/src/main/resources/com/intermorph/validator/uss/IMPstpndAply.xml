@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC 
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" 
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+    <formset>
+		<form name="iMPstpndAply">
+			<field property="qlfcRsltCode" depends="required">
+        		<arg0 key="iMPstpndAply.qlfcRsltCode" />
+			</field>
+			<field property="lcncAcqsYmd" depends="required">
+        		<arg0 key="iMPstpndAply.lcncAcqsYmd" />
+			</field>
+			<field property="mmbrTelno1" depends="required">
+        		<arg0 key="iMPstpndAply.mmbrTelno" />
+			</field>
+			<field property="mmbrTelno2" depends="required">
+        		<arg0 key="iMPstpndAply.mmbrTelno" />
+			</field>
+			<field property="mmbrTelno3" depends="required">
+        		<arg0 key="iMPstpndAply.mmbrTelno" />
+			</field>
+			<field property="brdt" depends="required">
+        		<arg0 key="iMPstpndAply.brdt" />
+			</field>
+			<field property="trgtYear" depends="required">
+        		<arg0 key="iMPstpndAply.trgtYear" />
+			</field>
+			<field property="zipc" depends="required">
+        		<arg0 key="iMPstpndAply.zipc" />
+			</field>
+			<field property="addr" depends="required">
+        		<arg0 key="iMPstpndAply.addr" />
+			</field>
+			
+			<field property="addrDtl" depends="required">
+        		<arg0 key="iMPstpndAply.addrDtl" />
+			</field>
+			<field property="pstpndRsnCdv" depends="required">
+        		<arg0 key="iMPstpndAply.pstpndRsnCdv" />
+			</field>
+			<field property="pstpndRsn" depends="required">
+        		<arg0 key="iMPstpndAply.pstpndRsn" />
+			</field>
+			
+		</form>
+    </formset>
+
+</form-validation>

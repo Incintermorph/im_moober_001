@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC 
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" 
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+    <formset>
+		<form name="iMIssuAply">
+			<field property="issuDvsnCdv" depends="required">
+        		<arg0 key="iMIssuAply.issuDvsnCdv" />
+			</field>
+			<field property="qlfcRsltCode" depends="required">
+        		<arg0 key="iMIssuAply.qlfcRsltCode" />
+			</field>
+			<field property="mmbrTelno1" depends="required">
+        		<arg0 key="iMIssuAply.mmbrTelno" />
+			</field>
+			<field property="mmbrTelno2" depends="required">
+        		<arg0 key="iMIssuAply.mmbrTelno" />
+			</field>
+			<field property="mmbrTelno3" depends="required">
+        		<arg0 key="iMIssuAply.mmbrTelno" />
+			</field>
+			<field property="agncyId" depends="required">
+        		<arg0 key="iMIssuAply.agncyNm" />
+			</field>
+			<field property="crsGrdCdv" depends="required">
+        		<arg0 key="iMIssuAply.crsGrdCdv" />
+			</field>
+			<field property="eduBgnDt" depends="required">
+        		<arg0 key="iMIssuAply.eduBgnDt" />
+			</field>
+			<field property="eduEndDt" depends="required">
+        		<arg0 key="iMIssuAply.eduEndDt" />
+			</field>
+			<field property="lcncAcqsYmd" depends="required">
+        		<arg0 key="iMIssuAply.lcncAcqsYmd" />
+			</field>
+			<field property="zipc" depends="required">
+        		<arg0 key="iMIssuAply.zipc" />
+			</field>
+			<field property="addr" depends="required">
+        		<arg0 key="iMIssuAply.addr" />
+			</field>
+			
+			<field property="addrDtl" depends="required">
+        		<arg0 key="iMIssuAply.addrDtl" />
+			</field>
+			<field property="issuRsn" depends="required">
+        		<arg0 key="iMIssuAply.issuRsn" />
+			</field>
+			<field property="rrno1" depends="required">
+        		<arg0 key="iMIssuAply.rrno" />
+			</field>
+			<field property="rrno2" depends="required">
+        		<arg0 key="iMIssuAply.rrno" />
+			</field>
+			
+		</form>
+    </formset>
+
+</form-validation>

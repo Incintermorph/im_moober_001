@@ -1,0 +1,88 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+
+<c:if test="${!empty crsInfo}">
+
+
+<c:if test="${fn:containsIgnoreCase(crsInfo.crsMstr.crsGrdCdv, '3')}">
+<c:set var="goUrlCrs" value="${pageContext.request.contextPath}/cmmn/crs/C/3/selectList.do"/>
+<c:set var="goUrlCrsDetail" value="${pageContext.request.contextPath}/cmmn/crs/C/3/selectDetail.do"/>
+</c:if>
+<c:if test="${fn:containsIgnoreCase(crsInfo.crsMstr.crsGrdCdv, '2')}">
+<c:set var="goUrlCrs" value="${pageContext.request.contextPath}/cmmn/crs/C/2/selectList.do"/>
+<c:set var="goUrlCrsDetail" value="${pageContext.request.contextPath}/cmmn/crs/C/2/selectDetail.do"/>
+</c:if>
+<c:if test="${fn:containsIgnoreCase(crsInfo.crsMstr.crsGrdCdv, '1')}">
+<c:set var="goUrlCrs" value="${pageContext.request.contextPath}/cmmn/crs/C/1/selectList.do"/>
+<c:set var="goUrlCrsDetail" value="${pageContext.request.contextPath}/cmmn/crs/C/1/selectDetail.do"/>
+</c:if>
+<c:set var="menuNo"/>
+<c:if test="${!empty  _menuUrlMap[goUrlCrs]}">
+<c:set var="menuNo" value="${_menuUrlMap[goUrlCrs].menuManage.menuNo}"/>
+</c:if>
+
+
+							<div>
+								<div class="inner">
+									<div class="sort">
+										<c:if test="${crsInfo.procType eq 'I' }">
+										<span class="active">신청중</span>
+										</c:if>
+										<c:if test="${crsInfo.procType eq 'W' }">
+										<span class="stand">대기중</span>
+										</c:if>
+										<c:if test="${crsInfo.procType eq 'E' }">
+										<span class="complete">완료</span>
+										</c:if>
+										<span class="grade">환경교육사 <im:cd type="print" codeId="IM0001" selectedCode="${crsInfo.crsMstr.crsGrdCdv}"/></span>
+									</div>
+									<div class="info">
+										<div class="sub">
+											<span class="organ"><c:out value="${crsInfo.agncy.agncyNm}"/> </span>
+											<p class="name">
+											<im:cd type="print" codeId="IM0001" selectedCode="${crsInfo.crsMstr.crsGrdCdv}"/>&nbsp;<im:cd type="print" codeId="IM0002" selectedCode="${crsInfo.crsMstr.crsDvsnCdv}"/>
+											</p>
+										</div>
+										<ul class="date">
+											<li>
+												<span class="lab">신청기간</span>
+												<span class="val">
+													<im:dt yyyyMMddHHmmss="${crsInfo.crs.eduAplTerm_bgnDt}"/>
+													~
+													<im:dt yyyyMMddHHmmss="${crsInfo.crs.eduAplTerm_endDt}"/>
+												</span>
+											</li>
+											<li>
+												<span class="lab">교육기간</span>
+												<span class="val">
+												<im:dt yyyyMMddHHmmss="${crsInfo.crs.eduTerm_bgnDt}"/>
+												~
+												<im:dt yyyyMMddHHmmss="${crsInfo.crs.eduTerm_endDt}"/>
+												</span>
+											</li>
+										</ul>
+									</div>
+									<div class="bar">
+										<c:if test="${crsInfo.procType eq 'I' }">
+										<a href="${goUrlCrsDetail}?crsId=${crsInfo.crs.crsId}&_paramMenuNo=${menuNo}">신청하기</a>
+										</c:if>
+										<c:if test="${crsInfo.procType ne 'I' }">
+										<a href="${goUrlCrsDetail}?crsId=${crsInfo.crs.crsId}&_paramMenuNo=${menuNo}"><span class="off">신청하기</span></a>
+										</c:if>
+									</div>
+								</div>
+							</div>
+							
+</c:if>
+<c:if test="${empty crsInfo}">
+							<div>
+								<div class="inner">
+									<div class="working">
+										<p class="name">과정 개설 준비중</p>
+										<p class="guide">일정계획은 연간계획에서<br>확인하실 수 있습니다.</p>
+									</div>
+									<div class="bar">
+										<a href="<c:url value="/cmmn/crsPlan/selectList.do"/>" class="ext">연간교육일정</a>
+									</div>
+								</div>
+							</div>
+</c:if>

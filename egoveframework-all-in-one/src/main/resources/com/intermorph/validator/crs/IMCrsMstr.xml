@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC 
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" 
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+    <formset>
+		<form name="iMCrsMstr">
+			<field property="crsGrdCdv" depends="required">
+        		<arg0 key="iMCrsMstr.crsGrd" />
+			</field>
+			<field property="crsDvsnCdv" depends="required">
+        		<arg0 key="iMCrsMstr.crsDvsn" />
+			</field>
+			<field property="ttnfee" depends="required, integer,maxlength">
+        		<arg0 key="iMCrsMstr.ttnfee" />        		
+        		<arg1 key="7" resource="true"/>
+				<var>
+				<var-name>maxlength</var-name>
+				<var-value>7</var-value>
+				</var>
+			</field>
+			<field property="eduHrs" depends="required, integer, maxlength">
+        		<arg0 key="iMCrsMstr.eduHrs" />
+        		<arg1 key="3" resource="true"/>
+				<var>
+				<var-name>maxlength</var-name>
+				<var-value>3</var-value>
+				</var>
+			</field>
+			<field property="sttsCdv" depends="required">
+        		<arg0 key="iMCrsMstr.stts" />
+			</field>
+			
+		</form>
+    </formset>
+
+</form-validation>

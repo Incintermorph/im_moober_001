@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.intermorph.uss.qlfc.service.IMMmbrQlfcMapper">
+
+    
+    <insert id="insert" parameterType="com.intermorph.uss.qlfc.service.IMMmbrQlfcVO" useGeneratedKeys="false">
+/* IMMmbrQlfcMapper.insert */
+INSERT INTO im_mmbr_qlfc (
+    esntl_id,
+    crs_grd_cdv,
+    bsc_crs_stts_cdv,
+    bsc_crs_aplcnt_id,
+    bsc_crs_cmpltn_ymd,
+    bsc_crs_cmpltn_rslt_code,
+    wtst_stts_cdv,
+    wtst_aplcnt_id,
+    wtst_pass_ymd,
+    excn_crs_stts_cdv,
+    excn_crs_cmpltn_ymd,
+    excn_crs_aplcnt_id,
+    excn_crs_cmpltn_rslt_code,
+    lcnc_stts_cdv,
+    lcnc_aplcnt_id,
+    lcnc_acqs_ymd,
+    qlfc_rslt_code,
+    lcnc_end_ymd,
+    lcnc_issu_code,
+    issu_aply_id,
+    lcnc_issu_ymd,
+    cntnedu_aplcnt_id,
+    cntnedu_stts_cdv,
+    cntnedu_cmpltn_ymd,
+    cntnedu_cmpltn_rslt_code,
+    cntnedu_bgn_dt ,
+    cntnedu_end_dt , 
+    cntnedu_agncy_id ,
+    cntnedu_cnt,
+     
+    frst_reger_id,
+    frst_reg_dt,
+    frst_reger_ip
+) VALUES (
+    #{esntlId, jdbcType=VARCHAR},
+    #{crsGrdCdv, jdbcType=VARCHAR},
+    #{bscCrsSttsCdv, jdbcType=VARCHAR},
+    #{bscCrsAplcntId, jdbcType=VARCHAR},
+    #{bscCrsCmpltnYmd, jdbcType=VARCHAR},
+    #{bscCrsCmpltnRsltCode, jdbcType=VARCHAR},
+    #{wtstSttsCdv, jdbcType=VARCHAR},
+    #{wtstAplcntId, jdbcType=VARCHAR},
+    #{wtstPassYmd, jdbcType=VARCHAR},
+    #{excnCrsSttsCdv, jdbcType=VARCHAR},
+    #{excnCrsCmpltnYmd, jdbcType=VARCHAR},
+    #{excnCrsAplcntId, jdbcType=VARCHAR},
+    #{excnCrsCmpltnRsltCode, jdbcType=VARCHAR},
+    #{lcncSttsCdv, jdbcType=VARCHAR},
+    #{lcncAplcntId, jdbcType=VARCHAR},
+    #{lcncAcqsYmd, jdbcType=VARCHAR},
+    #{qlfcRsltCode, jdbcType=VARCHAR},
+    #{lcncEndYmd, jdbcType=VARCHAR},
+    #{lcncIssuCode, jdbcType=VARCHAR},
+    #{issuAplyId, jdbcType=VARCHAR},
+    #{lcncIssuYmd, jdbcType=VARCHAR},
+    #{cntneduAplcntId, jdbcType=VARCHAR},
+    #{cntneduSttsCdv, jdbcType=VARCHAR},
+    #{cntneduCmpltnYmd, jdbcType=VARCHAR},
+    #{cntneduCmpltnRsltCode, jdbcType=VARCHAR},
+    
+    #{cntneduBgnDt, jdbcType=VARCHAR},
+    #{cntneduEndDt, jdbcType=VARCHAR},
+    #{cntneduAgncyId, jdbcType=VARCHAR},
+    #{cntneduCnt, jdbcType=VARCHAR},
+    
+    #{frstRegerId, jdbcType=VARCHAR},
+    TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+    #{frstRegerIp, jdbcType=VARCHAR}
+) 
+    </insert>
+    
+     
+    <insert id="insertHstry" parameterType="com.intermorph.uss.qlfc.service.IMMmbrQlfcVO" useGeneratedKeys="false">
+/* IMMmbrQlfcMapper.insertHstry */
+INSERT INTO im_mmbr_qlfc_hstry (
+    		 esntl_id,
+              crs_grd_cdv,
+              hstry_id,
+              bsc_crs_stts_cdv,
+              bsc_crs_aplcnt_id,
+              bsc_crs_cmpltn_ymd,
+              bsc_crs_cmpltn_rslt_code,
+              wtst_stts_cdv,
+              wtst_aplcnt_id,
+              wtst_pass_ymd,
+              wtst_vld_end_ymd,
+              excn_crs_stts_cdv,
+              excn_crs_cmpltn_ymd,
+              excn_crs_aplcnt_id,
+              excn_crs_cmpltn_rslt_code,
+              lcnc_stts_cdv,
+              lcnc_aplcnt_id,
+              lcnc_acqs_ymd,
+              qlfc_rslt_code,
+              lcnc_end_ymd,
+              lcnc_issu_code,
+              issu_aply_id,
+              lcnc_issu_ymd,
+              cntnedu_aplcnt_id,
+              cntnedu_stts_cdv,
+              cntnedu_cmpltn_ymd,
+              cntnedu_cmpltn_rslt_code,
+              pstpnd_aply_id,
+              frst_reger_id,
+              frst_reg_dt,
+              frst_reger_ip
+) 
+SELECT 
+			esntl_id,
+              crs_grd_cdv,
+              #{hstryId},
+              bsc_crs_stts_cdv,
+              bsc_crs_aplcnt_id,
+              bsc_crs_cmpltn_ymd,
+              bsc_crs_cmpltn_rslt_code,
+              wtst_stts_cdv,
+              wtst_aplcnt_id,
+              wtst_pass_ymd,
+              wtst_vld_end_ymd,
+              excn_crs_stts_cdv,
+              excn_crs_cmpltn_ymd,
+              excn_crs_aplcnt_id,
+              excn_crs_cmpltn_rslt_code,
+              lcnc_stts_cdv,
+              lcnc_aplcnt_id,
+              lcnc_acqs_ymd,
+              qlfc_rslt_code,
+              lcnc_end_ymd,
+              lcnc_issu_code,
+              issu_aply_id,
+              lcnc_issu_ymd,
+              cntnedu_aplcnt_id,
+              cntnedu_stts_cdv,
+              cntnedu_cmpltn_ymd,
+              cntnedu_cmpltn_rslt_code,
+              pstpnd_aply_id,
+              #{frstRegerId, jdbcType=VARCHAR},
+    		  TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+    		  #{frstRegerIp, jdbcType=VARCHAR}
+         FROM im_mmbr_qlfc
+		WHERE 
+			
+       esntl_id = #{esntlId}
+AND crs_grd_cdv = #{crsGrdCdv} 
+    </insert>
+
+
+
+    <update id="update" parameterType="com.intermorph.uss.qlfc.service.IMMmbrQlfcVO">
+/* IMMmbrQlfcMapper.update */
+UPDATE im_mmbr_qlfc
+   SET 
+   	   <if test='bscCrsSttsCdv != null'>
+       bsc_crs_stts_cdv = #{bscCrsSttsCdv, jdbcType=VARCHAR},
+       bsc_crs_aplcnt_id = #{bscCrsAplcntId, jdbcType=VARCHAR},
+       bsc_crs_cmpltn_ymd = #{bscCrsCmpltnYmd, jdbcType=VARCHAR},
+       bsc_crs_cmpltn_rslt_code = #{bscCrsCmpltnRsltCode, jdbcType=VARCHAR},
+       </if>
+       <if test='wtstSttsCdv != null'>
+       wtst_stts_cdv = #{wtstSttsCdv, jdbcType=VARCHAR},
+       wtst_pass_ymd = #{wtstPassYmd, jdbcType=VARCHAR},
+       wtst_aplcnt_id = #{wtstAplcntId, jdbcType=VARCHAR},
+       wtst_vld_end_ymd = #{wtstVldEndYmd, jdbcType=VARCHAR},
+       </if>
+       <if test='excnCrsSttsCdv != null'>
+       excn_crs_stts_cdv = #{excnCrsSttsCdv, jdbcType=VARCHAR},
+       excn_crs_cmpltn_ymd = #{excnCrsCmpltnYmd, jdbcType=VARCHAR},
+        excn_crs_cmpltn_rslt_code = #{excnCrsCmpltnRsltCode, jdbcType=VARCHAR},
+       excn_crs_aplcnt_id = #{excnCrsAplcntId, jdbcType=VARCHAR},       
+       </if>
+       <if test='lcncSttsCdv != null'>
+       lcnc_stts_cdv = #{lcncSttsCdv, jdbcType=VARCHAR},
+       lcnc_aplcnt_id = #{lcncAplcntId, jdbcType=VARCHAR},
+       lcnc_acqs_ymd = #{lcncAcqsYmd, jdbcType=VARCHAR},
+        qlfc_rslt_code = #{qlfcRsltCode, jdbcType=VARCHAR},
+        lcnc_end_ymd = #{lcncEndYmd, jdbcType=VARCHAR},
+	   </if>              
+              
+       <if test='cntneduSttsCdv != null'>
+       cntnedu_stts_cdv = #{cntneduSttsCdv, jdbcType=VARCHAR},
+       cntnedu_aplcnt_id = #{cntneduAplcntId, jdbcType=VARCHAR},
+       cntnedu_cmpltn_ymd = #{cntneduCmpltnYmd, jdbcType=VARCHAR},
+       cntnedu_cmpltn_rslt_code = #{cntneduCmpltnRsltCode, jdbcType=VARCHAR},
+       cntnedu_bgn_dt = #{cntneduBgnDt, jdbcType=VARCHAR},
+       cntnedu_end_dt = #{cntneduEndDt, jdbcType=VARCHAR},
+       cntnedu_agncy_id = #{cntneduAgncyId, jdbcType=VARCHAR},
+       lcnc_end_ymd = #{lcncEndYmd, jdbcType=VARCHAR},
+       </if>
+       <if test='issuAplyId != null'>
+        lcnc_issu_code = #{lcncIssuCode, jdbcType=VARCHAR},
+        issu_aply_id = #{issuAplyId, jdbcType=VARCHAR},
+        lcnc_issu_ymd = #{lcncIssuYmd, jdbcType=VARCHAR},
+       </if>
+       <if test='pstpndAplyId != null'>
+        pstpnd_aply_id = #{pstpndAplyId, jdbcType=VARCHAR},
+        lcnc_end_ymd = #{lcncEndYmd, jdbcType=VARCHAR},
+       </if>
+       <if test='preveduCnt != null'>
+        prevedu_cnt = #{preveduCnt, jdbcType=VARCHAR},
+       </if>
+       <if test='crsGrd != null'>
+         cntnedu_bgn_dt = #{cntneduBgnDt, jdbcType=VARCHAR},
+       cntnedu_end_dt = #{cntneduEndDt, jdbcType=VARCHAR},
+       cntnedu_agncy_id = #{cntneduAgncyId, jdbcType=VARCHAR},
+       
+       lcnc_stts_cdv = '02',
+       lcnc_acqs_ymd = #{lcncAcqsYmd, jdbcType=VARCHAR},
+        qlfc_rslt_code = #{qlfcRsltCode, jdbcType=VARCHAR},
+        lcnc_end_ymd = #{lcncEndYmd, jdbcType=VARCHAR},
+        cntnedu_cnt = #{cntneduCnt, jdbcType=VARCHAR},
+       </if>
+       
+	   last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR}
+ WHERE
+       
+       esntl_id = #{esntlId}
+AND crs_grd_cdv = #{crsGrdCdv} 
+    </update>
+
+
+    
+    <select id="selectDetail" parameterType="map" resultType="com.intermorph.uss.qlfc.service.IMMmbrQlfcVO">
+        /* IMMmbrQlfcMapper.selectDetail */
+SELECT 
+       
+		<include refid="mmbr_qlfc_col_inc"></include>
+  
+  FROM im_mmbr_qlfc A
+ WHERE
+       esntl_id = #{esntlId}
+AND crs_grd_cdv = #{crsGrdCdv}
+    </select>
+
+    
+    <select id="selectBackupEndYmd" parameterType="com.intermorph.uss.qlfc.service.IMMmbrQlfcVO" resultType="String">
+        /* IMMmbrQlfcMapper.selectBackupEndYmd */
+	SELECT 
+      
+		MAX(lcnc_end_ymd)
+  	FROM im_mmbr_qlfc A
+  	
+  	WHERE    esntl_id   = #{esntlId}
+		  AND crs_grd_cdv = #{crsGrdCdv}
+         AND lcnc_end_ymd IS NOT NULL
+         AND cntnedu_aplcnt_id!=#{cntneduAplcntId}
+   
+    </select>
+    <select id="selectLastDetail" parameterType="map" resultType="com.intermorph.uss.qlfc.service.IMMmbrQlfcVO">
+        /* IMMmbrQlfcMapper.selectLastDetail */
+SELECT 
+      
+		<include refid="mmbr_qlfc_col_inc"></include>
+  
+  FROM im_mmbr_qlfc A
+ WHERE
+       esntl_id = #{esntlId}
+  order by  crs_grd_cdv
+  limit 1    
+    </select>
+    <select id="selectUserList" parameterType="map" resultType="com.intermorph.uss.qlfc.service.IMMmbrQlfcVO">
+        /* IMMmbrQlfcMapper.selectUserList */
+SELECT 
+      
+		<include refid="mmbr_qlfc_col_inc"></include>
+  
+  FROM im_mmbr_qlfc A
+ WHERE
+       esntl_id = #{esntlId}
+  order by  crs_grd_cdv desc
+    </select>
+    
+    
+     <resultMap id="selectListResultMap" type="com.intermorph.uss.qlfc.service.IMMmbrQlfcResultSet">
+        <result column="A.esntlId" property="mmbrQlfc.esntlId"/>
+        <result column="A.crsGrdCdv" property="mmbrQlfc.crsGrdCdv"/>
+        <result column="A.bscCrsSttsCdv" property="mmbrQlfc.bscCrsSttsCdv"/>
+        <result column="A.bscCrsAplcntId" property="mmbrQlfc.bscCrsAplcntId"/>
+        <result column="A.bscCrsCmpltnYmd" property="mmbrQlfc.bscCrsCmpltnYmd"/>
+        <result column="A.bscCrsCmpltnRsltCode" property="mmbrQlfc.bscCrsCmpltnRsltCode"/>
+        <result column="A.wtstSttsCdv" property="mmbrQlfc.wtstSttsCdv"/>
+        <result column="A.wtstAplcntId" property="mmbrQlfc.wtstAplcntId"/>
+        <result column="A.wtstPassYmd" property="mmbrQlfc.wtstPassYmd"/>
+        <result column="A.excnCrsSttsCdv" property="mmbrQlfc.excnCrsSttsCdv"/>
+        <result column="A.excnCrsCmpltnYmd" property="mmbrQlfc.excnCrsCmpltnYmd"/>
+        <result column="A.excnCrsAplcntId" property="mmbrQlfc.excnCrsAplcntId"/>
+        <result column="A.excnCrsCmpltnRsltCode" property="mmbrQlfc.excnCrsCmpltnRsltCode"/>
+        <result column="A.lcncSttsCdv" property="mmbrQlfc.lcncSttsCdv"/>
+        <result column="A.lcncAplcntId" property="mmbrQlfc.lcncAplcntId"/>
+        <result column="A.lcncAcqsYmd" property="mmbrQlfc.lcncAcqsYmd"/>
+        <result column="A.qlfcRsltCode" property="mmbrQlfc.qlfcRsltCode"/>
+        <result column="A.lcncEndYmd" property="mmbrQlfc.lcncEndYmd"/>
+        <result column="A.lcncIssuCode" property="mmbrQlfc.lcncIssuCode"/>
+        <result column="A.issuAplyId" property="mmbrQlfc.issuAplyId"/>
+        <result column="A.lcncIssuYmd" property="mmbrQlfc.lcncIssuYmd"/>
+        <result column="A.cntneduAplcntId" property="mmbrQlfc.cntneduAplcntId"/>
+        <result column="A.cntneduSttsCdv" property="mmbrQlfc.cntneduSttsCdv"/>
+        <result column="A.cntneduCmpltnYmd" property="mmbrQlfc.cntneduCmpltnYmd"/>
+        <result column="A.cntneduCmpltnRsltCode" property="mmbrQlfc.cntneduCmpltnRsltCode"/>
+        <result column="A.pstpndAplyId" property="mmbrQlfc.pstpndAplyId"/>
+        <result column="A.frstRegerId" property="mmbrQlfc.frstRegerId"/>
+        <result column="A.frstRegDt" property="mmbrQlfc.frstRegDt"/>
+        <result column="A.frstRegerIp" property="mmbrQlfc.frstRegerIp"/>
+        <result column="A.lastMdferId" property="mmbrQlfc.lastMdferId"/>
+        <result column="A.lastMdfcnDt" property="mmbrQlfc.lastMdfcnDt"/>
+        <result column="A.lastMdferIp" property="mmbrQlfc.lastMdferIp"/>
+        <result column="A.wtstVldEndYmd" property="mmbrQlfc.wtstVldEndYmd"/>
+        <result column="A.vlatCnt" property="mmbrQlfc.vlatCnt"/>
+        <result column="A.dvsnCdv" property="mmbrQlfc.dvsnCdv"/>
+        <result column="A.cntneduCnt" property="mmbrQlfc.cntneduCnt"/>
+        <result column="A.cntneduBgnDt" property="mmbrQlfc.cntneduBgnDt"/>
+        <result column="A.cntneduEndDt" property="mmbrQlfc.cntneduEndDt"/>
+        <result column="A.cntneduAgncyId" property="mmbrQlfc.cntneduAgncyId"/>
+        <result column="diffDay" property="mmbrQlfc.diffDay"/>
+        <result column="B.mberId" property="mberManage.mberId"/>
+        <result column="B.mberNm" property="mberManage.mberNm"/>
+        <result column="B.mberEmailAdres" property="mberManage.mberEmailAdres"/>
+        <result column="B.mbtlnum" property="mberManage.moblphonNo"/>
+        <result column="C.pstpndAplyId" property="pstpndAply.pstpndAplyId"/>
+        <result column="C.sttsCdv" property="pstpndAply.sttsCdv"/>
+        
+        <result column="mmbrAge" property="mmbrAge"/>
+        <result column="hst.brdt" property="mmbrHstry.brdt"/>
+        <result column="hst.agncyCode" property="mmbrHstry.agncyCode"/>
+        <result column="hst.agncyNm" property="mmbrHstry.agncyNm"/>
+        <result column="hst.workDvsnCdv" property="mmbrHstry.workDvsnCdv"/>
+        <result column="cntneduTargetYn" property="cntneduTargetYn"/>
+		
+        <result column="E.agncyNm" property="agncy.agncyNm"/>
+        <result column="E.areaCdv" property="agncy.areaCdv"/>
+    </resultMap>
+    <select id="selectList" parameterType="com.intermorph.uss.qlfc.service.IMMmbrQlfcCondition" resultMap="selectListResultMap">
+/* IMMmbrQlfcMapper.selectList */
+         <if test='currentPageNo != 0'>
+SELECT * FROM ( SELECT rownum rn, TB.* FROM (
+        </if>
+SELECT
+       A.esntl_id AS "A.esntlId",
+       A.crs_grd_cdv AS "A.crsGrdCdv",
+       A.bsc_crs_stts_cdv AS "A.bscCrsSttsCdv",
+       A.bsc_crs_aplcnt_id AS "A.bscCrsAplcntId",
+       A.bsc_crs_cmpltn_ymd AS "A.bscCrsCmpltnYmd",
+       A.bsc_crs_cmpltn_rslt_code AS "A.bscCrsCmpltnRsltCode",
+       A.wtst_stts_cdv AS "A.wtstSttsCdv",
+       A.wtst_aplcnt_id AS "A.wtstAplcntId",
+       A.wtst_pass_ymd AS "A.wtstPassYmd",
+       A.excn_crs_stts_cdv AS "A.excnCrsSttsCdv",
+       A.excn_crs_cmpltn_ymd AS "A.excnCrsCmpltnYmd",
+       A.excn_crs_aplcnt_id AS "A.excnCrsAplcntId",
+       A.excn_crs_cmpltn_rslt_code AS "A.excnCrsCmpltnRsltCode",
+       A.lcnc_stts_cdv AS "A.lcncSttsCdv",
+       A.lcnc_aplcnt_id AS "A.lcncAplcntId",
+       A.lcnc_acqs_ymd AS "A.lcncAcqsYmd",
+       A.qlfc_rslt_code AS "A.qlfcRsltCode",
+       A.lcnc_end_ymd AS "A.lcncEndYmd",
+       A.lcnc_issu_code AS "A.lcncIssuCode",
+       A.issu_aply_id AS "A.issuAplyId",
+       A.lcnc_issu_ymd AS "A.lcncIssuYmd",
+       A.cntnedu_aplcnt_id AS "A.cntneduAplcntId",
+       A.cntnedu_stts_cdv AS "A.cntneduSttsCdv",
+       A.cntnedu_cmpltn_ymd AS "A.cntneduCmpltnYmd",
+       A.cntnedu_cmpltn_rslt_code AS "A.cntneduCmpltnRsltCode",
+       A.pstpnd_aply_id  AS "A.pstpndAplyId",
+       A.frst_reger_id AS "A.frstRegerId",
+       A.frst_reg_dt AS "A.frstRegDt",
+       A.frst_reger_ip AS "A.frstRegerIp",
+       A.last_mdfer_id AS "A.lastMdferId",
+       A.last_mdfcn_dt AS "A.lastMdfcnDt",
+       A.last_mdfer_ip AS "A.lastMdferIp",
+       A.wtst_vld_end_ymd AS "A.wtstVldEndYmd",
+       NVL(A.vlat_cnt,0) AS "A.vlatCnt",
+       A.cntnedu_bgn_dt AS "A.cntneduBgnDt",
+       A.cntnedu_end_dt AS "A.cntneduEndDt" ,
+       A.cntnedu_agncy_id AS "A.cntneduAgncyId",
+        <![CDATA[
+         CASE
+                  WHEN A.lcnc_acqs_ymd IS NULL THEN ''
+                  WHEN SUBSTRING(A.lcnc_acqs_ymd,0,8)<20220106 THEN '01' 
+                  ELSE '02'
+         END AS "A.dvsnCdv",
+         ]]>
+      NVL( A.cntnedu_cnt,0)+NVL(A.prevedu_cnt,0) AS "A.cntneduCnt",
+       CASE 
+       	WHEN A.lcnc_end_ymd IS NULL  THEN 0 
+       ELSE    DATEDIFF(CAST(A.lcnc_end_ymd AS TIMESTAMP),SYSDATETIME)  END AS diffDay,
+       B.mber_id AS "B.mberId",
+       B.mber_nm AS "B.mberNm",
+       B.mber_email_adres AS "B.mberEmailAdres",
+       B.mbtlnum AS "B.mbtlnum",
+       C.pstpnd_aply_id AS "C.pstpndAplyId",
+        CASE 
+       		WHEN C.pstpnd_aply_id IS NULL THEN NULL
+       		ELSE (SELECT stts_cdv FROM im_pstpnd_aply WHERE pstpnd_aply_id=C.pstpnd_aply_id) 
+       	END AS "C.sttsCdv",
+       hst.brdt AS  "hst.brdt",
+         CASE 
+         	WHEN hst.brdt IS NULL THEN NULL
+	         WHEN LENGTH(hst.brdt)>7 THEN  (TO_CHAR(SYSDATETIME, 'yyyy') -  SUBSTRING(hst.brdt,0,4))
+         END AS    "mmbrAge",
+       hst.agncy_code  AS "hst.agncyCode",
+	   hst.agncy_nm  AS "hst.agncyNm",
+       hst.work_dvsn_cdv AS "hst.workDvsnCdv",
+       
+        <![CDATA[
+       CASE 
+       WHEN SUBSTRING(A.lcnc_end_ymd,0,4)=TO_CHAR(SYSDATETIME, 'yyyy') THEN 'Y'
+       WHEN SUBSTRING(A.lcnc_end_ymd,0,4)<TO_CHAR(SYSDATETIME, 'yyyy') THEN 'P'
+       ELSE 'N' END AS "cntneduTargetYn",
+       
+         ]]>
+         
+       E.area_cdv AS "E.areaCdv",
+       E.agncy_nm AS "E.agncyNm"
+
+  FROM im_mmbr_qlfc A
+  INNER JOIN comtngnrlmber B ON A.esntl_id=B.esntl_id
+  LEFT OUTER JOIN im_mmbr_hstry hst ON A.esntl_id=hst.esntl_id
+  LEFT OUTER JOIN IM_AGNCY E ON A.cntnedu_agncy_id=E.agncy_id
+  LEFT OUTER JOIN (
+  	SELECT   esntl_id,
+         crs_grd_cdv,
+         MAX(lcnc_end_ymd) lcnc_end_ymd, 
+         MAX(pstpnd_aply_id) pstpnd_aply_id
+FROM     im_pstpnd_aply
+WHERE    del_yn   ='N'
+AND      stts_cdv!='03'
+GROUP BY esntl_id,
+         crs_grd_cdv
+  ) C ON A.esntl_id=C.esntl_id AND A.crs_grd_cdv=C.crs_grd_cdv AND A.lcnc_end_ymd=C.lcnc_end_ymd
+ WHERE 
+ 1=1
+ 		
+ 		<if test='scWord != null and !scWord.equals("")'>
+		    <if test='scKey.equals("mberId")'>
+				AND B.mber_id LIKE CONCAT('%', #{scWord}, '%')
+		    </if>
+		    <if test='scKey.equals("mberNm")'>
+				AND B.mber_nm LIKE CONCAT('%', #{scWord}, '%')
+		    </if>
+		    <if test='scKey.equals("moblphonNo")'>
+				AND B.mbtlnum LIKE CONCAT('%', #{scWord}, '%')
+		    </if>
+		    <if test='scKey.equals("qlfcRsltCode")'>
+				AND A.qlfc_rslt_code LIKE CONCAT('%', #{scWord}, '%')
+		    </if>
+		</if>
+		
+	 <if test='scDvsnCdv != null and !scDvsnCdv.equals("")'>
+		  <if test='scDvsnCdv.equals("01")'>
+          <![CDATA[
+		  AND SUBSTRING(A.lcnc_acqs_ymd,0,8)<20220106
+		  ]]>
+		  </if> 
+		  <if test='scDvsnCdv.equals("02")'>
+		  AND SUBSTRING(A.lcnc_acqs_ymd,0,8)>=20220106
+		  </if> 
+	 </if> 		
+ 
+	 <if test='scEduYear != null and !scEduYear.equals("")'>
+		 AND A.lcnc_acqs_ymd  LIKE CONCAT (#{scEduYear}, '%')
+	 </if> 		
+
+	 
+	 <if test='scCrsGrdCdv != null and !scCrsGrdCdv.equals("")'>
+		 AND A.crs_grd_cdv  = #{scCrsGrdCdv}
+	 </if> 		
+		
+	 
+	 <if test='scAgncyId != null and !scAgncyId.equals("")'>
+		 AND A.cntnedu_agncy_id  = #{scAgncyId}
+	 </if> 		
+	 
+	 <if test='scLcncSttsCdv != null and !scLcncSttsCdv.equals("")'>
+		 AND A.lcnc_stts_cdv  = #{scLcncSttsCdv}
+	 </if> 		
+		
+ 	  <if test='scTargetCode != null and !scTargetCode.equals("")'>
+ 	  		AND A.lcnc_acqs_ymd IS NOT NULL 
+ 	  		AND A.lcnc_end_ymd IS NOT NULL 
+            <if test='scTargetCode.equals("NOW")'>
+            	  <![CDATA[
+       			AND SUBSTRING(A.lcnc_end_ymd,0,4)=TO_CHAR(SYSDATETIME, 'yyyy')
+         		]]>
+            </if>
+            <if test='scTargetCode.equals("PASS")'>
+            	  <![CDATA[
+       			AND SUBSTRING(A.lcnc_end_ymd,0,4)<TO_CHAR(SYSDATETIME, 'yyyy')
+         		]]>
+            </if>
+        </if>
+        
+        
+  		<choose>
+        
+            <when test='orderbyKey == 6'>ORDER BY A.qlfc_rslt_code ASC</when>
+            <when test='orderbyKey == -6'>ORDER BY A.qlfc_rslt_code DESC</when>
+            <when test='orderbyKey == 5'>ORDER BY A.lcnc_acqs_ymd ASC</when>
+            <when test='orderbyKey == -5'>ORDER BY A.lcnc_acqs_ymd DESC</when>
+            <when test='orderbyKey == 4'>ORDER BY B.mber_nm ASC</when>
+            <when test='orderbyKey == -4'>ORDER BY B.mber_nm DESC</when>
+            <when test='orderbyKey == 3'>ORDER BY B.mber_id ASC</when>
+            <when test='orderbyKey == -3'>ORDER BY B.mber_id DESC</when>
+            <when test='orderbyKey == 2'>ORDER BY A.lcnc_end_ymd ASC</when>
+            <when test='orderbyKey == -2'>ORDER BY A.lcnc_end_ymd DESC</when>
+            <when test='orderbyKey == 1'>ORDER BY A.frst_reg_dt ASC</when>
+            <when test='orderbyKey == -1'>ORDER BY A.frst_reg_dt DESC</when>
+            <otherwise>ORDER BY A.frst_reg_dt DESC</otherwise>
+        </choose>
+
+        <if test='currentPageNo != 0'>
+        ) TB ) WHERE rn BETWEEN #{firstItemNo}+1  AND #{firstItemNo} + #{recordCountPerPage}
+        </if>
+    </select>
+
+    <select id="selectListCount" parameterType="com.intermorph.uss.qlfc.service.IMMmbrQlfcCondition" resultType="int">
+/* IMMmbrQlfcMapper.selectListCount */
+SELECT COUNT(*) 
+  FROM im_mmbr_qlfc A  
+  INNER JOIN comtngnrlmber B ON A.esntl_id=B.esntl_id
+ WHERE 1=1
+ 
+ 		 <if test='scWord != null and !scWord.equals("")'>
+		    <if test='scKey.equals("mberId")'>
+				AND B.mber_id LIKE CONCAT('%', #{scWord}, '%')
+		    </if>
+		    <if test='scKey.equals("mberNm")'>
+				AND B.mber_nm LIKE CONCAT('%', #{scWord}, '%')
+		    </if>
+		    <if test='scKey.equals("moblphonNo")'>
+				AND B.mbtlnum LIKE CONCAT('%', #{scWord}, '%')
+		    </if>
+		    <if test='scKey.equals("qlfcRsltCode")'>
+				AND A.qlfc_rslt_code LIKE CONCAT('%', #{scWord}, '%')
+		    </if>
+		</if>
+		
+	 <if test='scDvsnCdv != null and !scDvsnCdv.equals("")'>
+		  <if test='scDvsnCdv.equals("01")'>
+          <![CDATA[
+		  AND SUBSTRING(A.lcnc_acqs_ymd,0,8)<20220106
+		  ]]>
+		  </if> 
+		  <if test='scDvsnCdv.equals("02")'>
+		  AND SUBSTRING(A.lcnc_acqs_ymd,0,8)>=20220106
+		  </if> 
+	 </if> 		
+ 
+	 <if test='scEduYear != null and !scEduYear.equals("")'>
+		 AND A.lcnc_acqs_ymd  LIKE CONCAT (#{scEduYear}, '%')
+	 </if> 		
+	 
+	 <if test='scCrsGrdCdv != null and !scCrsGrdCdv.equals("")'>
+		 AND A.crs_grd_cdv  = #{scCrsGrdCdv}
+	 </if> 		
+		
+	 <if test='scAgncyId != null and !scAgncyId.equals("")'>
+		 AND A.cntnedu_agncy_id  = #{scAgncyId}
+	 </if> 	
+	 
+	 <if test='scLcncSttsCdv != null and !scLcncSttsCdv.equals("")'>
+		 AND A.lcnc_stts_cdv  = #{scLcncSttsCdv}
+	 </if> 	
+	 
+ 	  <if test='scTargetCode != null and !scTargetCode.equals("")'>
+ 	  		AND A.lcnc_acqs_ymd IS NOT NULL 
+ 	  		AND A.lcnc_end_ymd IS NOT NULL 
+            <if test='scTargetCode.equals("NOW")'>
+            	  <![CDATA[
+       			AND SUBSTRING(A.lcnc_end_ymd,0,4)=TO_CHAR(SYSDATETIME, 'yyyy')
+         		]]>
+            </if>
+            <if test='scTargetCode.equals("PASS")'>
+            	  <![CDATA[
+       			AND SUBSTRING(A.lcnc_end_ymd,0,4)<TO_CHAR(SYSDATETIME, 'yyyy')
+         		]]>
+            </if>
+        </if>
+    </select>
+    
+       
+    
+    
+    <sql id="mmbr_qlfc_col_inc">
+	   A.esntl_id AS "esntlId",
+       A.crs_grd_cdv AS "crsGrdCdv",
+       A.bsc_crs_stts_cdv AS "bscCrsSttsCdv",
+       A.bsc_crs_aplcnt_id AS "bscCrsAplcntId",
+       A.bsc_crs_cmpltn_ymd AS "bscCrsCmpltnYmd",
+       A.bsc_crs_cmpltn_rslt_code AS "bscCrsCmpltnRsltCode",
+       A.wtst_stts_cdv AS "wtstSttsCdv",
+       A.wtst_aplcnt_id AS "wtstAplcntId",
+       A.wtst_pass_ymd AS "wtstPassYmd",
+       A.wtst_vld_end_ymd AS "wtstVldEndYmd",
+       A.excn_crs_stts_cdv AS "excnCrsSttsCdv",
+       A.excn_crs_cmpltn_ymd AS "excnCrsCmpltnYmd",
+       A.excn_crs_aplcnt_id AS "excnCrsAplcntId",
+       A.excn_crs_cmpltn_rslt_code AS "excnCrsCmpltnRsltCode",
+       A.lcnc_stts_cdv AS "lcncSttsCdv",
+       A.lcnc_aplcnt_id AS "lcncAplcntId",
+       A.lcnc_acqs_ymd AS "lcncAcqsYmd",
+       A.qlfc_rslt_code AS "qlfcRsltCode",
+       A.lcnc_end_ymd AS "lcncEndYmd",
+       A.lcnc_issu_code AS "lcncIssuCode",
+       A.issu_aply_id AS "issuAplyId",
+       A.lcnc_issu_ymd AS "lcncIssuYmd",
+       A.cntnedu_aplcnt_id AS "cntneduAplcntId",
+       A.cntnedu_stts_cdv AS "cntneduSttsCdv",
+       A.cntnedu_cmpltn_ymd AS "cntneduCmpltnYmd",
+       A.cntnedu_cmpltn_rslt_code AS "cntneduCmpltnRsltCode",
+       
+       A.cntnedu_bgn_dt AS "cntneduBgnDt",
+       A.cntnedu_end_dt AS "cntneduEndDt" ,
+       A.cntnedu_agncy_id AS "cntneduAgncyId",
+       
+       NVL(A.vlat_cnt,0)AS "vlatCnt",
+       NVL(A.cntnedu_cnt,0)+NVL(A.prevedu_cnt,0)  AS "cntneduCnt",
+       A.pstpnd_aply_id  AS "pstpndAplyId",
+       A.frst_reger_id AS "frstRegerId",
+       A.frst_reg_dt AS "frstRegDt",
+       A.frst_reger_ip AS "frstRegerIp",
+       A.last_mdfer_id AS "lastMdferId",
+       A.last_mdfcn_dt AS "lastMdfcnDt",
+       A.last_mdfer_ip AS "lastMdferIp",
+        <![CDATA[
+         CASE
+                  WHEN A.lcnc_acqs_ymd IS NULL THEN ''
+                  WHEN SUBSTRING(lcnc_acqs_ymd,0,8)<20220106 THEN '01' 
+                  ELSE '02'
+         END AS "dvsnCdv",
+         ]]>
+       CASE 
+       	WHEN A.lcnc_end_ymd IS NULL  THEN 0 
+       ELSE    DATEDIFF(CAST(A.lcnc_end_ymd AS TIMESTAMP),SYSDATETIME)  END AS diffDay
+	</sql>
+
+
+</mapper>

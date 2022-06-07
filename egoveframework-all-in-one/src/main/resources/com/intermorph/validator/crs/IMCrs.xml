@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC 
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" 
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+    <formset>
+		<form name="iMCrs">
+			<field property="crsMstrId" depends="required">
+        		<arg0 key="iMCrs.crsMstr" />
+			</field>
+			<field property="ttnfee" depends="required, integer,maxlength">
+        		<arg0 key="iMCrs.ttnfee" />        		
+        		<arg1 key="7" resource="true"/>
+				<var>
+				<var-name>maxlength</var-name>
+				<var-value>7</var-value>
+				</var>
+			</field>
+			<field property="eduHrs" depends="required, integer, maxlength">
+        		<arg0 key="iMCrs.eduHrs" />
+        		<arg1 key="3" resource="true"/>
+				<var>
+				<var-name>maxlength</var-name>
+				<var-value>3</var-value>
+				</var>
+			</field>
+			<field property="agncyId" depends="required">
+        		<arg0 key="iMCrs.agncyNm" />
+			</field>
+			<field property="cntpnt" depends="required">
+        		<arg0 key="iMCrs.cntpnt" />
+			</field>
+			
+			
+			<field property="eduYear" depends="required,integer,maxlength">
+        		<arg0 key="iMCrs.eduYear" />
+        		<arg1 key="4" resource="true"/>
+        		<var>
+				<var-name>maxlength</var-name>
+				<var-value>4</var-value>
+				</var>
+			</field>
+			<field property="eduRnd" depends="required,integer,maxlength">
+        		<arg0 key="iMCrs.eduRnd" />
+        		<arg1 key="4" resource="true"/>
+        		<var>
+				<var-name>maxlength</var-name>
+				<var-value>4</var-value>
+				</var>
+			</field>
+			
+			<field property="eduAplTerm_bgnDt" depends="required">
+        		<arg0 key="iMCrs.eduAplTerm" />
+			</field>
+			
+			<field property="eduAplTerm_endDt" depends="required">
+        		<arg0 key="iMCrs.eduAplTerm" />
+			</field>
+			
+			<field property="eduTerm_bgnDt" depends="required">
+        		<arg0 key="iMCrs.eduTerm" />
+			</field>
+			
+			<field property="eduTerm_endDt" depends="required">
+        		<arg0 key="iMCrs.eduTerm" />
+			</field>
+			
+			<field property="slctnTerm_bgnDt" depends="required">
+        		<arg0 key="iMCrs.slctnTerm" />
+			</field>
+			
+			<field property="slctnTerm_endDt" depends="required">
+        		<arg0 key="iMCrs.slctnTerm" />
+			</field>
+			
+			<field property="fnshYmd_bgnDt" depends="required">
+        		<arg0 key="iMCrs.fnshYmd" />
+			</field>
+			
+			<field property="olfcfnshYmd_bgnDt" depends="required">
+        		<arg0 key="iMCrs.olfcfnshYmd" />
+			</field>
+			<field property="prsnl" depends="required , integer">
+        		<arg0 key="iMCrs.prsnl" />
+			</field>
+			<field property="prsnlLmt" depends="required , integer">
+        		<arg0 key="iMCrs.prsnlLmt" />
+			</field>
+			
+			<field property="sttsCdv" depends="required">
+        		<arg0 key="iMCrs.stts" />
+			</field>
+			
+		</form>
+    </formset>
+
+</form-validation>

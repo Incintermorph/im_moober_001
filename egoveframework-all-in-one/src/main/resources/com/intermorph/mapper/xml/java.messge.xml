@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding= "utf-8"?>
+<generator>
+    <filename><![CDATA[message_ko.properties]]></filename>
+    <source>
+    <![CDATA[
+#<!table_comment!>  Message#
+
+<!iterate_column!>
+
+
+    ]]>
+    </source>
+
+    <iterate>
+        <column tabsize="1" audit="false">
+        <![CDATA[iM<!table_name_Pascal!>.<!column_name_Camel!> = <!column_comment!>]]>
+        </column>
+        
+        
+    </iterate>
+</generator>

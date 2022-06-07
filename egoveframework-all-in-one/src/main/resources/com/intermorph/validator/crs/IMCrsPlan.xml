@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC 
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" 
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+    <formset>
+		<form name="iMCrsPlan">
+			
+			<field property="agncyId" depends="required">
+        		<arg0 key="iMCrs.agncyNm" />
+			</field>
+			
+			<field property="crsGrdCdv" depends="required">
+        		<arg0 key="iMCrsMstr.crsGrd" />
+			</field>
+			<field property="crsDvsnCdv" depends="required">
+        		<arg0 key="iMCrsMstr.crsDvsn" />
+			</field>
+			
+			<field property="eduYear" depends="required,integer,maxlength">
+        		<arg0 key="iMCrs.eduYear" />
+        		<arg1 key="4" resource="true"/>
+        		<var>
+				<var-name>maxlength</var-name>
+				<var-value>4</var-value>
+				</var>
+			</field>
+			
+			
+			<field property="eduAplTerm_bgnDt" depends="required">
+        		<arg0 key="iMCrs.eduAplTerm" />
+			</field>
+			
+			<field property="eduAplTerm_endDt" depends="required">
+        		<arg0 key="iMCrs.eduAplTerm" />
+			</field>
+			
+			<field property="eduTerm_bgnDt" depends="required">
+        		<arg0 key="iMCrs.eduTerm" />
+			</field>
+			
+			<field property="eduTerm_endDt" depends="required">
+        		<arg0 key="iMCrs.eduTerm" />
+			</field>
+			
+			
+		</form>
+    </formset>
+
+</form-validation>

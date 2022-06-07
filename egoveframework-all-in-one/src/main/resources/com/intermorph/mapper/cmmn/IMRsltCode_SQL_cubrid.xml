@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.intermorph.cmmn.service.IMRsltCodeMapper">
+
+    <insert id="insert" parameterType="com.intermorph.cmmn.service.IMRsltCodeVO" useGeneratedKeys="false">
+/* IMRsltCodeMapper.insert */
+INSERT INTO im_rslt_code (
+    rslt_code,
+    rslt_code_dvsn,
+    rslt_ref_id,
+    rslt_tbl_id,
+    stndrd_code,
+
+    frst_reger_id,
+    frst_reg_dt,
+    frst_reger_ip
+) VALUES (
+    #{rsltCode, jdbcType=VARCHAR},
+    #{rsltCodeDvsn, jdbcType=VARCHAR},
+    #{rsltRefId, jdbcType=VARCHAR},
+    #{rsltTblId, jdbcType=VARCHAR},
+    #{stndrdCode, jdbcType=VARCHAR},
+    #{frstRegerId, jdbcType=VARCHAR},
+    TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+    #{frstRegerIp, jdbcType=VARCHAR}
+) 
+    </insert>
+
+    <update id="update" parameterType="com.intermorph.cmmn.service.IMRsltCodeVO">
+/* IMRsltCodeMapper.update */
+UPDATE im_rslt_code
+   SET 
+	   last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR}
+ 
+ WHERE
+       rslt_code_dvsn = #{rsltCodeDvsn}
+       AND rslt_ref_id = #{rsltRefId}
+       AND rslt_tbl_id = #{rsltTblId}
+    </update>
+
+ 
+  
+    <select id="selectDetail" parameterType="com.intermorph.cmmn.service.IMRsltCodeVO" resultType="com.intermorph.cmmn.service.IMRsltCodeVO">
+        /* IMRsltCodeMapper.selectDetail */
+SELECT 
+       A.rslt_code AS "rsltCode",
+       A.rslt_code_dvsn AS "rsltCodeDvsn",
+       A.rslt_ref_id AS "rsltRefId",
+       A.rslt_tbl_id AS "rsltTblId",
+       A.stndrd_code AS "stndrdCode"
+  
+  FROM im_rslt_code A
+ WHERE
+       rslt_code_dvsn = #{rsltCodeDvsn}
+       AND rslt_ref_id = #{rsltRefId}
+       AND rslt_tbl_id = #{rsltTblId}
+    </select>
+    
+    
+    <select id="selectOverChek" parameterType="map" resultType="int">
+/* IMRsltCodeMapper.selectOverChek */
+SELECT COUNT(*) 
+  FROM im_rslt_code A
+ WHERE A.rslt_code = #{rsltCode}
+    </select>
+    
+    <select id="selectMaxCode" parameterType="map" resultType="String">
+/* IMRsltCodeMapper.selectMaxCode */
+SELECT MAX(rslt_code) AS  rsltCode 
+  FROM im_rslt_code A
+ WHERE A.stndrd_code = #{stndrdCode}
+    </select>
+
+</mapper>

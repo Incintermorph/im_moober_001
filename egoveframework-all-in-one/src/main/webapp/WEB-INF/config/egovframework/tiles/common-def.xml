@@ -1,0 +1,61 @@
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+ 
+<tiles-definitions>
+ 
+ <definition name="baseUser" template="/WEB-INF/jsp/_tiles/user/layout.jsp">
+   <put-attribute name="header" value="/WEB-INF/jsp/_tiles/user/header.jsp" />
+   <put-attribute name="left" value="/WEB-INF/jsp/_tiles/user/left.jsp" />
+   <put-attribute name="footer" value="/WEB-INF/jsp/_tiles/user/footer.jsp" />
+ </definition>
+ 
+ 
+ 
+ 
+ 
+ <definition name="baseMng" template="/WEB-INF/jsp/_tiles/mng/layout.jsp">
+   <put-attribute name="header" value="/WEB-INF/jsp/_tiles/mng/header.jsp" />
+   <put-attribute name="left" value="/WEB-INF/jsp/_tiles/mng/left.jsp" />
+   <put-attribute name="footer" value="/WEB-INF/jsp/_tiles/mng/footer.jsp" />
+ </definition>
+ 
+ <definition name="baseMngLayer" template="/WEB-INF/jsp/_tiles/mng/layoutLayer.jsp">
+   <put-attribute name="header" value="/WEB-INF/jsp/_tiles/mng/header.jsp" />
+ </definition>
+ 
+ 
+ <definition name="layout/user/*/*" extends="baseUser">
+ 	<put-attribute name="content" value="/WEB-INF/jsp/view/user/{1}/{2}.jsp" />
+ </definition>
+ 
+ 
+ <definition name="layout/user/*/*/*" extends="baseUser">
+ 	<put-attribute name="content" value="/WEB-INF/jsp/view/user/{1}/{2}/{3}.jsp" />
+ </definition>
+ 
+ <definition name="layout/mng/*/*" extends="baseMng">
+ 	<put-attribute name="content" value="/WEB-INF/jsp/view/mng/{1}/{2}.jsp" />
+ </definition>
+ 
+ <definition name="layout/mng/*/*/*" extends="baseMng">
+ 	<put-attribute name="content" value="/WEB-INF/jsp/view/mng/{1}/{2}/{3}.jsp" />
+ </definition>
+ 
+ <definition name="layout/com/*/*/*" extends="baseMng">
+ 	<put-attribute name="content" value="/WEB-INF/jsp/egovframework/com/{1}/{2}/{3}.jsp" />
+ </definition>
+ 
+ <definition name="layout/com/*/*/*/*" extends="baseMng">
+ 	<put-attribute name="content" value="/WEB-INF/jsp/egovframework/com/{1}/{2}/{3}/{4}.jsp" />
+ </definition>
+ 
+ <definition name="layer/mng/*/*" extends="baseMngLayer">
+ 	<put-attribute name="content" value="/WEB-INF/jsp/view/mng/{1}/{2}.jsp" />
+ </definition>
+ 
+ <definition name="layer/mng/*/*/*" extends="baseMngLayer">
+ 	<put-attribute name="content" value="/WEB-INF/jsp/view/mng/{1}/{2}/{3}.jsp" />
+ </definition>
+ 
+</tiles-definitions>

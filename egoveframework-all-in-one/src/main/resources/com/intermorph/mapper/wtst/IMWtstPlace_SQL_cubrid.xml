@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.intermorph.wtst.place.service.IMWtstPlaceMapper">
+
+    <insert id="insert" parameterType="com.intermorph.wtst.place.service.IMWtstPlaceVO" useGeneratedKeys="false">
+/* IMWtstPlaceMapper.insert */
+INSERT INTO im_wtst_place (
+    wtst_place_id,
+    wtst_id,
+    agncy_id,
+    cntpnt,
+    bnk_cdv,
+    accno,
+    acchdr,
+    prsnl,
+    prsnl_lmt,
+    prgrs_stts_cdv,
+    ord,
+
+    del_yn,
+    frst_reger_id,
+    frst_reg_dt,
+    frst_reger_ip
+) 
+SELECT 
+ 	#{wtstPlaceId, jdbcType=VARCHAR},
+    #{wtstId, jdbcType=VARCHAR},
+    #{agncyId, jdbcType=VARCHAR},
+    #{cntpnt, jdbcType=VARCHAR},
+    #{bnkCdv, jdbcType=VARCHAR},
+    #{accno, jdbcType=VARCHAR},
+    #{acchdr, jdbcType=VARCHAR},
+    #{prsnl, jdbcType=VARCHAR},
+    #{prsnlLmt, jdbcType=VARCHAR},
+    '01',
+    NVL(MAX(ord),0)+1,
+     'N',
+    #{frstRegerId, jdbcType=VARCHAR},
+    TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+    #{frstRegerIp, jdbcType=VARCHAR}
+FROM   
+	im_wtst_place
+WHERE  
+	wtst_id=#{wtstId}
+	AND del_yn='N'
+    </insert>
+
+    <update id="update" parameterType="com.intermorph.wtst.place.service.IMWtstPlaceVO">
+/* IMWtstPlaceMapper.update */
+UPDATE im_wtst_place
+   SET 
+   		<if test='cntpnt != null'>
+       cntpnt = #{cntpnt, jdbcType=VARCHAR},
+       </if>
+       <if test='bnkCdv != null'>
+       bnk_cdv = #{bnkCdv, jdbcType=VARCHAR},
+       </if>
+       <if test='accno != null'>
+       accno = #{accno, jdbcType=VARCHAR},
+       </if>
+       <if test='acchdr != null'>
+       acchdr = #{acchdr, jdbcType=VARCHAR},
+       </if>
+       <if test='prsnl != null'>
+       prsnl = #{prsnl, jdbcType=VARCHAR},
+       </if>
+       <if test='prsnlLmt != null'>
+       prsnl_lmt = #{prsnlLmt, jdbcType=VARCHAR},
+       </if>
+       <if test='prgrsSttsCdv != null'>
+       prgrs_stts_cdv = #{prgrsSttsCdv, jdbcType=VARCHAR},
+       </if>
+       <if test='ord != null'>
+       ord = #{ord, jdbcType=VARCHAR},
+       </if>
+
+	   last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR}
+ WHERE
+       wtst_place_id = #{wtstPlaceId}
+
+   AND del_yn = 'N' 
+    </update>
+    
+    
+    <update id="updatePrgrsSttsCdv" parameterType="com.intermorph.wtst.place.service.IMWtstPlaceVO">
+/* IMWtstPlaceMapper.updatePrgrsSttsCdv */
+UPDATE im_wtst_place
+   SET 
+       prgrs_stts_cdv = #{prgrsSttsCdv, jdbcType=VARCHAR},
+	   last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR}
+ WHERE
+       wtst_place_id = #{wtstPlaceId}
+    </update>
+
+    <update id="delete" parameterType="com.intermorph.wtst.place.service.IMWtstPlaceVO">
+/* IMWtstPlaceMapper.delete */
+UPDATE im_wtst_place 
+   SET last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR},
+       del_yn = 'Y' 
+ WHERE 
+       wtst_place_id = #{wtstPlaceId}
+
+   AND del_yn = 'N'
+    </update>
+
+    <resultMap id="selectDetailResultMap" type="com.intermorph.wtst.place.service.IMWtstPlaceResultSet">
+        <result column="A.wtstPlaceId" property="wtstPlace.wtstPlaceId"/>
+        <result column="A.wtstId" property="wtstPlace.wtstId"/>
+        <result column="A.agncyId" property="wtstPlace.agncyId"/>
+        <result column="A.cntpnt" property="wtstPlace.cntpnt"/>
+        <result column="A.bnkCdv" property="wtstPlace.bnkCdv"/>
+        <result column="A.accno" property="wtstPlace.accno"/>
+        <result column="A.acchdr" property="wtstPlace.acchdr"/>
+        <result column="A.prsnl" property="wtstPlace.prsnl"/>
+        <result column="A.prsnlLmt" property="wtstPlace.prsnlLmt"/>
+        <result column="A.prgrsSttsCdv" property="wtstPlace.prgrsSttsCdv"/>
+        <result column="A.ord" property="wtstPlace.ord"/>
+        <result column="A.delYn" property="wtstPlace.delYn"/>
+        <result column="A.frstRegerId" property="wtstPlace.frstRegerId"/>
+        <result column="A.frstRegDt" property="wtstPlace.frstRegDt"/>
+        <result column="A.frstRegerIp" property="wtstPlace.frstRegerIp"/>
+        <result column="A.lastMdferId" property="wtstPlace.lastMdferId"/>
+        <result column="A.lastMdfcnDt" property="wtstPlace.lastMdfcnDt"/>
+        <result column="A.lastMdferIp" property="wtstPlace.lastMdferIp"/>
+        <result column="B.areaCdv" property="agncy.areaCdv"/>
+        <result column="B.agncyNm" property="agncy.agncyNm"/>
+        <result column="B.zipc" property="agncy.zipc"/>
+        <result column="B.addr" property="agncy.addr"/>
+        <result column="B.addrSido" property="agncy.addrSido"/>
+        <result column="B.addrSigungu" property="agncy.addrSigungu"/>
+        <result column="B.addrDtl" property="agncy.addrDtl"/>        
+        <result column="B.areaDtl" property="agncy.areaDtl"/>
+        
+        <result column="C.wtstId" property="wtst.wtstId"/>
+        <result column="C.crsGrdCdv" property="wtst.crsGrdCdv"/>
+        <result column="C.eduYear" property="wtst.eduYear"/>
+        <result column="C.eduRnd" property="wtst.eduRnd"/>
+        <result column="C.tstYmd" property="wtst.tstYmd"/>
+        <result column="C.tstBgngHrs" property="wtst.tstBgngHrs"/>
+        <result column="C.tstEndHrs" property="wtst.tstEndHrs"/>
+        <result column="C.addtnYn" property="wtst.addtnYn"/>
+        <result column="C.tstfee" property="wtst.tstfee"/>
+        <result column="C.sttsCdv" property="wtst.sttsCdv"/>
+        <result column="rcptProcType" property="rcptProcType"/>
+        <result column="applyCnt" property="applyCnt"/>
+
+    </resultMap>
+    <select id="selectDetail" parameterType="com.intermorph.wtst.place.service.IMWtstPlaceVO" resultMap="selectDetailResultMap">
+        /* IMWtstPlaceMapper.selectDetail */
+SELECT 
+       A.wtst_place_id AS "A.wtstPlaceId",
+       A.wtst_id AS "A.wtstId",
+       A.agncy_id AS "A.agncyId",
+       A.cntpnt AS "A.cntpnt",
+       A.bnk_cdv AS "A.bnkCdv",
+       A.accno AS "A.accno",
+       A.acchdr AS "A.acchdr",
+       A.prsnl AS "A.prsnl",
+       A.prsnl_lmt AS "A.prsnlLmt",
+       A.prgrs_stts_cdv AS "A.prgrsSttsCdv",
+       A.ord AS "A.ord",
+       A.del_yn AS "A.delYn",
+       A.frst_reger_id AS "A.frstRegerId",
+       A.frst_reg_dt AS "A.frstRegDt",
+       A.frst_reger_ip AS "A.frstRegerIp",
+       A.last_mdfer_id AS "A.lastMdferId",
+       A.last_mdfcn_dt AS "A.lastMdfcnDt",
+       A.last_mdfer_ip AS "A.lastMdferIp",
+       B.area_cdv  "B.areaCdv",
+       B.agncy_nm AS "B.agncyNm",
+       B.zipc AS "B.zipc",
+       B.addr AS "B.addr",       
+       B.addr_sido AS "B.addrSido",
+       B.addr_sigungu AS "B.addrSigungu",
+       B.addr_dtl AS "B.addrDtl",
+       B.area_dtl AS "B.areaDtl",
+       
+       C.wtst_id AS "C.wtstId",
+       C.crs_grd_cdv AS "C.crsGrdCdv",
+       C.edu_year AS "C.eduYear",
+       C.edu_rnd AS "C.eduRnd",
+       C.tst_ymd AS "C.tstYmd",
+       C.tst_bgng_hrs AS "C.tstBgngHrs",
+       C.tst_end_hrs AS "C.tstEndHrs",
+       C.addtn_yn AS "C.addtnYn",
+       C.tstfee AS "C.tstfee",
+       C.stts_cdv AS "C.sttsCdv",
+       D.bgn_dt AS "C.pbancTerm_bgnDt" ,
+       D.end_dt AS "C.pbancTerm_endDt" ,       
+       E.bgn_dt AS "C.rcptTerm_bgnDt" ,
+       E.end_dt AS "C.rcptTerm_endDt" ,       
+       F.bgn_dt AS "C.passTerm_bgnDt" ,
+       F.end_dt AS "C.passTerm_endDt" ,
+        <![CDATA[
+       CASE 
+       		WHEN  TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss')>E.bgn_dt AND TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss')< E.end_dt THEN 'I'
+       		WHEN   TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss')<E.bgn_dt  THEN 'W'
+       	ELSE 'E' END AS 	"rcptProcType",
+       	]]>
+       NVL(stat.applyCnt,0) AS applyCnt 
+       
+  FROM im_wtst_place A
+  INNER JOIN im_agncy B ON A.agncy_id=B.agncy_id
+  INNER JOIN im_wtst C ON A.wtst_id=C.wtst_id
+  INNER JOIN im_cmmn_dt D ON A.wtst_id=D.tbl_ref_id AND D.tbl_id='IM_WTST' AND D.ref_nm='pbancTerm'
+  INNER JOIN im_cmmn_dt E ON A.wtst_id=E.tbl_ref_id AND E.tbl_id='IM_WTST' AND E.ref_nm='rcptTerm'
+  INNER JOIN im_cmmn_dt F ON A.wtst_id=F.tbl_ref_id AND F.tbl_id='IM_WTST' AND F.ref_nm='passTerm'
+  LEFT OUTER JOIN (
+	  SELECT 
+	  	b.wtst_place_id,COUNT(*) applyCnt 
+	  FROM im_wtst_aplcnt a
+		INNER JOIN im_wtst_place b ON a.wtst_place_id=b.wtst_place_id
+		INNER JOIN im_wtst c ON b.wtst_id=c.wtst_id
+		INNER JOIN im_cmmn_stts d
+		       ON     a.wtst_aplcnt_id=tbl_ref_id
+		       AND    d.tbl_id         ='IM_WTST_APLCNT'
+		AND    d.ref_nm                ='APLY'
+		AND    d.stts_cdv             !='03'
+		AND a.del_yn='N'
+		AND b.del_yn='N'
+		GROUP BY b.wtst_place_id
+  ) stat  ON A.wtst_place_id=stat.wtst_place_id 
+ WHERE
+       A.wtst_place_id = #{wtstPlaceId}
+   AND A.del_yn = 'N'
+    </select>
+
+
+    <resultMap id="selectListResultMap" type="com.intermorph.wtst.place.service.IMWtstPlaceResultSet">
+        <result column="A.wtstPlaceId" property="wtstPlace.wtstPlaceId"/>
+        <result column="A.wtstId" property="wtstPlace.wtstId"/>
+        <result column="A.agncyId" property="wtstPlace.agncyId"/>
+        <result column="A.cntpnt" property="wtstPlace.cntpnt"/>
+        <result column="A.bnkCdv" property="wtstPlace.bnkCdv"/>
+        <result column="A.accno" property="wtstPlace.accno"/>
+        <result column="A.acchdr" property="wtstPlace.acchdr"/>
+        <result column="A.prsnl" property="wtstPlace.prsnl"/>
+        <result column="A.prsnlLmt" property="wtstPlace.prsnlLmt"/>
+        <result column="A.prgrsSttsCdv" property="wtstPlace.prgrsSttsCdv"/>
+        <result column="A.ord" property="wtstPlace.ord"/>
+        <result column="A.delYn" property="wtstPlace.delYn"/>
+        <result column="A.frstRegerId" property="wtstPlace.frstRegerId"/>
+        <result column="A.frstRegDt" property="wtstPlace.frstRegDt"/>
+        <result column="A.frstRegerIp" property="wtstPlace.frstRegerIp"/>
+        <result column="A.lastMdferId" property="wtstPlace.lastMdferId"/>
+        <result column="A.lastMdfcnDt" property="wtstPlace.lastMdfcnDt"/>
+        <result column="A.lastMdferIp" property="wtstPlace.lastMdferIp"/>
+        <result column="B.areaCdv" property="agncy.areaCdv"/>
+        <result column="B.agncyNm" property="agncy.agncyNm"/>
+        
+        <result column="C.wtstId" property="wtst.wtstId"/>
+        <result column="C.crsGrdCdv" property="wtst.crsGrdCdv"/>
+        <result column="C.eduYear" property="wtst.eduYear"/>
+        <result column="C.eduRnd" property="wtst.eduRnd"/>
+        <result column="C.tstYmd" property="wtst.tstYmd"/>
+        <result column="C.tstBgngHrs" property="wtst.tstBgngHrs"/>
+        <result column="C.tstEndHrs" property="wtst.tstEndHrs"/>
+        <result column="C.addtnYn" property="wtst.addtnYn"/>
+        <result column="C.tstfee" property="wtst.tstfee"/>
+        <result column="C.sttsCdv" property="wtst.sttsCdv"/>
+        
+        <result column="C.pbancTerm_bgnDt" property="wtst.pbancTerm_bgnDt"/>
+        <result column="C.pbancTerm_endDt" property="wtst.pbancTerm_endDt"/>
+        <result column="C.rcptTerm_bgnDt" property="wtst.rcptTerm_bgnDt"/>
+        <result column="C.rcptTerm_endDt" property="wtst.rcptTerm_endDt"/>
+        <result column="C.passTerm_bgnDt" property="wtst.passTerm_bgnDt"/>
+        <result column="C.passTerm_endDt" property="wtst.passTerm_endDt"/>
+        <result column="rcptProcType" property="rcptProcType"/>
+        <result column="applyCnt" property="applyCnt"/>
+
+    </resultMap>
+    <select id="selectList" parameterType="com.intermorph.wtst.place.service.IMWtstPlaceCondition" resultMap="selectListResultMap">
+/* IMWtstPlaceMapper.selectList */
+         <if test='currentPageNo != 0'>
+SELECT * FROM ( SELECT rownum rn, TB.* FROM (
+        </if>
+SELECT
+       A.wtst_place_id AS "A.wtstPlaceId",
+       A.wtst_id AS "A.wtstId",
+       A.agncy_id AS "A.agncyId",
+       A.cntpnt AS "A.cntpnt",
+       A.bnk_cdv AS "A.bnkCdv",
+       A.accno AS "A.accno",
+       A.acchdr AS "A.acchdr",
+       A.prsnl AS "A.prsnl",
+       A.prsnl_lmt AS "A.prsnlLmt",
+       A.prgrs_stts_cdv AS "A.prgrsSttsCdv",
+       A.ord AS "A.ord",
+       A.del_yn AS "A.delYn",
+       A.frst_reger_id AS "A.frstRegerId",
+       A.frst_reg_dt AS "A.frstRegDt",
+       A.frst_reger_ip AS "A.frstRegerIp",
+       A.last_mdfer_id AS "A.lastMdferId",
+       A.last_mdfcn_dt AS "A.lastMdfcnDt",
+       A.last_mdfer_ip AS "A.lastMdferIp",
+       B.area_cdv  "B.areaCdv",
+       B.agncy_nm AS "B.agncyNm",
+       C.wtst_id AS "C.wtstId",
+       C.crs_grd_cdv AS "C.crsGrdCdv",
+       C.edu_year AS "C.eduYear",
+       C.edu_rnd AS "C.eduRnd",
+       C.tst_ymd AS "C.tstYmd",
+       C.tst_bgng_hrs AS "C.tstBgngHrs",
+       C.tst_end_hrs AS "C.tstEndHrs",
+       C.addtn_yn AS "C.addtnYn",
+       C.tstfee AS "C.tstfee",
+       C.stts_cdv AS "C.sttsCdv",
+       D.bgn_dt AS "C.pbancTerm_bgnDt" ,
+       D.end_dt AS "C.pbancTerm_endDt" ,       
+       E.bgn_dt AS "C.rcptTerm_bgnDt" ,
+       E.end_dt AS "C.rcptTerm_endDt" ,       
+       F.bgn_dt AS "C.passTerm_bgnDt" ,
+       F.end_dt AS "C.passTerm_endDt",
+        <![CDATA[
+       CASE 
+       		WHEN  TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss')>E.bgn_dt AND TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss')< E.end_dt THEN 'I'
+       		WHEN   TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss')<E.bgn_dt  THEN 'W'
+       	ELSE 'E' END AS 	"rcptProcType",
+       	]]>
+       NVL(stat.applyCnt,0) AS applyCnt 
+
+  FROM im_wtst_place A
+  INNER JOIN im_agncy B ON A.agncy_id=B.agncy_id
+  INNER JOIN im_wtst C ON A.wtst_id=C.wtst_id
+  INNER JOIN im_cmmn_dt D ON A.wtst_id=D.tbl_ref_id AND D.tbl_id='IM_WTST' AND D.ref_nm='pbancTerm'
+  INNER JOIN im_cmmn_dt E ON A.wtst_id=E.tbl_ref_id AND E.tbl_id='IM_WTST' AND E.ref_nm='rcptTerm'
+  INNER JOIN im_cmmn_dt F ON A.wtst_id=F.tbl_ref_id AND F.tbl_id='IM_WTST' AND F.ref_nm='passTerm'
+  LEFT OUTER JOIN (
+	  SELECT 
+	  	b.wtst_place_id,COUNT(*) applyCnt 
+	  FROM im_wtst_aplcnt a
+		INNER JOIN im_wtst_place b ON a.wtst_place_id=b.wtst_place_id
+		INNER JOIN im_wtst c ON b.wtst_id=c.wtst_id
+		INNER JOIN im_cmmn_stts d
+		       ON     a.wtst_aplcnt_id=tbl_ref_id
+		       AND    d.tbl_id         ='IM_WTST_APLCNT'
+		AND    d.ref_nm                ='APLY'
+		AND    d.stts_cdv             !='03'
+		AND a.del_yn='N'
+		AND b.del_yn='N'
+		GROUP BY b.wtst_place_id
+  ) stat  ON A.wtst_place_id=stat.wtst_place_id 
+  
+ WHERE A.del_yn = 'N'
+ 		<if test='scWord != null and !scWord.equals("")'>
+            <if test='scKey.equals("wtstId")'>
+       			AND A.wtst_id LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("agncyNm")'>
+       			AND B.agncy_nm LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+        </if>
+ 		<if test='scWord != null and !scWord.equals("")'>
+            <if test='scKey.equals("agncyNm")'>
+       			AND B.agncy_nm LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+        </if>
+        
+        <if test='scWtstId != null and !scWtstId.equals("")'>
+       			AND A.wtst_id = #{scWtstId}
+        </if>
+            <if test='scCrsGrdCdv != null and !scCrsGrdCdv.equals("")'>
+       			AND C.crs_grd_cdv = #{scCrsGrdCdv}
+        </if>
+        <if test='scSttsCdv != null and !scSttsCdv.equals("")'>
+       			AND C.stts_cdv = #{scSttsCdv}
+        </if>
+        <if test='scEduYear != null and !scEduYear.equals("")'>
+       			AND C.edu_year = #{scEduYear}
+        </if>
+        <if test='scEduRnd != null and !scEduRnd.equals("")'>
+       			AND C.edu_rnd = #{scEduRnd}
+        </if>
+        <if test='scAddtnYn != null and !scAddtnYn.equals("")'>
+       			AND C.addtn_yn = #{scAddtnYn}
+        </if>
+        
+        <if test='scPrgrsStts != null and !scPrgrsStts.equals("")'>
+       			AND A.prgrs_stts_cdv = #{scPrgrsStts}
+        </if>
+        
+        <if test='scAgncyId != null and !scAgncyId.equals("")'>
+       			AND B.agncy_id = #{scAgncyId}
+        </if>
+            <if test='scProcType != null and !scProcType.equals("")'>
+       			<if test='scProcType.equals("I")'>
+       			<![CDATA[
+       			AND TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss')>D.bgn_dt AND TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss')< D.end_dt
+       			]]>
+            	</if>
+       			<if test='scProcType.equals("W")'>
+       			<![CDATA[
+       			AND TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss')<D.bgn_dt 
+       			]]>
+            	</if>
+       			<if test='scProcType.equals("E")'>
+       			<![CDATA[
+       			AND TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss') > D.end_dt
+       			]]>
+            	</if>
+        </if>
+  		<choose>
+            <when test='orderbyKey == 4'>ORDER BY C.crs_grd_cdv, C.edu_year ,C.edu_rnd, A.ord </when>
+            <when test='orderbyKey == -4'>ORDER BY C.crs_grd_cdv DESC, C.edu_year ,C.edu_rnd, A.ord </when>
+            <when test='orderbyKey == 3'>ORDER BY C.edu_year ,C.edu_rnd, A.ord ASC</when>
+            <when test='orderbyKey == -3'>ORDER BY C.edu_year ,C.edu_rnd, A.ord DESC</when>
+            <when test='orderbyKey == 2'>ORDER BY A.ord ASC</when>
+            <when test='orderbyKey == -2'>ORDER BY A.ord DESC</when>
+            <when test='orderbyKey == 1'>ORDER BY A.frst_reg_dt ASC</when>
+            <when test='orderbyKey == -1'>ORDER BY A.frst_reg_dt DESC</when>
+            <otherwise>ORDER BY A.frst_reg_dt DESC</otherwise>
+        </choose>
+
+        <if test='currentPageNo != 0'>
+        ) TB ) WHERE rn BETWEEN #{firstItemNo}+1  AND #{firstItemNo} + #{recordCountPerPage}
+        </if>
+    </select>
+
+    <select id="selectListCount" parameterType="com.intermorph.wtst.place.service.IMWtstPlaceCondition" resultType="int">
+/* IMWtstPlaceMapper.selectListCount */
+SELECT COUNT(*) 
+  
+  FROM im_wtst_place A
+  INNER JOIN im_agncy B ON A.agncy_id=B.agncy_id
+  INNER JOIN im_wtst C ON A.wtst_id=C.wtst_id
+  INNER JOIN im_cmmn_dt D ON A.wtst_id=D.tbl_ref_id AND D.tbl_id='IM_WTST' AND D.ref_nm='pbancTerm'
+  INNER JOIN im_cmmn_dt E ON A.wtst_id=E.tbl_ref_id AND E.tbl_id='IM_WTST' AND E.ref_nm='rcptTerm'
+  INNER JOIN im_cmmn_dt F ON A.wtst_id=F.tbl_ref_id AND F.tbl_id='IM_WTST' AND F.ref_nm='passTerm'
+ WHERE A.del_yn = 'N'		
+ 		<if test='scWord != null and !scWord.equals("")'>
+            <if test='scKey.equals("wtstId")'>
+       			AND A.wtst_id LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("agncyNm")'>
+       			AND B.agncy_nm LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+        </if>
+ 		<if test='scWord != null and !scWord.equals("")'>
+            <if test='scKey.equals("agncyNm")'>
+       			AND B.agncy_nm LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+        </if>
+        <if test='scWtstId != null and !scWtstId.equals("")'>
+       			AND A.wtst_id = #{scWtstId}
+        </if>
+            <if test='scCrsGrdCdv != null and !scCrsGrdCdv.equals("")'>
+       			AND C.crs_grd_cdv = #{scCrsGrdCdv}
+        </if>
+        <if test='scSttsCdv != null and !scSttsCdv.equals("")'>
+       			AND C.stts_cdv = #{scSttsCdv}
+        </if>
+        <if test='scEduYear != null and !scEduYear.equals("")'>
+       			AND C.edu_year = #{scEduYear}
+        </if>
+        <if test='scEduRnd != null and !scEduRnd.equals("")'>
+       			AND C.edu_rnd = #{scEduRnd}
+        </if>
+        <if test='scAddtnYn != null and !scAddtnYn.equals("")'>
+       			AND C.addtn_yn = #{scAddtnYn}
+        </if>
+        
+        <if test='scPrgrsStts != null and !scPrgrsStts.equals("")'>
+       			AND A.prgrs_stts_cdv = #{scPrgrsStts}
+        </if>
+        <if test='scAgncyId != null and !scAgncyId.equals("")'>
+       			AND B.agncy_id = #{scAgncyId}
+        </if>
+            <if test='scProcType != null and !scProcType.equals("")'>
+       			<if test='scProcType.equals("I")'>
+       			<![CDATA[
+       			AND TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss')>D.bgn_dt AND TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss')< D.end_dt
+       			]]>
+            	</if>
+       			<if test='scProcType.equals("W")'>
+       			<![CDATA[
+       			AND TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss')<D.bgn_dt 
+       			]]>
+            	</if>
+       			<if test='scProcType.equals("E")'>
+       			<![CDATA[
+       			AND TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss') > D.end_dt
+       			]]>
+            	</if>
+        </if>
+    </select>
+</mapper>

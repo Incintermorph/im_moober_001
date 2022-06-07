@@ -1,0 +1,73 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/jsp/inc/imConfigTaglib.jspf" %>
+<c:if test="${!empty imLogin_uniqId}">
+<c:set var="potalSearTypeArr">org_name=기관명,user_id=담당자ID,name=담당자명,repre_name=대표자명,biz_no=사업자번호</c:set>
+<div class="ct_dialog" id="find_org" style="display:none;">
+	<div class="tb">
+		<div class="inner">
+			<div class="outer" style="max-width:640px;"><!-- max-width 값 필수 -->
+				<div class="top">
+					<div class="bowl">
+						<p class="title">재직기관 선택</p>
+						<a href="#" class="p_close"><span class="sr_only">닫기</span></a>
+					</div>
+				</div>
+				<div class="ct">
+					<!-- 콘텐츠 -->
+					<form name="FormPortalOrg" id="FormPortalOrg" method="post" onsubmit="return false;">
+					<input type="hidden" name="REQ" value="AJAX" />
+					<input type="hidden" name="page" value="1" />
+					<div class="sch_bar">
+						<div class="inner">
+							<div class="col">
+								<select title="검색 범위" name="scKey">
+									<im:cd type="option" codeId="${potalSearTypeArr}"/>
+									<option>기관유형</option>
+								</select>
+							</div>
+							<div class="comb">
+								<input type="text" name="scWord" class="key" onKeyup="COMMT.enterCallFunc(event, REQ.searchPotalOrg);"  placeholder="검색어를 입력하세요" title="검색어">
+								<a href="javascript:;" onclick="REQ.searchPotalOrg()"  class="c_btn bk">검색</a>
+							</div>
+						</div>
+					</div>
+					</form>
+					<div class="tbl_rps_data" id="listPotalOrg">
+					
+						<table class="tbl_data sm">
+							<caption>재직기관</caption>
+							<colgroup>
+								<col style="width:150px;">
+								<col>
+								<col style="width:150px;">
+							</colgroup>
+							<thead>
+								<tr>
+									<th scope="col">기관유형</th>
+									<th scope="col">기관명</th>
+									<th scope="col">선택</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="3">
+										<div class="no_info">
+										검색어를 입력하세요.
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<p>※ 찾으시는 재직기관이 없는 경우 <a href="https://www.keep.go.kr/portal/490" target="_blank" style="color: red;font-weight: bolder;text-decoration: underline;" title="나의 기관정보 바로가기">나의 기관정보</a>에서 입력하세요.</p>
+					 
+					<!-- //콘텐츠 -->
+					<span style="color: red"> <br/>
+					</span>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</c:if>

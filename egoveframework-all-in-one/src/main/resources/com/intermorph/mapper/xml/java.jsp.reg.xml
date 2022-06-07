@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding= "utf-8"?>
+<generator>
+    <filename><![CDATA[regist<!table_name_Pascal!>.jsp]]></filename>
+    <source>
+    <![CDATA[
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@ include file="/WEB-INF/jsp/inc/imConfigTaglib.jspf" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="validator" uri="http://www.springmodules.org/tags/commons-validator" %>
+
+<script type="text/javascript" src="<c:url value="/validator.do"/>"></script>
+
+<script type="text/javascript" >
+
+
+var REQ = {
+	req : {
+		list : null,
+		save : null,
+	},
+	init : function(){
+		this.req.list = imRequest();
+		this.req.list.cfg.formId = "FormPageDetail";
+		this.req.list.cfg.url    = "<c:url value="/mng/<!table_name_Camel!>/selectList.do"/>";
+				
+		
+		this.req.save = imRequest("ajax",{formId: "iM<!table_name_Pascal!>"});
+		this.req.save.cfg.type   = "json";
+		this.req.save.cfg.url    =  "<c:url value="/mng/<!table_name_Camel!>/insert.do"/>";
+		this.req.save.cfg.message.confirm="<spring:message code="common.regist.msg" />";
+		this.req.save.cfg.fn.complete = function(act, data) {
+	        if (data != null && data.result > 0) { 
+	        	IMGLBObject.request.list();
+	        } else {
+	        	COMMT.errorMessage();
+	        }
+	    };	
+	    this.req.save.validator.set(function(){
+	    	var form = document.iM<!table_name_Pascal!>;
+	    	return validateIM<!table_name_Pascal!>(form);
+	    });
+	
+	},
+	page :  function(pageNo){
+		var form =  document.getElementById(this.req.list.cfg.formId);
+		form.elements["currentPageNo"].value= pageNo;
+		this.req.list.go();
+	},
+	list :  function(){
+		this.req.list.go();
+	},
+	save :  function(){
+		IMGLBObject.request=this;
+		this.req.save.go();
+	}
+}
+
+
+$(document).ready(function(){
+	REQ.init();
+});
+
+</script>
+
+<%@ include file="inc<!table_name_Pascal!>.jsp" %>
+
+
+<validator:javascript formName="iM<!table_name_Pascal!>" staticJavascript="false" xhtml="true" cdata="false"/>
+
+<div class="cb_bar right">
+	<im:pageBtn type="R" reqName="REQ"></im:pageBtn>
+</div>
+
+<form:form commandName="iM<!table_name_Pascal!>" name="iM<!table_name_Pascal!>" method="post" onsubmit="return false;">
+<table class="tbl_row">
+	<caption><!table_comment!> 상세정보</caption>
+	<colgroup>
+		<col style="width:200px;">
+		<col>
+	</colgroup>
+	<tbody>
+		<!iterate_column!>
+	</tbody>
+</table>
+</form:form>
+<div class="b_box right">
+	<im:pageBtn type="R" reqName="REQ"></im:pageBtn>
+</div>
+
+
+    ]]>
+    </source>
+    
+    <iterate>
+        <column tabsize="1" audit="false">
+        <![CDATA[<tr>
+			<th scope="row"><spring:message code="iM<!table_name_Pascal!>.<!column_name_Camel!>"/><span class="c_red">*</span></th>
+			<td><form:input path="<!column_name_Camel!>"/></td>
+		</tr>]]>
+        </column>
+        
+        
+    </iterate>
+</generator>

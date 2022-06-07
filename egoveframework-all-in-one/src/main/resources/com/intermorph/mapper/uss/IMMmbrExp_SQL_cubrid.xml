@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.intermorph.uss.hstry.service.IMMmbrExpMapper">
+
+    <insert id="insert" parameterType="com.intermorph.uss.hstry.service.IMMmbrExpVO" useGeneratedKeys="false">
+/* IMMmbrExpMapper.insert */
+INSERT INTO im_mmbr_exp (
+    mmbr_exp_id,
+    member_srl,
+    work_ctgry_cdv,
+    exp_ctgry_cdv,
+    work_bgn_ymd,
+    work_end_ymd,
+    work_hrs,
+    idnty_agncy,
+    work_desc,
+    idnty_file_id,
+    aoas_file_id,
+
+    del_yn,
+    frst_reger_id,
+    frst_reg_dt,
+    frst_reger_ip
+) VALUES (
+    #{mmbrExpId, jdbcType=VARCHAR},
+    #{memberSrl, jdbcType=VARCHAR},
+    #{workCtgryCdv, jdbcType=VARCHAR},
+    #{expCtgryCdv, jdbcType=VARCHAR},
+    #{workBgnYmd, jdbcType=VARCHAR},
+    #{workEndYmd, jdbcType=VARCHAR},
+    #{workHrs, jdbcType=VARCHAR},
+    #{idntyAgncy, jdbcType=VARCHAR},
+    #{workDesc, jdbcType=VARCHAR},
+    #{idntyFileId, jdbcType=VARCHAR},
+    #{aoasFileId, jdbcType=VARCHAR},
+
+     'N',
+    #{frstRegerId, jdbcType=VARCHAR},
+    TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+    #{frstRegerIp, jdbcType=VARCHAR}
+) 
+    </insert>
+
+    <update id="update" parameterType="com.intermorph.uss.hstry.service.IMMmbrExpVO">
+/* IMMmbrExpMapper.update */
+UPDATE im_mmbr_exp
+   SET 
+       work_ctgry_cdv = #{workCtgryCdv, jdbcType=VARCHAR},
+       exp_ctgry_cdv = #{expCtgryCdv, jdbcType=VARCHAR},
+       work_bgn_ymd = #{workBgnYmd, jdbcType=VARCHAR},
+       work_end_ymd = #{workEndYmd, jdbcType=VARCHAR},
+       work_hrs = #{workHrs, jdbcType=VARCHAR},
+       idnty_agncy = #{idntyAgncy, jdbcType=VARCHAR},
+       work_desc = #{workDesc, jdbcType=VARCHAR},
+       idnty_file_id = #{idntyFileId, jdbcType=VARCHAR},
+       aoas_file_id = #{aoasFileId, jdbcType=VARCHAR},
+
+	   last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR}
+ WHERE
+       mmbr_exp_id = #{mmbrExpId}
+
+   AND del_yn = 'N' 
+    </update>
+
+    <update id="delete" parameterType="com.intermorph.uss.hstry.service.IMMmbrExpVO">
+/* IMMmbrExpMapper.delete */
+UPDATE im_mmbr_exp 
+   SET last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR},
+       del_yn = 'Y' 
+ WHERE 
+       mmbr_exp_id = #{mmbrExpId}
+
+   AND del_yn = 'N'
+    </update>
+
+
+    <select id="selectDetail" parameterType="com.intermorph.uss.hstry.service.IMMmbrExpVO" resultType="com.intermorph.uss.hstry.service.IMMmbrExpVO">
+        /* IMMmbrExpMapper.selectDetail */
+SELECT 
+       A.mmbr_exp_id AS "mmbrExpId",
+       A.member_srl AS "memberSrl",
+       A.work_ctgry_cdv AS "workCtgryCdv",
+       A.exp_ctgry_cdv AS "expCtgryCdv",
+       A.work_bgn_ymd AS "workBgnYmd",
+       A.work_end_ymd AS "workEndYmd",
+       A.work_hrs AS "workHrs",
+       A.idnty_agncy AS "idntyAgncy",
+       A.work_desc AS "workDesc",
+       A.idnty_file_id AS "idntyFileId",
+       A.aoas_file_id AS "aoasFileId",
+       A.del_yn AS "delYn",
+       A.frst_reger_id AS "frstRegerId",
+       A.frst_reg_dt AS "frstRegDt",
+       A.frst_reger_ip AS "frstRegerIp",
+       A.last_mdfer_id AS "lastMdferId",
+       A.last_mdfcn_dt AS "lastMdfcnDt",
+       A.last_mdfer_ip AS "lastMdferIp"
+  
+  FROM im_mmbr_exp A
+ WHERE
+       mmbr_exp_id = #{mmbrExpId}
+
+   AND A.del_yn = 'N'
+    </select>
+
+
+
+<resultMap id="selectListResultMap" type="com.intermorph.uss.hstry.service.IMMmbrExpVO">
+	<collection column="{atchFileId=idntyFileId}" property="fileList" javaType="List" 
+            ofType="egovframework.com.cmm.service.FileVO" select="com.intermorph.cmmn.egov.service.IMEgovMapper.selectFileList"/>
+    <collection column="{atchFileId=aoasFileId}" property="fileList2" javaType="List" 
+            ofType="egovframework.com.cmm.service.FileVO" select="com.intermorph.cmmn.egov.service.IMEgovMapper.selectFileList"/>        
+    </resultMap>
+    <select id="selectList" parameterType="map" resultMap="selectListResultMap">
+/* IMMmbrExpMapper.selectList */
+SELECT
+       A.mmbr_exp_id AS "mmbrExpId",
+       A.member_srl AS "memberSrl",
+       A.work_ctgry_cdv AS "workCtgryCdv",
+       A.exp_ctgry_cdv AS "expCtgryCdv",
+       A.work_bgn_ymd AS "workBgnYmd",
+       A.work_end_ymd AS "workEndYmd",
+       A.work_hrs AS "workHrs",
+       A.idnty_agncy AS "idntyAgncy",
+       A.work_desc AS "workDesc",
+       A.idnty_file_id AS "idntyFileId",
+       A.aoas_file_id AS "aoasFileId",
+       A.del_yn AS "delYn",
+       A.frst_reger_id AS "frstRegerId",
+       A.frst_reg_dt AS "frstRegDt",
+       A.frst_reger_ip AS "frstRegerIp",
+       A.last_mdfer_id AS "lastMdferId",
+       A.last_mdfcn_dt AS "lastMdfcnDt",
+       A.last_mdfer_ip AS "lastMdferIp"
+
+  FROM im_mmbr_exp A
+ WHERE A.del_yn = 'N'
+ 
+     AND member_srl = #{memberSrl, jdbcType=VARCHAR}
+ 
+ ORDER BY A.frst_reg_dt DESC
+
+    </select>
+</mapper>

@@ -1,0 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@ include file="/WEB-INF/jsp/inc/imConfigTaglib.jspf" %>
+<im:cd  type="set" var="certSbjCdvArr"  codeId="IM0019"/>
+<c:set var="studyDsrYnArr">Y=예,N=아니오</c:set> <%--수강희망여부 --%>
+<c:set var="dgeCdvArr">01=학사,02=석사,03=박사</c:set>
+<c:set var="workTrgtCdvArr">001=기관총괄업무,002=환경교육강의활동,003=인사,004=노무,005=교육,006=회계,007=예산‧계약,008=홍보,009=시설안내,999=기타</c:set>
+<c:set var="sexdstnCdvArr">M=남,F=여</c:set>
+<c:set var="exptSbjYnArr">N=해당 없음,Y=해당</c:set>
+<c:set var="workCtgryCdvArr">01=기획,02=진행,03=분석,04=평가</c:set>
+
+<c:set var="dvsnCdvArr">01=법개정 이전,02=법개정 이후</c:set>

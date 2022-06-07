@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC 
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" 
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+    <formset>
+		<form name="iMWtstPlace">
+			<field property="agncyId" depends="required">
+        		<arg0 key="iMWtstPlace.agncyId" />
+			</field>
+			<field property="cntpnt" depends="required">
+        		<arg0 key="iMWtstPlace.cntpnt" />
+			</field>
+			<field property="bnkCdv" depends="required">
+        		<arg0 key="iMWtstPlace.bnk" />
+			</field>
+			<field property="accno" depends="required, maxlength">
+        		<arg0 key="iMWtstPlace.accno" />
+        		<arg1 key="30" resource="true"/>
+        		<var>
+				<var-name>maxlength</var-name>
+				<var-value>30</var-value>
+				</var>
+			</field>
+			<field property="acchdr" depends="required, maxlength">
+        		<arg0 key="iMWtstPlace.acchdr" />
+        		<arg1 key="120" resource="true"/>
+        		<var>
+				<var-name>maxlength</var-name>
+				<var-value>120</var-value>
+				</var>
+			</field>
+			<field property="prsnl" depends="required, maxlength">
+        		<arg0 key="iMWtstPlace.prsnl" />
+			</field>
+			<field property="prsnlLmt" depends="required">
+        		<arg0 key="iMWtstPlace.prsnlLmt" />
+			</field>
+		</form>
+    </formset>
+
+</form-validation>

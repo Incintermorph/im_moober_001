@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.intermorph.cmmn.service.IMCmmnDescMapper">
+
+
+<insert id="insert" parameterType="com.intermorph.cmmn.service.IMCmmnDescVO" useGeneratedKeys="false">
+/* IMCmmnDescMapper.insert */
+INSERT INTO im_cmmn_desc (
+    tbl_id,
+    tbl_ref_id,
+    ref_nm,
+    cmmn_desc,
+    frst_reger_id,
+    frst_reg_dt,
+    frst_reger_ip
+) VALUES (
+    #{tblId, jdbcType=VARCHAR},
+    #{tblRefId, jdbcType=VARCHAR},
+    #{refNm, jdbcType=VARCHAR},
+    #{cmmnDesc, jdbcType=VARCHAR},
+    #{frstRegerId, jdbcType=VARCHAR},
+    TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+    #{frstRegerIp, jdbcType=VARCHAR}
+) 
+    </insert>
+    
+    
+    
+    
+    <update id="update" parameterType="com.intermorph.cmmn.service.IMCmmnDescVO">
+/* IMCmmnDescMapper.update */
+UPDATE im_cmmn_desc
+   SET 
+       cmmn_desc =  #{cmmnDesc, jdbcType=VARCHAR},
+       last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR}
+
+ WHERE
+       tbl_id = #{tblId}
+       AND tbl_ref_id = #{tblRefId}
+       AND ref_nm = #{refNm}
+
+    </update>
+
+    <select id="selectList" parameterType="com.intermorph.cmmn.service.IMCmmnDescVO" resultType="com.intermorph.cmmn.service.IMCmmnDescVO">
+/* IMCmmnDescMapper.selectList */
+
+SELECT
+       tbl_id AS "tblId",
+       tbl_ref_id AS "tblRefId",
+       ref_nm AS "refNm",
+       cmmn_desc AS "cmmnDesc",
+       frst_reger_id AS "frstRegerId",
+       frst_reg_dt AS "frstRegDt",
+       frst_reger_ip AS "frstRegerIp",
+       last_mdfer_id AS "lastMdferId",
+       last_mdfcn_dt AS "lastMdfcnDt",
+       last_mdfer_ip AS "lastMdferIp"
+
+  FROM im_cmmn_desc A
+ WHERE 
+ 		tbl_id = #{tblId}
+       AND tbl_ref_id = #{tblRefId}
+    </select>
+    
+
+</mapper>

@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.intermorph.crs.aplcnt.service.IMCrsAplyTrnsfMapper">
+
+    <insert id="insert" parameterType="com.intermorph.crs.aplcnt.service.IMCrsAplyTrnsfVO" useGeneratedKeys="false">
+/* IMCrsAplyTrnsfMapper.insert */
+INSERT INTO im_crs_aply_trnsf (
+    crs_aply_trnsf_id,
+    crs_aply_trnsf_no,
+    crs_nm,
+    mmbr_nm,
+    mmbr_id,
+    telno,
+    eml,
+    brdt,
+    agncy_nm,
+    agncy_code,
+    edu_year,
+    edu_rnd,
+    crs_grd,
+    trnsf_yn,
+    trnsf_ymd,
+    trnsf_aply_id,
+
+    del_yn,
+    frst_reger_id,
+    frst_reg_dt,
+    frst_reger_ip
+) VALUES (
+    #{crsAplyTrnsfId, jdbcType=VARCHAR},
+    #{crsAplyTrnsfNo, jdbcType=VARCHAR},
+    #{crsNm, jdbcType=VARCHAR},
+    #{mmbrNm, jdbcType=VARCHAR},
+    #{mmbrId, jdbcType=VARCHAR},
+    #{telno, jdbcType=VARCHAR},
+    #{eml, jdbcType=VARCHAR},
+    #{brdt, jdbcType=VARCHAR},
+    #{agncyNm, jdbcType=VARCHAR},
+    #{agncyCode, jdbcType=VARCHAR},
+    #{eduYear, jdbcType=VARCHAR},
+    #{eduRnd, jdbcType=VARCHAR},
+    #{crsGrd, jdbcType=VARCHAR},
+    #{trnsfYn, jdbcType=VARCHAR},
+    #{trnsfYmd, jdbcType=VARCHAR},
+    #{trnsfAplyId, jdbcType=VARCHAR},
+
+     'N',
+    #{frstRegerId, jdbcType=VARCHAR},
+    TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+    #{frstRegerIp, jdbcType=VARCHAR}
+) 
+    </insert>
+
+    <update id="update" parameterType="com.intermorph.crs.aplcnt.service.IMCrsAplyTrnsfVO">
+/* IMCrsAplyTrnsfMapper.update */
+UPDATE im_crs_aply_trnsf
+   SET
+       <if test='crsAplyTrnsfNo != null'>
+       crs_aply_trnsf_no = #{crsAplyTrnsfNo, jdbcType=VARCHAR},
+       </if>
+       <if test='crsNm != null'>
+       crs_nm = #{crsNm, jdbcType=VARCHAR},
+       </if>
+       <if test='mmbrNm != null'>
+       mmbr_nm = #{mmbrNm, jdbcType=VARCHAR},
+       </if>
+       <if test='mmbrId != null'>
+       mmbr_id = #{mmbrId, jdbcType=VARCHAR},
+       </if>
+       <if test='telno != null'>
+       telno = #{telno, jdbcType=VARCHAR},
+       </if>
+       <if test='eml != null'>
+       eml = #{eml, jdbcType=VARCHAR},
+       </if>
+       <if test='brdt != null'>
+       brdt = #{brdt, jdbcType=VARCHAR},
+       </if>
+       <if test='agncyNm != null'>
+       agncy_nm = #{agncyNm, jdbcType=VARCHAR},
+       </if>
+       <if test='agncyCode != null'>
+       agncy_code = #{agncyCode, jdbcType=VARCHAR},
+       </if>
+       <if test='eduYear != null'>
+       edu_year = #{eduYear, jdbcType=VARCHAR},
+       </if>
+       <if test='eduRnd != null'>
+       edu_rnd = #{eduRnd, jdbcType=VARCHAR},
+       </if>
+       <if test='crsGrd != null'>
+       crs_grd = #{crsGrd, jdbcType=VARCHAR},
+       </if>
+       <if test='trnsfYn != null'>
+       trnsf_yn = #{trnsfYn, jdbcType=VARCHAR},
+       </if>
+       <if test='trnsfYmd != null'>
+       trnsf_ymd = #{trnsfYmd, jdbcType=VARCHAR},
+       </if>
+       <if test='trnsfAplyId != null'>
+       trnsf_aply_id = #{trnsfAplyId, jdbcType=VARCHAR},
+       </if>
+       
+	   del_yn = 'N',
+	   last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR}
+ WHERE
+       crs_aply_trnsf_no = #{crsAplyTrnsfNo} 
+    </update>
+
+    <update id="delete" parameterType="com.intermorph.crs.aplcnt.service.IMCrsAplyTrnsfVO">
+/* IMCrsAplyTrnsfMapper.delete */
+UPDATE im_crs_aply_trnsf 
+   SET last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR},
+       del_yn = 'Y' 
+ WHERE 
+       crs_aply_trnsf_id = #{crsAplyTrnsfId}
+
+   AND del_yn = 'N'
+    </update>
+
+    <resultMap id="selectDetailResultMap" type="com.intermorph.crs.aplcnt.service.IMCrsAplyTrnsfResultSet">
+        <result column="A.crsAplyTrnsfId" property="crsAplyTrnsf.crsAplyTrnsfId"/>
+        <result column="A.crsAplyTrnsfNo" property="crsAplyTrnsf.crsAplyTrnsfNo"/>
+        <result column="A.crsNm" property="crsAplyTrnsf.crsNm"/>
+        <result column="A.mmbrNm" property="crsAplyTrnsf.mmbrNm"/>
+        <result column="A.mmbrId" property="crsAplyTrnsf.mmbrId"/>
+        <result column="A.telno" property="crsAplyTrnsf.telno"/>
+        <result column="A.eml" property="crsAplyTrnsf.eml"/>
+        <result column="A.brdt" property="crsAplyTrnsf.brdt"/>
+        <result column="A.agncyNm" property="crsAplyTrnsf.agncyNm"/>
+        <result column="A.agncyCode" property="crsAplyTrnsf.agncyCode"/>
+        <result column="A.eduYear" property="crsAplyTrnsf.eduYear"/>
+        <result column="A.eduRnd" property="crsAplyTrnsf.eduRnd"/>
+        <result column="A.crsGrd" property="crsAplyTrnsf.crsGrd"/>
+        <result column="A.trnsfYn" property="crsAplyTrnsf.trnsfYn"/>
+        <result column="A.trnsfYmd" property="crsAplyTrnsf.trnsfYmd"/>
+        <result column="A.trnsfAplyId" property="crsAplyTrnsf.trnsfAplyId"/>
+        <result column="A.delYn" property="crsAplyTrnsf.delYn"/>
+        <result column="A.frstRegerId" property="crsAplyTrnsf.frstRegerId"/>
+        <result column="A.frstRegDt" property="crsAplyTrnsf.frstRegDt"/>
+        <result column="A.frstRegerIp" property="crsAplyTrnsf.frstRegerIp"/>
+        <result column="A.lastMdferId" property="crsAplyTrnsf.lastMdferId"/>
+        <result column="A.lastMdfcnDt" property="crsAplyTrnsf.lastMdfcnDt"/>
+        <result column="A.lastMdferIp" property="crsAplyTrnsf.lastMdferIp"/>
+
+    </resultMap>
+    <select id="selectDetail" parameterType="com.intermorph.crs.aplcnt.service.IMCrsAplyTrnsfVO" resultMap="selectDetailResultMap">
+        /* IMCrsAplyTrnsfMapper.selectDetail */
+SELECT 
+       A.crs_aply_trnsf_id AS "A.crsAplyTrnsfId",
+       A.crs_aply_trnsf_no AS "A.crsAplyTrnsfNo",
+       A.crs_nm AS "A.crsNm",
+       A.mmbr_nm AS "A.mmbrNm",
+       A.mmbr_id AS "A.mmbrId",
+       A.telno AS "A.telno",
+       A.eml AS "A.eml",
+       A.brdt AS "A.brdt",
+       A.agncy_nm AS "A.agncyNm",
+       A.agncy_code AS "A.agncyCode",
+       A.edu_year AS "A.eduYear",
+       A.edu_rnd AS "A.eduRnd",
+       A.crs_grd AS "A.crsGrd",
+       A.trnsf_yn AS "A.trnsfYn",
+       A.trnsf_ymd AS "A.trnsfYmd",
+       A.trnsf_aply_id AS "A.trnsfAplyId",
+       A.del_yn AS "A.delYn",
+       A.frst_reger_id AS "A.frstRegerId",
+       A.frst_reg_dt AS "A.frstRegDt",
+       A.frst_reger_ip AS "A.frstRegerIp",
+       A.last_mdfer_id AS "A.lastMdferId",
+       A.last_mdfcn_dt AS "A.lastMdfcnDt",
+       A.last_mdfer_ip AS "A.lastMdferIp"
+  
+  FROM im_crs_aply_trnsf A
+ WHERE
+       crs_aply_trnsf_id = #{crsAplyTrnsfId}
+
+   AND A.del_yn = 'N'
+    </select>
+
+
+    <resultMap id="selectListResultMap" type="com.intermorph.crs.aplcnt.service.IMCrsAplyTrnsfResultSet">
+        <result column="A.crsAplyTrnsfId" property="crsAplyTrnsf.crsAplyTrnsfId"/>
+        <result column="A.crsAplyTrnsfNo" property="crsAplyTrnsf.crsAplyTrnsfNo"/>
+        <result column="A.crsNm" property="crsAplyTrnsf.crsNm"/>
+        <result column="A.mmbrNm" property="crsAplyTrnsf.mmbrNm"/>
+        <result column="A.mmbrId" property="crsAplyTrnsf.mmbrId"/>
+        <result column="A.telno" property="crsAplyTrnsf.telno"/>
+        <result column="A.eml" property="crsAplyTrnsf.eml"/>
+        <result column="A.brdt" property="crsAplyTrnsf.brdt"/>
+        <result column="A.agncyNm" property="crsAplyTrnsf.agncyNm"/>
+        <result column="A.agncyCode" property="crsAplyTrnsf.agncyCode"/>
+        <result column="A.eduYear" property="crsAplyTrnsf.eduYear"/>
+        <result column="A.eduRnd" property="crsAplyTrnsf.eduRnd"/>
+        <result column="A.crsGrd" property="crsAplyTrnsf.crsGrd"/>
+        <result column="A.trnsfYn" property="crsAplyTrnsf.trnsfYn"/>
+        <result column="A.trnsfYmd" property="crsAplyTrnsf.trnsfYmd"/>
+        <result column="A.trnsfAplyId" property="crsAplyTrnsf.trnsfAplyId"/>
+        <result column="A.delYn" property="crsAplyTrnsf.delYn"/>
+        <result column="A.frstRegerId" property="crsAplyTrnsf.frstRegerId"/>
+        <result column="A.frstRegDt" property="crsAplyTrnsf.frstRegDt"/>
+        <result column="A.frstRegerIp" property="crsAplyTrnsf.frstRegerIp"/>
+        <result column="A.lastMdferId" property="crsAplyTrnsf.lastMdferId"/>
+        <result column="A.lastMdfcnDt" property="crsAplyTrnsf.lastMdfcnDt"/>
+        <result column="A.lastMdferIp" property="crsAplyTrnsf.lastMdferIp"/>
+
+    </resultMap>
+    <select id="selectList" parameterType="com.intermorph.crs.aplcnt.service.IMCrsAplyTrnsfCondition" resultMap="selectListResultMap">
+/* IMCrsAplyTrnsfMapper.selectList */
+         <if test='currentPageNo != 0'>
+SELECT * FROM ( SELECT rownum rn, TB.* FROM (
+        </if>
+SELECT
+       A.crs_aply_trnsf_id AS "A.crsAplyTrnsfId",
+       A.crs_aply_trnsf_no AS "A.crsAplyTrnsfNo",
+       A.crs_nm AS "A.crsNm",
+       A.mmbr_nm AS "A.mmbrNm",
+       A.mmbr_id AS "A.mmbrId",
+       A.telno AS "A.telno",
+       A.eml AS "A.eml",
+       A.brdt AS "A.brdt",
+       A.agncy_nm AS "A.agncyNm",
+       A.agncy_code AS "A.agncyCode",
+       A.edu_year AS "A.eduYear",
+       A.edu_rnd AS "A.eduRnd",
+       A.crs_grd AS "A.crsGrd",
+       A.trnsf_yn AS "A.trnsfYn",
+       A.trnsf_ymd AS "A.trnsfYmd",
+       A.trnsf_aply_id AS "A.trnsfAplyId",
+       A.del_yn AS "A.delYn",
+       A.frst_reger_id AS "A.frstRegerId",
+       A.frst_reg_dt AS "A.frstRegDt",
+       A.frst_reger_ip AS "A.frstRegerIp",
+       A.last_mdfer_id AS "A.lastMdferId",
+       A.last_mdfcn_dt AS "A.lastMdfcnDt",
+       A.last_mdfer_ip AS "A.lastMdferIp"
+
+  FROM im_crs_aply_trnsf A
+ WHERE A.del_yn = 'N'
+ 
+ 		<if test='scWord != null and !scWord.equals("")'>
+            <if test='scKey.equals("crsAplyTrnsfId")'>
+       			AND A.crs_aply_trnsf_id LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("mmbrNm")'>
+       			AND A.mmbr_nm LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("mmbrId")'>
+       			AND  A.mmbr_id  LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("telno")'>
+       			AND  A.telno  LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("crsAplyTrnsfNo")'>
+       			AND  A.crs_aply_trnsf_no = #{scWord}
+            </if>
+        </if>
+        
+        
+ 		<if test='scTrnsfYn != null and !scTrnsfYn.equals("")'>
+ 			<if test='scTrnsfYn.equals("N")'>
+ 				AND  A.trnsf_yn IS NULL
+ 			</if>
+ 			<if test='scTrnsfYn.equals("M")'>
+ 				AND  A.trnsf_yn IN ('M','C','W')
+ 			</if>	
+ 			<if test='scTrnsfYn.equals("C")'>
+ 				AND  A.trnsf_yn IN ('C','W')
+ 			</if>	
+ 			<if test='scTrnsfYn.equals("W")'>
+ 				AND  A.trnsf_yn IN ('W')
+ 			</if>	
+ 		</if>
+ 
+  		<choose>
+            <when test='orderbyKey == 1'>ORDER BY A.crs_aply_trnsf_no ASC</when>
+            <when test='orderbyKey == -1'>ORDER BY A.crs_aply_trnsf_no DESC</when>
+            <otherwise>ORDER BY A.crs_aply_trnsf_no DESC</otherwise>
+        </choose>
+
+        <if test='currentPageNo != 0'>
+        ) TB ) WHERE rn BETWEEN #{firstItemNo}+1  AND #{firstItemNo} + #{recordCountPerPage}
+        </if>
+    </select>
+
+    <select id="selectListCount" parameterType="com.intermorph.crs.aplcnt.service.IMCrsAplyTrnsfCondition" resultType="int">
+/* IMCrsAplyTrnsfMapper.selectListCount */
+SELECT COUNT(*) 
+  FROM im_crs_aply_trnsf A
+ WHERE A.del_yn = 'N'  
+ 
+ 		<if test='scWord != null and !scWord.equals("")'>
+            <if test='scKey.equals("crsAplyTrnsfId")'>
+       			AND A.crs_aply_trnsf_id LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("mmbrNm")'>
+       			AND A.mmbr_nm LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("mmbrId")'>
+       			AND  A.mmbr_id  LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("telno")'>
+       			AND  A.telno  LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("crsAplyTrnsfNo")'>
+       			AND  A.crs_aply_trnsf_no = #{scWord}
+            </if>
+        </if>
+        
+ 		<if test='scTrnsfYn != null and !scTrnsfYn.equals("")'>
+ 			<if test='scTrnsfYn.equals("N")'>
+ 				AND  A.trnsf_yn IS NULL
+ 			</if>
+ 			<if test='scTrnsfYn.equals("M")'>
+ 				AND  A.trnsf_yn IN ('M','C','W')
+ 			</if>	
+ 			<if test='scTrnsfYn.equals("C")'>
+ 				AND  A.trnsf_yn IN ('C','W')
+ 			</if>	
+ 			<if test='scTrnsfYn.equals("W")'>
+ 				AND  A.trnsf_yn IN ('W')
+ 			</if>		
+ 		</if>
+    </select>
+</mapper>

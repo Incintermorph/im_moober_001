@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.intermorph.cmmn.service.IMInfoInqHstryMapper">
+
+    <insert id="insert" parameterType="com.intermorph.cmmn.service.IMInfoInqHstryVO" useGeneratedKeys="false">
+/* IMInfoInqHstryMapper.insert */
+INSERT INTO im_info_inq_hstry (
+    info_inq_hstry_id,
+    tbl_id,
+    tbl_ref_id,
+    ref_nm,
+    inq_rsn,
+    inq_url,
+    menu_no,
+    frst_reger_id,
+    frst_reg_dt,
+    frst_reger_ip
+) VALUES (
+    #{infoInqHstryId, jdbcType=VARCHAR},
+    #{tblId, jdbcType=VARCHAR},
+    #{tblRefId, jdbcType=VARCHAR},
+    #{refNm, jdbcType=VARCHAR},
+    #{inqRsn, jdbcType=VARCHAR},
+    #{inqUrl, jdbcType=VARCHAR},
+    #{menuNo, jdbcType=VARCHAR},
+    #{frstRegerId, jdbcType=VARCHAR},
+    TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+    #{frstRegerIp, jdbcType=VARCHAR}
+) 
+    </insert>
+
+</mapper>

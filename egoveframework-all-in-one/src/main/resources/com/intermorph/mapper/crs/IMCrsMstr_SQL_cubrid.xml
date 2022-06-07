@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.intermorph.crs.mstr.service.IMCrsMstrMapper">
+
+
+<insert id="insert" parameterType="com.intermorph.crs.mstr.service.IMCrsMstrVO" useGeneratedKeys="false">
+/* IMCrsMstrMapper.insert */
+INSERT INTO IM_CRS_MSTR (
+    crs_mstr_id,
+    crs_grd_cdv,
+    crs_dvsn_cdv,
+    ttnfee,
+    edu_hrs,
+    stts_cdv,    
+    del_yn,
+    frst_reger_id,
+    frst_reg_dt,
+    frst_reger_ip
+) VALUES (
+    #{crsMstrId, jdbcType=VARCHAR},
+    #{crsGrdCdv, jdbcType=VARCHAR},
+    #{crsDvsnCdv, jdbcType=VARCHAR},
+    #{ttnfee, jdbcType=NUMERIC},
+    #{eduHrs, jdbcType=NUMERIC},
+    #{sttsCdv, jdbcType=VARCHAR},    
+    'N',
+    #{frstRegerId, jdbcType=VARCHAR},
+    TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+    #{frstRegerIp, jdbcType=VARCHAR}
+) 
+    </insert>
+    
+    
+    
+    
+    <update id="update" parameterType="com.intermorph.crs.mstr.service.IMCrsMstrVO">
+/* IMCrsMstrMapper.update */
+UPDATE IM_CRS_MSTR
+   SET <if test='crsGrdCdv != null'>
+       crs_grd_cdv = #{crsGrdCdv, jdbcType=VARCHAR},
+   		</if>   		
+   		<if test='crsDvsnCdv != null'>
+       crs_dvsn_cdv = #{crsDvsnCdv, jdbcType=VARCHAR},
+   		</if>   		
+   		<if test='ttnfee != null'>
+       ttnfee = #{ttnfee, jdbcType=NUMERIC},
+   		</if>   		
+   		<if test='eduHrs != null'>
+       edu_hrs = #{eduHrs, jdbcType=NUMERIC},
+   		</if>
+   		<if test='sttsCdv != null'>
+    stts_cdv = #{sttsCdv, jdbcType=VARCHAR},
+   		</if>
+       last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR}
+
+ WHERE
+       crs_mstr_id = #{crsMstrId}
+
+    </update>
+
+    <update id="delete" parameterType="com.intermorph.crs.mstr.service.IMCrsMstrVO">
+/* IMCrsMstrMapper.delete */
+UPDATE IM_CRS_MSTR 
+   SET 
+       last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR},
+       del_yn = 'Y' 
+ WHERE 
+       crs_mstr_id = #{crsMstrId}
+
+   AND del_yn = 'N'
+    </update>
+    
+    
+
+
+    <resultMap id="selectDetailResultMap" type="com.intermorph.crs.mstr.service.IMCrsMstrResultSet">
+        <result column="A.crsMstrId" property="imCrsMstr.crsMstrId"/>        
+        <result column="A.crsGrdCdv" property="imCrsMstr.crsGrdCdv"/>
+        <result column="A.crsDvsnCdv" property="imCrsMstr.crsDvsnCdv"/>
+        <result column="A.ttnfee" property="imCrsMstr.ttnfee"/>
+        <result column="A.eduHrs" property="imCrsMstr.eduHrs"/>
+        <result column="A.sttsCdv" property="imCrsMstr.sttsCdv"/>
+        <result column="A.delYn" property="imCrsMstr.delYn"/>
+        <result column="A.frstRegerId" property="imCrsMstr.frstRegerId"/>
+        <result column="A.frstRegDt" property="imCrsMstr.frstRegDt"/>
+        <result column="A.frstRegerIp" property="imCrsMstr.frstRegerIp"/>
+        <result column="A.lastMdferId" property="imCrsMstr.lastMdferId"/>
+        <result column="A.lastMdfcnDt" property="imCrsMstr.lastMdfcnDt"/>
+        <result column="A.lastMdferIp" property="imCrsMstr.lastMdferIp"/>
+    </resultMap>
+    <select id="selectDetail" parameterType="com.intermorph.crs.mstr.service.IMCrsMstrVO" resultMap="selectDetailResultMap">
+/* IMCrsMstrMapper.selectDetail */
+
+SELECT 
+       crs_mstr_id AS "A.crsMstrId",
+       crs_grd_cdv AS "A.crsGrdCdv",
+       crs_dvsn_cdv AS "A.crsDvsnCdv",
+       ttnfee AS "A.ttnfee",
+       edu_hrs AS "A.eduHrs",
+       stts_cdv AS "A.sttsCdv",
+       del_yn AS "A.delYn",
+       frst_reger_id AS "A.frstRegerId",
+       frst_reg_dt AS "A.frstRegDt",
+       frst_reger_ip AS "A.frstRegerIp",
+       last_mdfer_id AS "A.lastMdferId",
+       last_mdfcn_dt AS "A.lastMdfcnDt",
+       last_mdfer_ip AS "A.lastMdferIp"
+  
+  FROM IM_CRS_MSTR A
+ WHERE
+       crs_mstr_id = #{crsMstrId}
+
+   AND A.del_yn = 'N'
+
+    </select>
+
+
+
+    <resultMap id="selectListResultMap" type="com.intermorph.crs.mstr.service.IMCrsMstrResultSet">
+         <result column="A.crsMstrId" property="imCrsMstr.crsMstrId"/>        
+        <result column="A.crsGrdCdv" property="imCrsMstr.crsGrdCdv"/>
+        <result column="A.crsDvsnCdv" property="imCrsMstr.crsDvsnCdv"/>
+        <result column="A.ttnfee" property="imCrsMstr.ttnfee"/>
+        <result column="A.eduHrs" property="imCrsMstr.eduHrs"/>
+        <result column="A.sttsCdv" property="imCrsMstr.sttsCdv"/>
+        <result column="A.delYn" property="imCrsMstr.delYn"/>
+        <result column="A.frstRegerId" property="imCrsMstr.frstRegerId"/>
+        <result column="A.frstRegDt" property="imCrsMstr.frstRegDt"/>
+        <result column="A.frstRegerIp" property="imCrsMstr.frstRegerIp"/>
+        <result column="A.lastMdferId" property="imCrsMstr.lastMdferId"/>
+        <result column="A.lastMdfcnDt" property="imCrsMstr.lastMdfcnDt"/>
+        <result column="A.lastMdferIp" property="imCrsMstr.lastMdferIp"/>
+
+    </resultMap>
+    <select id="selectList" parameterType="com.intermorph.crs.mstr.service.IMCrsMstrCondition" resultMap="selectListResultMap">
+/* IMCrsMstrMapper.selectList */
+
+<if test='currentPageNo != 0'>
+SELECT * FROM ( SELECT rownum rn, TB.* FROM (
+</if>
+SELECT
+       crs_mstr_id AS "A.crsMstrId",       
+       crs_grd_cdv AS "A.crsGrdCdv",
+       crs_dvsn_cdv AS "A.crsDvsnCdv",
+       ttnfee AS "A.ttnfee",
+       edu_hrs AS "A.eduHrs",
+       stts_cdv AS "A.sttsCdv",
+       del_yn AS "A.delYn",
+       frst_reger_id AS "A.frstRegerId",
+       frst_reg_dt AS "A.frstRegDt",
+       frst_reger_ip AS "A.frstRegerIp",
+       last_mdfer_id AS "A.lastMdferId",
+       last_mdfcn_dt AS "A.lastMdfcnDt",
+       last_mdfer_ip AS "A.lastMdferIp"
+
+  FROM IM_CRS_MSTR A
+ WHERE A.del_yn = 'N'  
+ 		<if test='scWord != null and !scWord.equals("")'>
+            <if test='scKey.equals("crsMstrId")'>
+       			AND A.crs_mstr_id LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+        </if>
+        <if test='scCrsGrdCdv != null and !scCrsGrdCdv.equals("")'>
+       			AND A.crs_grd_cdv = #{scCrsGrdCdv}
+        </if>
+        <if test='scCrsDvsnCdv != null and !scCrsDvsnCdv.equals("")'>
+       			AND A.crs_dvsn_cdv = #{scCrsDvsnCdv}
+        </if>
+        <if test='scSttsCdv != null and !scSttsCdv.equals("")'>
+       			AND A.stts_cdv = #{scSttsCdv}
+        </if>
+        <if test='scUseSttsYn != null and !scUseSttsYn.equals("")'>
+       			AND A.stts_cdv != 'STTS_99'
+        </if>
+
+        <choose>
+            <when test='orderbyKey == 1'>ORDER BY A.frst_reg_dt ASC</when>
+            <when test='orderbyKey == -1'>ORDER BY A.frst_reg_dt DESC</when>
+            <when test='orderbyKey == 2'>ORDER BY A.crs_grd_cdv ASC</when>
+            <when test='orderbyKey == -2'>ORDER BY A.crs_grd_cdv DESC</when>
+            <when test='orderbyKey == 3'>ORDER BY A.crs_dvsn_cdv ASC</when>
+            <when test='orderbyKey == -3'>ORDER BY A.crs_dvsn_cdv DESC</when>
+            <otherwise>ORDER BY A.frst_reg_dt DESC</otherwise>
+        </choose>
+
+        <if test='currentPageNo != 0'>
+        ) TB ) WHERE rn BETWEEN #{firstItemNo}+1  AND #{firstItemNo} + #{recordCountPerPage}
+        </if>
+    </select>
+    
+      <select id="selectListCount" parameterType="com.intermorph.crs.mstr.service.IMCrsMstrCondition" resultType="int">
+/* IMCrsMstrMapper.selectListCount */
+SELECT COUNT(*) 
+  FROM IM_CRS_MSTR A
+ WHERE A.del_yn = 'N'  
+ 		<if test='scWord != null and !scWord.equals("")'>
+            <if test='scKey.equals("crsMstrId")'>
+       			AND A.crs_mstr_id LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+        </if>
+        <if test='scCrsGrdCdv != null and !scCrsGrdCdv.equals("")'>
+       			AND A.crs_grd_cdv = #{scCrsGrdCdv}
+        </if>
+        <if test='scCrsDvsnCdv != null and !scCrsDvsnCdv.equals("")'>
+       			AND A.crs_dvsn_cdv = #{scCrsDvsnCdv}
+        </if>
+        <if test='scSttsCdv != null and !scSttsCdv.equals("")'>
+       			AND A.stts_cdv = #{scSttsCdv}
+        </if>
+        
+        <if test='scUseSttsYn != null and !scUseSttsYn.equals("")'>
+       			AND A.stts_cdv != 'STTS_99'
+        </if>
+    </select>
+
+
+</mapper>

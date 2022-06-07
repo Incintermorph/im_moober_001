@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.intermorph.cmmn.service.IMLgnSttsMapper">
+
+    <insert id="insert" parameterType="com.intermorph.cmmn.service.IMLgnSttsVO" useGeneratedKeys="false">
+/* IMLgnSttsMapper.insert */
+INSERT INTO im_lgn_stts (
+    esntl_id,
+    mdfcn_dt,
+    mdfcn_ip,
+    lgn_cnt,
+    frst_reg_dt,
+    frst_reger_ip,
+    last_sesin_id,
+    last_mdfcn_dt,
+    last_mdfer_ip
+) VALUES (
+    #{esntlId, jdbcType=VARCHAR},
+    TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+    #{mdfcnIp, jdbcType=VARCHAR},
+    1,
+    TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+    #{mdfcnIp, jdbcType=VARCHAR},
+    #{lastSesinId, jdbcType=VARCHAR},
+    TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+    #{mdfcnIp, jdbcType=VARCHAR}
+) 
+    </insert>
+
+    <update id="update" parameterType="com.intermorph.cmmn.service.IMLgnSttsVO">
+/* IMLgnSttsMapper.update */
+UPDATE im_lgn_stts
+   SET 
+       mdfcn_dt = last_mdfcn_dt,
+       mdfcn_ip = last_mdfer_ip,
+       lgn_cnt = lgn_cnt+1,
+	   last_sesin_id = #{lastSesinId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{mdfcnIp, jdbcType=VARCHAR}
+ WHERE
+       esntl_id = #{esntlId}
+
+    </update>
+
+    <select id="selectDetail" parameterType="map" resultType="com.intermorph.cmmn.service.IMLgnSttsVO">
+        /* IMLgnSttsMapper.selectDetail */
+SELECT 
+       A.esntl_id AS "esntlId",
+       A.frst_reg_dt AS "frstRegDt",
+       A.frst_reger_ip AS "frstRegerIp",
+       A.mdfcn_dt AS "mdfcnDt",
+       A.mdfcn_ip AS "mdfcnIp",
+       A.last_sesin_id AS "lastSesinId",
+       A.last_mdfcn_dt AS "lastMdfcnDt",
+       A.last_mdfer_ip AS "lastMdferIp",
+       A.lgn_cnt AS "lgnCnt"
+  
+  FROM im_lgn_stts A
+ WHERE
+       esntl_id = #{esntlId}
+    </select>
+
+
+</mapper>

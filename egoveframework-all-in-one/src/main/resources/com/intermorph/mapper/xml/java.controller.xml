@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding= "utf-8"?>
+<generator>
+    <filename><![CDATA[IM<!table_name_Pascal!>Controller.java]]></filename>
+	<source>
+	<![CDATA[
+/*
+ * Copyright (c) 2022 Intermorph Inc. All right reserved.
+ * This software is the proprietary information of Intermorph Inc.
+ *
+ */
+package <!package_name!>.<!component_name!>.web;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springmodules.validation.commons.DefaultBeanValidator;
+
+
+import com.intermorph.cmmn.base.BaseController;
+
+import <!package_name!>.<!component_name!>.service.IM<!table_name_Pascal!>Condition;
+import <!package_name!>.<!component_name!>.service.IM<!table_name_Pascal!>ResultSet;
+import <!package_name!>.<!component_name!>.service.IM<!table_name_Pascal!>Service;
+import <!package_name!>.<!component_name!>.service.IM<!table_name_Pascal!>VO;
+
+
+import egovframework.rte.fdl.property.EgovPropertyService;
+
+/**
+ * @Project : <!project_name!>
+ * @Package : <!package_name!>.<!component_name!>.web
+ * @File : IM<!table_name_Pascal!>Controller.java
+ * @Title : <!table_comment!>
+ * @date : <!create_date!> generated
+ * @author : <!author_name!>
+ * @descrption : {상세한 프로그램의 용도를 기록}
+ */
+@Controller
+public class IM<!table_name_Pascal!>Controller extends BaseController {
+
+
+    @Resource (name = "IM<!table_name_Pascal!>Service")
+	private IM<!table_name_Pascal!>Service <!table_name_Camel!>Service;
+	
+	
+	@Resource(name = "propertiesService")
+	protected EgovPropertyService propertyService;
+
+	/** todo : Validator setting  iM<!table_name_Pascal!> Create  resources/com/intermorph/validator/<!component_name!>/IM<!table_name_Pascal!>.xml*/
+	@Autowired
+	private DefaultBeanValidator beanValidator;
+	
+
+	
+	
+	/**
+	 * <!table_comment!> 목록
+	 * 
+	 * @param req
+	 * @param res
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/mng/<!table_name_Camel!>/selectList.do")
+	public ModelAndView selectList(HttpServletRequest req, HttpServletResponse res, IM<!table_name_Pascal!>Condition condition)
+			throws Exception {
+		ModelAndView mav = new ModelAndView();
+
+		setEmptyValue(condition, "currentPageNo=1", "recordCountPerPage=" + propertyService.getInt("pageUnit"),
+				"pageSize=" + propertyService.getInt("pageSize"), "orderbyKey=0");
+
+		mav.addObject("pageInfo", <!table_name_Camel!>Service.selectList<!table_name_Pascal!>(condition));
+
+		mav.addObject("condition", condition);
+
+		/** todo : jsp  setting */
+		mav.setViewName("layout/mng/toDo/<!table_name_Camel!>/selectList<!table_name_Pascal!>");
+
+		return mav;
+	}
+	
+	
+	
+	/**
+	 * <!table_comment!>  등록 화면 
+	 * @param req
+	 * @param res
+	 * @param iM<!table_name_Pascal!>
+	 * @param condition
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/mng/<!table_name_Camel!>/regist.do")
+	public ModelAndView regist(HttpServletRequest req, HttpServletResponse res, IM<!table_name_Pascal!>VO iM<!table_name_Pascal!>,
+			IM<!table_name_Pascal!>Condition condition) throws Exception {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("iM<!table_name_Pascal!>", iM<!table_name_Pascal!>);
+
+		mav.addObject("condition", condition);
+
+		/** todo : jsp  setting */
+		mav.setViewName("layout/mng/toDo/<!table_name_Camel!>/regist<!table_name_Pascal!>");
+
+		return mav;
+	}
+	
+	/**
+	 * <!table_comment!> 수정 화면 
+	 * @param req
+	 * @param res
+	 * @param iM<!table_name_Pascal!>
+	 * @param condition
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/mng/<!table_name_Camel!>/modify.do")
+	public ModelAndView modify(HttpServletRequest req, HttpServletResponse res, IM<!table_name_Pascal!>VO iM<!table_name_Pascal!>,
+			IM<!table_name_Pascal!>Condition condition) throws Exception {
+		ModelAndView mav = new ModelAndView();
+
+		IM<!table_name_Pascal!>ResultSet detail = (IM<!table_name_Pascal!>ResultSet) <!table_name_Camel!>Service.selectDetail<!table_name_Pascal!>(iM<!table_name_Pascal!>);
+
+		mav.addObject("iM<!table_name_Pascal!>", detail.get<!table_name_Pascal!>());
+
+		mav.addObject("condition", condition);
+		
+		
+		/** todo : jsp  setting */
+		mav.setViewName("layout/mng/toDo/<!table_name_Camel!>/modify<!table_name_Pascal!>");
+		
+		return mav;
+	}
+	
+	
+	
+	
+	
+	/**
+	 * <!table_comment!> 등록 저장 
+	 * @param req
+	 * @param res
+	 * @param iM<!table_name_Camel!>
+	 * @param bindingResult
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/mng/<!table_name_Camel!>/insert.do")
+	public ModelAndView insert(HttpServletRequest req, HttpServletResponse res,
+			@ModelAttribute("iM<!table_name_Pascal!>") IM<!table_name_Pascal!>VO iM<!table_name_Pascal!> ,
+			BindingResult bindingResult, ModelMap model)
+			throws Exception {
+
+		ModelAndView mav = new ModelAndView();
+		loginCheckSetAudit(req, iM<!table_name_Pascal!>);
+		beanValidator.validate(iM<!table_name_Pascal!>, bindingResult); // validation 수행
+
+		if (bindingResult.hasErrors()) { // 만일 validation 에러가 있으면...
+			mav.addObject("result", -1);
+		}
+
+		mav.addObject("result", <!table_name_Camel!>Service.insert<!table_name_Pascal!>(iM<!table_name_Pascal!>));
+
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	/**
+	 * <!table_comment!> 수정 저장
+	 * @param req
+	 * @param res
+	 * @param iM<!table_name_Camel!>
+	 * @param bindingResult
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/mng/<!table_name_Camel!>/update.do")
+	public ModelAndView update(HttpServletRequest req, HttpServletResponse res,
+			@ModelAttribute("iM<!table_name_Pascal!>") IM<!table_name_Pascal!>VO iM<!table_name_Pascal!>,
+			BindingResult bindingResult, ModelMap model)
+			throws Exception {
+		ModelAndView mav = new ModelAndView();
+
+		loginCheckSetAudit(req, iM<!table_name_Pascal!>);
+
+		if (bindingResult.hasErrors()) { // 만일 validation 에러가 있으면...
+			mav.addObject("result", -1);
+		}
+
+		mav.addObject("result",<!table_name_Camel!>Service.update<!table_name_Pascal!>(iM<!table_name_Pascal!>));
+		
+		mav.setViewName("jsonView");
+		return mav;
+	}
+
+	
+	
+	
+	/**
+	 *  <!table_comment!>  삭제
+	 * @param req
+	 * @param res
+	 * @param iM<!table_name_Camel!>
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/mng/<!table_name_Camel!>/delete.do")
+	public ModelAndView delete(HttpServletRequest req, HttpServletResponse res, IM<!table_name_Pascal!>VO iM<!table_name_Pascal!>)
+			throws Exception {
+		ModelAndView mav = new ModelAndView();
+
+		loginCheckSetAudit(req, iM<!table_name_Pascal!>);
+
+		mav.addObject("result", <!table_name_Camel!>Service.delete<!table_name_Pascal!>(iM<!table_name_Pascal!>));
+
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	
+	/**
+	 *  <!table_comment!> 다중 삭제 처리
+	 * 
+	 * @param req
+	 * @param res
+	 * @param IM<!table_name_Pascal!>VO
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping ("/mng/<!table_name_Camel!>/deletelist.do")
+	public ModelAndView deletelist(HttpServletRequest req, HttpServletResponse res, IM<!table_name_Pascal!>VO iM<!table_name_Pascal!>) throws Exception {
+		ModelAndView mav = new ModelAndView();
+
+		loginCheckSetAudit(req, iM<!table_name_Pascal!>);
+		
+
+		List<IM<!table_name_Pascal!>VO> <!table_name_Camel!>s = new ArrayList<IM<!table_name_Pascal!>VO>();
+				
+		for (Long idx: iM<!table_name_Pascal!>.getCheckIndexs()) {
+			IM<!table_name_Pascal!>VO o = new IM<!table_name_Pascal!>VO();
+			/** todo : key setting */
+			o.set<!table_name_Pascal!>(iM<!table_name_Pascal!>.get<!table_name_Pascal!>Ids()[idx.intValue()]);
+			o.copyAudit(iM<!table_name_Pascal!>);
+
+			<!table_name_Camel!>s.add(o);
+		}
+
+		if (<!table_name_Camel!>s.size() > 0) {
+			mav.addObject("result", <!table_name_Camel!>Service.deletelist<!table_name_Pascal!>(<!table_name_Camel!>s));
+		} else {
+			mav.addObject("result", 0);
+		}
+
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	
+	
+	
+
+	
+}
+	]]>
+	</source>
+</generator>

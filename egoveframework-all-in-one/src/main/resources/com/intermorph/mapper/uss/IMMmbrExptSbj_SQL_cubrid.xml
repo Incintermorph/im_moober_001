@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.intermorph.uss.hstry.service.IMMmbrExptSbjMapper">
+
+    <insert id="insert" parameterType="com.intermorph.uss.hstry.service.IMMmbrExptSbjVO" useGeneratedKeys="false">
+/* IMMmbrExptSbjMapper.insert */
+INSERT INTO im_mmbr_expt_sbj (
+    mmbr_expt_sbj_id,
+    member_srl,
+    exemp_sbj_dvsn,
+    cert_sbj_cdv,
+    line_sbj_cdv,
+    study_dsr_yn,
+    file_id,
+
+    del_yn,
+    frst_reger_id,
+    frst_reg_dt,
+    frst_reger_ip
+) VALUES (
+    #{mmbrExptSbjId, jdbcType=VARCHAR},
+    #{memberSrl, jdbcType=VARCHAR},
+    #{exempSbjDvsn, jdbcType=VARCHAR},
+    #{certSbjCdv, jdbcType=VARCHAR},
+    #{lineSbjCdv, jdbcType=VARCHAR},
+    #{studyDsrYn, jdbcType=VARCHAR},
+    #{fileId, jdbcType=VARCHAR},
+
+     'N',
+    #{frstRegerId, jdbcType=VARCHAR},
+    TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+    #{frstRegerIp, jdbcType=VARCHAR}
+) 
+    </insert>
+
+    <update id="update" parameterType="com.intermorph.uss.hstry.service.IMMmbrExptSbjVO">
+/* IMMmbrExptSbjMapper.update */
+UPDATE im_mmbr_expt_sbj
+   SET
+       cert_sbj_cdv = #{certSbjCdv, jdbcType=VARCHAR},
+       line_sbj_cdv = #{lineSbjCdv, jdbcType=VARCHAR},
+       study_dsr_yn = #{studyDsrYn, jdbcType=VARCHAR},
+       file_id = #{fileId, jdbcType=VARCHAR},
+
+	   last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR}
+ WHERE
+       mmbr_expt_sbj_id = #{mmbrExptSbjId}
+
+   AND del_yn = 'N' 
+    </update>
+
+    <update id="delete" parameterType="com.intermorph.uss.hstry.service.IMMmbrExptSbjVO">
+/* IMMmbrExptSbjMapper.delete */
+UPDATE im_mmbr_expt_sbj 
+   SET last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR},
+       del_yn = 'Y' 
+ WHERE 
+       mmbr_expt_sbj_id = #{mmbrExptSbjId}
+
+   AND del_yn = 'N'
+    </update>
+
+    
+
+
+    <select id="selectDetail" parameterType="com.intermorph.uss.hstry.service.IMMmbrExptSbjVO" resultType="com.intermorph.uss.hstry.service.IMMmbrExptSbjVO">
+SELECT
+       A.mmbr_expt_sbj_id AS "mmbrExptSbjId",
+       A.member_srl AS "memberSrl",
+       A.cert_sbj_cdv AS "certSbjCdv",
+       A.line_sbj_cdv AS "lineSbjCdv",
+       A.study_dsr_yn AS "studyDsrYn",
+       A.file_id AS "fileId",
+       A.del_yn AS "delYn",
+       A.frst_reger_id AS "frstRegerId",
+       A.frst_reg_dt AS "frstRegDt",
+       A.frst_reger_ip AS "frstRegerIp",
+       A.last_mdfer_id AS "lastMdferId",
+       A.last_mdfcn_dt AS "lastMdfcnDt",
+       A.last_mdfer_ip AS "lastMdferIp"
+
+  FROM im_mmbr_expt_sbj A
+ WHERE A.del_yn = 'N'
+     AND mmbr_expt_sbj_id = #{mmbrExptSbjId}
+     
+     </select>
+
+  <resultMap id="selectListResultMap" type="com.intermorph.uss.hstry.service.IMMmbrExptSbjVO">
+	<collection column="{atchFileId=fileId}" property="fileList" javaType="List" 
+            ofType="egovframework.com.cmm.service.FileVO" select="com.intermorph.cmmn.egov.service.IMEgovMapper.selectFileList"/>
+    </resultMap>
+    <select id="selectList" parameterType="map" resultMap="selectListResultMap">
+SELECT
+       A.mmbr_expt_sbj_id AS "mmbrExptSbjId",
+       A.member_srl AS "memberSrl",
+       A.cert_sbj_cdv AS "certSbjCdv",
+       A.line_sbj_cdv AS "lineSbjCdv",
+       A.study_dsr_yn AS "studyDsrYn",
+       A.file_id AS "fileId",
+       A.del_yn AS "delYn",
+       A.frst_reger_id AS "frstRegerId",
+       A.frst_reg_dt AS "frstRegDt",
+       A.frst_reger_ip AS "frstRegerIp",
+       A.last_mdfer_id AS "lastMdferId",
+       A.last_mdfcn_dt AS "lastMdfcnDt",
+       A.last_mdfer_ip AS "lastMdferIp"
+
+  FROM im_mmbr_expt_sbj A
+ WHERE A.del_yn = 'N'
+     AND member_srl = #{memberSrl, jdbcType=VARCHAR}
+     AND exemp_sbj_dvsn =  #{exempSbjDvsn, jdbcType=VARCHAR}
+     ORDER BY A.frst_reg_dt DESC
+     </select>
+
+</mapper>

@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.intermorph.uss.hstry.service.IMMmbrHstryMapper">
+
+    <insert id="insert" parameterType="com.intermorph.uss.hstry.service.IMMmbrHstryVO" useGeneratedKeys="false">
+/* IMMmbrHstryMapper.insert */
+INSERT INTO im_mmbr_hstry (
+    member_srl,
+    esntl_id,
+    mmbr_nm,
+    sexdstn_cdv,
+    brdt,
+    area_cdv,
+    area_dtl,
+    mbl_telno,
+    eml,
+    work_dvsn_cdv,
+    aply_grd_cdv,
+    expt_sbj_yn,
+	agncy_code,
+	agncy_nm,
+	ci,
+	di,
+    frst_reger_id,
+    frst_reg_dt,
+    frst_reger_ip
+) VALUES (
+    #{memberSrl, jdbcType=VARCHAR},
+    #{esntlId, jdbcType=VARCHAR},
+    #{mmbrNm, jdbcType=VARCHAR},
+    #{sexdstnCdv, jdbcType=VARCHAR},
+    #{brdt, jdbcType=VARCHAR},
+    #{areaCdv, jdbcType=VARCHAR},
+    #{areaDtl, jdbcType=VARCHAR},
+    #{mblTelnoDB, jdbcType=VARCHAR},
+    #{eml, jdbcType=VARCHAR},
+    #{workDvsnCdv, jdbcType=VARCHAR},
+    #{aplyGrdCdv, jdbcType=VARCHAR},
+    #{exptSbjYn, jdbcType=VARCHAR},
+    #{agncyCode, jdbcType=VARCHAR},
+    #{agncyNm, jdbcType=VARCHAR},
+    #{ci, jdbcType=VARCHAR},
+    #{di, jdbcType=VARCHAR},
+
+    #{frstRegerId, jdbcType=VARCHAR},
+    TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+    #{frstRegerIp, jdbcType=VARCHAR}
+) 
+    </insert>
+
+    <update id="update" parameterType="com.intermorph.uss.hstry.service.IMMmbrHstryVO">
+/* IMMmbrHstryMapper.update */
+UPDATE im_mmbr_hstry
+   SET 
+   	   <if test='ci != null'>
+       ci = #{ci, jdbcType=VARCHAR},
+       </if>
+   	   <if test='sexdstnCdv != null'>
+       di = #{di, jdbcType=VARCHAR},
+       </if>
+   	   <if test='sexdstnCdv != null'>
+       sexdstn_cdv = #{sexdstnCdv, jdbcType=VARCHAR},
+       </if>
+       <if test='brdt != null'>
+       brdt = #{brdt, jdbcType=VARCHAR},
+       </if>
+       <if test='areaCdv != null'>
+       area_cdv = #{areaCdv, jdbcType=VARCHAR},
+       </if>
+       <if test='areaDtl != null'>
+       area_dtl = #{areaDtl, jdbcType=VARCHAR},
+       </if>
+       <if test='mblTelnoDB != null'>
+       mbl_telno = #{mblTelnoDB, jdbcType=VARCHAR},
+       </if>
+       <if test='eml != null'>
+       eml = #{eml, jdbcType=VARCHAR},
+       </if>
+       <if test='workDvsnCdv != null'>
+       work_dvsn_cdv = #{workDvsnCdv, jdbcType=VARCHAR},
+       </if>
+       <if test='aplyGrdCdv != null'>
+       aply_grd_cdv = #{aplyGrdCdv, jdbcType=VARCHAR},
+       </if>
+       <if test='exptSbjYn != null'>
+       expt_sbj_yn = #{exptSbjYn, jdbcType=VARCHAR},
+	   </if>
+       <if test='trnsfYn != null'>
+       trnsf_yn = #{trnsfYn, jdbcType=VARCHAR},
+       trnsf_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+	   </if>
+	   
+       <if test='agncyNm != null'>
+       agncy_code =  #{agncyCode, jdbcType=VARCHAR},
+	   agncy_nm =  #{agncyNm, jdbcType=VARCHAR},
+	   </if>
+ 	
+	   last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR}
+ WHERE
+       member_srl = #{memberSrl}
+    </update>
+    <update id="updateLastMdfcn" parameterType="com.intermorph.uss.hstry.service.IMMmbrHstryVO">
+/* IMMmbrHstryMapper.updateLastMdfcn */
+UPDATE im_mmbr_hstry
+   SET 
+	   last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR}
+ WHERE
+       member_srl = #{memberSrl}
+    </update>
+
+
+    <resultMap id="selectDetailResultMap" type="com.intermorph.uss.hstry.service.IMMmbrHstryResultSet">
+        <result column="A.memberSrl" property="mmbrHstry.memberSrl"/>
+        <result column="A.esntlId" property="mmbrHstry.esntlId"/>
+        <result column="A.mmbrNm" property="mmbrHstry.mmbrNm"/>
+        <result column="A.sexdstnCdv" property="mmbrHstry.sexdstnCdv"/>
+        <result column="A.brdt" property="mmbrHstry.brdt"/>
+        <result column="A.areaCdv" property="mmbrHstry.areaCdv"/>
+        <result column="A.areaDtl" property="mmbrHstry.areaDtl"/>
+        <result column="A.mblTelno" property="mmbrHstry.mblTelno"/>
+        <result column="A.eml" property="mmbrHstry.eml"/>
+        <result column="A.workDvsnCdv" property="mmbrHstry.workDvsnCdv"/>
+        <result column="A.aplyGrdCdv" property="mmbrHstry.aplyGrdCdv"/>
+        <result column="A.exptSbjYn" property="mmbrHstry.exptSbjYn"/>
+        <result column="A.ci" property="mmbrHstry.ci"/>
+        <result column="A.di" property="mmbrHstry.di"/>
+        <result column="A.frstRegerId" property="mmbrHstry.frstRegerId"/>
+        <result column="A.frstRegDt" property="mmbrHstry.frstRegDt"/>
+        <result column="A.frstRegerIp" property="mmbrHstry.frstRegerIp"/>
+        <result column="A.lastMdferId" property="mmbrHstry.lastMdferId"/>
+        <result column="A.lastMdfcnDt" property="mmbrHstry.lastMdfcnDt"/>
+        <result column="A.lastMdferIp" property="mmbrHstry.lastMdferIp"/>
+        <result column="A.agncyCode" property="mmbrHstry.agncyCode"/>
+        <result column="A.agncyNm" property="mmbrHstry.agncyNm"/>
+        <result column="diffDay" property="mmbrHstry.diffDay"/>
+        <result column="A.trnsfYn" property="mmbrHstry.trnsfYn"/>
+        <result column="A.trnsfDt" property="mmbrHstry.trnsfDt"/>
+
+    </resultMap>
+    <select id="selectDetail" parameterType="com.intermorph.uss.hstry.service.IMMmbrHstryVO" resultMap="selectDetailResultMap">
+        /* IMMmbrHstryMapper.selectDetail */
+SELECT 
+       A.member_srl AS "A.memberSrl",
+       A.esntl_id AS "A.esntlId",
+       A.mmbr_nm AS "A.mmbrNm",
+       A.sexdstn_cdv AS "A.sexdstnCdv",
+       A.brdt AS "A.brdt",
+       A.area_cdv AS "A.areaCdv",
+       A.area_dtl AS "A.areaDtl",
+       A.mbl_telno AS "A.mblTelno",
+       A.eml AS "A.eml",
+       A.work_dvsn_cdv AS "A.workDvsnCdv",
+       A.aply_grd_cdv AS "A.aplyGrdCdv",
+       A.expt_sbj_yn AS "A.exptSbjYn",
+       A.frst_reger_id AS "A.frstRegerId",
+       A.frst_reg_dt AS "A.frstRegDt",
+       A.frst_reger_ip AS "A.frstRegerIp",
+       A.last_mdfer_id AS "A.lastMdferId",
+       A.last_mdfcn_dt AS "A.lastMdfcnDt",
+       A.last_mdfer_ip AS "A.lastMdferIp",
+	   A.agncy_code  AS "A.agncyCode",
+	   A.agncy_nm  AS "A.agncyNm",
+	   A.ci  AS "A.ci",
+	   A.di  AS "A.di",
+	   A.trnsf_yn  AS "A.trnsfYn",
+	   A.trnsf_dt  AS "A.trnsfDt",
+       CASE 
+       	WHEN A.last_mdfcn_dt IS NULL  THEN 0 
+       	ELSE    DATEDIFF(CAST(A.last_mdfcn_dt AS TIMESTAMP),SYSDATETIME)  END AS diffDay
+  
+  FROM im_mmbr_hstry A
+ WHERE
+       <choose>
+       	<when test='memberSrl != null and !memberSrl.equals("")'>
+       			member_srl = #{memberSrl}
+       	</when>
+       	<otherwise>
+       			esntl_id = #{esntlId}
+       	</otherwise>
+       </choose>
+       
+       AND   A.di IS NOT NULL
+       
+    </select>
+
+
+    <resultMap id="selectListResultMap" type="com.intermorph.uss.hstry.service.IMMmbrHstryResultSet">
+        <result column="A.memberSrl" property="mmbrHstry.memberSrl"/>
+        <result column="A.esntlId" property="mmbrHstry.esntlId"/>
+        <result column="A.mmbrNm" property="mmbrHstry.mmbrNm"/>
+        <result column="A.sexdstnCdv" property="mmbrHstry.sexdstnCdv"/>
+        <result column="A.brdt" property="mmbrHstry.brdt"/>
+        <result column="A.areaCdv" property="mmbrHstry.areaCdv"/>
+        <result column="A.areaDtl" property="mmbrHstry.areaDtl"/>
+        <result column="A.mblTelno" property="mmbrHstry.mblTelno"/>
+        <result column="A.eml" property="mmbrHstry.eml"/>
+        <result column="A.workDvsnCdv" property="mmbrHstry.workDvsnCdv"/>
+        <result column="A.aplyGrdCdv" property="mmbrHstry.aplyGrdCdv"/>
+        <result column="A.exptSbjYn" property="mmbrHstry.exptSbjYn"/>
+        <result column="A.frstRegerId" property="mmbrHstry.frstRegerId"/>
+        <result column="A.frstRegDt" property="mmbrHstry.frstRegDt"/>
+        <result column="A.frstRegerIp" property="mmbrHstry.frstRegerIp"/>
+        <result column="A.lastMdferId" property="mmbrHstry.lastMdferId"/>
+        <result column="A.lastMdfcnDt" property="mmbrHstry.lastMdfcnDt"/>
+        <result column="A.lastMdferIp" property="mmbrHstry.lastMdferIp"/>
+        <result column="A.agncyCode" property="mmbrHstry.agncyCode"/>
+        <result column="A.agncyNm" property="mmbrHstry.agncyNm"/>
+        <result column="B.mberId" property="mberManage.mberId"/>
+        <result column="A.ci" property="mmbrHstry.ci"/>
+        <result column="A.di" property="mmbrHstry.di"/>
+        <result column="A.trnsfYn" property="mmbrHstry.trnsfYn"/>
+        <result column="A.trnsfDt" property="mmbrHstry.trnsfDt"/>
+
+    </resultMap>
+    <select id="selectList" parameterType="com.intermorph.uss.hstry.service.IMMmbrHstryCondition" resultMap="selectListResultMap">
+/* IMMmbrHstryMapper.selectList */
+         <if test='currentPageNo != 0'>
+SELECT * FROM ( SELECT rownum rn, TB.* FROM (
+        </if>
+SELECT
+       A.member_srl AS "A.memberSrl",
+       A.esntl_id AS "A.esntlId",
+       A.mmbr_nm AS "A.mmbrNm",
+       A.sexdstn_cdv AS "A.sexdstnCdv",
+       A.brdt AS "A.brdt",
+       A.area_cdv AS "A.areaCdv",
+       A.area_dtl AS "A.areaDtl",
+       A.mbl_telno AS "A.mblTelno",
+       A.eml AS "A.eml",
+       A.work_dvsn_cdv AS "A.workDvsnCdv",
+       A.aply_grd_cdv AS "A.aplyGrdCdv",
+       A.expt_sbj_yn AS "A.exptSbjYn",
+       A.frst_reger_id AS "A.frstRegerId",
+       A.frst_reg_dt AS "A.frstRegDt",
+       A.frst_reger_ip AS "A.frstRegerIp",
+       A.last_mdfer_id AS "A.lastMdferId",
+       A.last_mdfcn_dt AS "A.lastMdfcnDt",
+	   A.agncy_code  AS "A.agncyCode",
+	   A.agncy_nm  AS "A.agncyNm",
+	   A.ci  AS "A.ci",
+	   A.di  AS "A.di",
+	   A.trnsf_yn  AS "A.trnsfYn",
+	   A.trnsf_dt  AS "A.trnsfDt",
+       B.mber_id AS "B.mberId"
+
+  FROM im_mmbr_hstry A
+  INNER JOIN COMTNGNRLMBER B ON A.esntl_id=B.ESNTL_ID
+ WHERE 1=1
+ 		<if test='scWord != null and !scWord.equals("")'>
+            <if test='scKey.equals("mberId")'>
+       			AND B.mber_id LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("mmbrNm")'>
+       			AND A.mmbr_nm LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("eml")'>
+       			AND A.eml LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("mblTelno")'>
+       			AND A.mbl_telno LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+        </if>
+ 		 <if test='scAplyGrdCdv != null and !scAplyGrdCdv.equals("")'>
+       			AND A.aply_grd_cdv  = #{scAplyGrdCdv} 
+        </if>
+ 
+  		<choose>
+            <when test='orderbyKey == 3'>ORDER BY A.mmbr_nm   ASC</when>
+            <when test='orderbyKey == -3'>ORDER BY A.mmbr_nm   DESC</when>
+            <when test='orderbyKey == 2'>ORDER BY B.mber_id  ASC</when>
+            <when test='orderbyKey == -2'>ORDER BY B.mber_id  DESC</when>
+            <when test='orderbyKey == 1'>ORDER BY A.frst_reg_dt ASC</when>
+            <when test='orderbyKey == -1'>ORDER BY A.frst_reg_dt DESC</when>
+            <otherwise>ORDER BY A.frst_reg_dt DESC</otherwise>
+        </choose>
+
+        <if test='currentPageNo != 0'>
+        ) TB ) WHERE rn BETWEEN #{firstItemNo}+1  AND #{firstItemNo} + #{recordCountPerPage}
+        </if>
+    </select>
+
+    <select id="selectListCount" parameterType="com.intermorph.uss.hstry.service.IMMmbrHstryCondition" resultType="int">
+/* IMMmbrHstryMapper.selectListCount */
+SELECT COUNT(*) 
+  FROM im_mmbr_hstry A
+  INNER JOIN COMTNGNRLMBER B ON A.esntl_id=B.ESNTL_ID
+ WHERE  1=1
+ 		<if test='scWord != null and !scWord.equals("")'>
+            <if test='scKey.equals("mberId")'>
+       			AND B.mber_id LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("mmbrNm")'>
+       			AND A.mmbr_nm LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("eml")'>
+       			AND A.eml LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("mblTelno")'>
+       			AND A.mbl_telno LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+        </if>
+        <if test='scAplyGrdCdv != null and !scAplyGrdCdv.equals("")'>
+       			AND A.aply_grd_cdv  = #{scAplyGrdCdv} 
+        </if>
+    </select>
+    
+    
+    
+    
+    
+   
+	<resultMap id="selectEduHisListResultMap" type="com.intermorph.uss.hstry.service.IMMmbrHstryResultSet">
+        <result column="A.memberSrl" property="eduAplyHstry.memberSrl"/>
+        <result column="A.mmbrId" property="eduAplyHstry.mmbrId"/>
+        <result column="A.mmbrNm" property="eduAplyHstry.mmbrNm"/>
+        <result column="A.mblTelno" property="eduAplyHstry.mblTelno"/>
+        <result column="A.eml" property="eduAplyHstry.eml"/>
+        <result column="A.brdt" property="eduAplyHstry.brdt"/>
+        <result column="A.rcptCode" property="eduAplyHstry.rcptCode"/>
+        <result column="A.crsNm" property="eduAplyHstry.crsNm"/>
+        <result column="A.crsDvsn" property="eduAplyHstry.crsDvsn"/>
+        <result column="A.crsDvsnCodeNm" property="eduAplyHstry.crsDvsnCodeNm"/>
+        <result column="A.agncyNm" property="eduAplyHstry.agncyNm"/>
+        <result column="A.agncyCode" property="eduAplyHstry.agncyCode"/>
+        <result column="A.rcptYmd" property="eduAplyHstry.rcptYmd"/>
+        <result column="A.stts" property="eduAplyHstry.stts"/>
+        <result column="A.sttsCode" property="eduAplyHstry.sttsCode"/>
+        <result column="A.dpstYmdInfo" property="eduAplyHstry.dpstYmdInfo"/>
+        <result column="A.eduYmdInfo" property="eduAplyHstry.eduYmdInfo"/>
+        <result column="A.lcncIssuCode" property="eduAplyHstry.lcncIssuCode"/>
+        <result column="A.lcncCode" property="eduAplyHstry.lcncCode"/>
+        <result column="A.acqsGrd" property="eduAplyHstry.acqsGrd"/>
+        <result column="A.acqsgrdcode" property="eduAplyHstry.acqsgrdcode"/>
+        <result column="A.qlfcAcqsYmd" property="eduAplyHstry.qlfcAcqsYmd"/>
+        <result column="A.issuYmd" property="eduAplyHstry.issuYmd"/>
+        <result column="cnt" property="cnt"/>
+
+    </resultMap>
+    <select id="selectEduHisList" parameterType="map" resultMap="selectEduHisListResultMap">
+/* IMEduAplyHstryMapper.selectEduHisList */
+         
+SELECT
+       A.member_srl AS "A.memberSrl",
+       A.mmbr_id AS "A.mmbrId",
+       A.mmbr_nm AS "A.mmbrNm",
+       A.mbl_telno AS "A.mblTelno",
+       A.eml AS "A.eml",
+       A.brdt AS "A.brdt",
+       A.rcpt_code AS "A.rcptCode",
+       A.crs_nm AS "A.crsNm",
+       A.crs_dvsn AS "A.crsDvsn",
+       A.crs_dvsn_code_nm AS "A.crsDvsnCodeNm",
+       A.agncy_nm AS "A.agncyNm",
+       A.agncy_code AS "A.agncyCode",
+       A.rcpt_ymd AS "A.rcptYmd",
+       A.stts AS "A.stts",
+       A.stts_code AS "A.sttsCode",
+       A.dpst_ymd_info AS "A.dpstYmdInfo",
+       A.edu_ymd_info AS "A.eduYmdInfo",
+       A.lcnc_issu_code AS "A.lcncIssuCode",
+       A.lcnc_code AS "A.lcncCode",
+       A.acqs_grd AS "A.acqsGrd",
+       A.acqsgrdcode AS "A.acqsgrdcode",
+       A.qlfc_acqs_ymd AS "A.qlfcAcqsYmd",
+       A.issu_ymd AS "A.issuYmd"
+
+  FROM im_edu_aply_hstry A
+ WHERE
+	 member_srl = #{memberSrl, jdbcType=VARCHAR}
+	 <if test='sttsCode != null and !sttsCode.equals("")'>
+	AND stts_code=#{sttsCode}
+	</if>
+	 AND A.stts_code!='4003'
+	ORDER BY A.qlfc_acqs_ymd desc
+        
+    </select>
+    
+     <select id="selectEduHisListStat" parameterType="map" resultMap="selectEduHisListResultMap">
+    
+SELECT
+      
+       A.stts AS "A.stts",
+       A.stts_code AS "A.sttsCode",
+       COUNT(*) "cnt"
+
+  FROM im_edu_aply_hstry A
+ WHERE  
+  member_srl = #{memberSrl, jdbcType=VARCHAR} AND A.stts_code IN ('4002','4003')
+  GROUP BY A.stts ,A.stts_code
+  </select>
+  
+  <select id="selectEduHis" parameterType="com.intermorph.uss.hstry.service.IMMmbrHstryCondition" resultMap="selectEduHisListResultMap">
+/* IMMmbrHstryMapper.selectEduHis */
+         <if test='currentPageNo != 0'>
+SELECT * FROM ( SELECT rownum rn, TB.* FROM (
+        </if>
+SELECT
+       A.member_srl AS "A.memberSrl",
+       A.mmbr_id AS "A.mmbrId",
+       A.mmbr_nm AS "A.mmbrNm",
+       A.mbl_telno AS "A.mblTelno",
+       A.eml AS "A.eml",
+       A.brdt AS "A.brdt",
+       A.rcpt_code AS "A.rcptCode",
+       A.crs_nm AS "A.crsNm",
+       A.crs_dvsn AS "A.crsDvsn",
+       A.crs_dvsn_code_nm AS "A.crsDvsnCodeNm",
+       A.agncy_nm AS "A.agncyNm",
+       A.agncy_code AS "A.agncyCode",
+       A.rcpt_ymd AS "A.rcptYmd",
+       A.stts AS "A.stts",
+       A.stts_code AS "A.sttsCode",
+       A.dpst_ymd_info AS "A.dpstYmdInfo",
+       A.edu_ymd_info AS "A.eduYmdInfo",
+       A.lcnc_issu_code AS "A.lcncIssuCode",
+       A.lcnc_code AS "A.lcncCode",
+       A.acqs_grd AS "A.acqsGrd",
+       A.acqsgrdcode AS "A.acqsgrdcode",
+       A.qlfc_acqs_ymd AS "A.qlfcAcqsYmd",
+       A.issu_ymd AS "A.issuYmd"
+
+  FROM im_edu_aply_hstry A
+ WHERE  A.stts_code!='4003'
+ 		<if test='scSttsCode != null and !scSttsCode.equals("")'>
+			AND A.stts_code=#{scSttsCode}
+		</if>
+ 		<if test='scAcqsgrdcode != null and !scAcqsgrdcode.equals("")'>
+			AND A.acqsgrdcode=#{scAcqsgrdcode}
+		</if>
+ 		<if test='scWord != null and !scWord.equals("")'>
+            <if test='scKey.equals("mberId")'>
+       			AND A.mmbr_id LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("mmbrNm")'>
+       			AND A.mmbr_nm LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("eml")'>
+       			AND A.eml LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("mblTelno")'>
+       			AND A.mbl_telno LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+        </if>
+ 	
+ 	<choose>
+            <when test='orderbyKey == 5'>ORDER BY A.rcpt_code   ASC</when>
+            <when test='orderbyKey == -5'>ORDER BY A.rcpt_code   DESC</when>
+            <when test='orderbyKey == 3'>ORDER BY A.mmbr_nm   ASC</when>
+            <when test='orderbyKey == -3'>ORDER BY A.mmbr_nm   DESC</when>
+            <when test='orderbyKey == 2'>ORDER BY A.mmbr_id  ASC</when>
+            <when test='orderbyKey == -2'>ORDER BY A.mmbr_id  DESC</when>
+            <when test='orderbyKey == 1'>ORDER BY A.qlfc_acqs_ymd ASC</when>
+            <when test='orderbyKey == -1'>ORDER BY A.qlfc_acqs_ymd DESC</when>
+            <otherwise>ORDER BY A.rcpt_code desc</otherwise>
+        </choose>
+ 
+ 
+	
+
+        <if test='currentPageNo != 0'>
+        ) TB ) WHERE rn BETWEEN #{firstItemNo}+1  AND #{firstItemNo} + #{recordCountPerPage}
+        </if>
+    </select>
+    
+    
+    <select id="selectEduHisCount" parameterType="com.intermorph.uss.hstry.service.IMMmbrHstryCondition" resultType="int">
+/* IMMmbrHstryMapper.selectEduHis */
+SELECT COUNT(*) 
+  FROM im_edu_aply_hstry A
+ WHERE  A.stts_code!='4003'
+ 		<if test='scSttsCode != null and !scSttsCode.equals("")'>
+			AND A.stts_code=#{scSttsCode}
+		</if>
+ 		<if test='scAcqsgrdcode != null and !scAcqsgrdcode.equals("")'>
+			AND A.acqsgrdcode=#{scAcqsgrdcode}
+		</if>
+ 		<if test='scWord != null and !scWord.equals("")'>
+            <if test='scKey.equals("mberId")'>
+       			AND A.mmbr_id LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("mmbrNm")'>
+       			AND A.mmbr_nm LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("eml")'>
+       			AND A.eml LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+            <if test='scKey.equals("mblTelno")'>
+       			AND A.mbl_telno LIKE CONCAT('%', #{scWord}, '%')
+            </if>
+        </if>
+    </select>
+  
+  
+    <insert id="insertEduHis" parameterType="com.intermorph.uss.hstry.service.IMEduAplyHstryVO" useGeneratedKeys="false">
+/* IMEduAplyHstryMapper.insertEduHis */
+INSERT INTO im_edu_aply_hstry (
+    member_srl,
+    mmbr_id,
+    mmbr_nm,
+    mbl_telno,
+    eml,
+    brdt,
+    rcpt_code,
+    crs_nm,
+    crs_dvsn,
+    crs_dvsn_code_nm,
+    agncy_nm,
+    agncy_code,
+    rcpt_ymd,
+    stts,
+    stts_code,
+    dpst_ymd_info,
+    edu_ymd_info,
+    lcnc_issu_code,
+    lcnc_code,
+    acqs_grd,
+    acqsgrdcode,
+    qlfc_acqs_ymd,
+    issu_ymd,
+    frst_reg_dt
+) VALUES (
+    #{memberSrl, jdbcType=VARCHAR},
+    #{mmbrId, jdbcType=VARCHAR},
+    #{mmbrNm, jdbcType=VARCHAR},
+    #{mblTelno, jdbcType=VARCHAR},
+    #{eml, jdbcType=VARCHAR},
+    #{brdt, jdbcType=VARCHAR},
+    #{rcptCode, jdbcType=VARCHAR},
+    #{crsNm, jdbcType=VARCHAR},
+    #{crsDvsn, jdbcType=VARCHAR},
+    #{crsDvsnCodeNm, jdbcType=VARCHAR},
+    #{agncyNm, jdbcType=VARCHAR},
+    #{agncyCode, jdbcType=VARCHAR},
+    #{rcptYmd, jdbcType=VARCHAR},
+    #{stts, jdbcType=VARCHAR},
+    #{sttsCode, jdbcType=VARCHAR},
+    #{dpstYmdInfo, jdbcType=VARCHAR},
+    #{eduYmdInfo, jdbcType=VARCHAR},
+    #{lcncIssuCode, jdbcType=VARCHAR},
+    #{lcncCode, jdbcType=VARCHAR},
+    #{acqsGrd, jdbcType=VARCHAR},
+    #{acqsgrdcode, jdbcType=VARCHAR},
+    #{qlfcAcqsYmd, jdbcType=VARCHAR},
+    #{issuYmd, jdbcType=VARCHAR},
+    TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss')
+) 
+    </insert>
+
+    <update id="updateEduHis" parameterType="com.intermorph.uss.hstry.service.IMEduAplyHstryVO">
+/* IMEduAplyHstryMapper.update */
+UPDATE im_edu_aply_hstry
+   SET 
+       <if test='mmbrId != null'>
+       mmbr_id = #{mmbrId, jdbcType=VARCHAR},
+       </if>
+       <if test='mmbrNm != null'>
+       mmbr_nm = #{mmbrNm, jdbcType=VARCHAR},
+       </if>
+       <if test='mblTelno != null'>
+       mbl_telno = #{mblTelno, jdbcType=VARCHAR},
+       </if>
+       <if test='eml != null'>
+       eml = #{eml, jdbcType=VARCHAR},
+       </if>
+       <if test='brdt != null'>
+       brdt = #{brdt, jdbcType=VARCHAR},
+       </if>
+       <if test='crsNm != null'>
+       crs_nm = #{crsNm, jdbcType=VARCHAR},
+       </if>
+       <if test='crsDvsn != null'>
+       crs_dvsn = #{crsDvsn, jdbcType=VARCHAR},
+       </if>
+       <if test='crsDvsnCodeNm != null'>
+       crs_dvsn_code_nm = #{crsDvsnCodeNm, jdbcType=VARCHAR},
+       </if>
+       <if test='agncyNm != null'>
+       agncy_nm = #{agncyNm, jdbcType=VARCHAR},
+       </if>
+       <if test='agncyCode != null'>
+       agncy_code = #{agncyCode, jdbcType=VARCHAR},
+       </if>
+       <if test='rcptYmd != null'>
+       rcpt_ymd = #{rcptYmd, jdbcType=VARCHAR},
+       </if>
+       <if test='stts != null'>
+       stts = #{stts, jdbcType=VARCHAR},
+       </if>
+       <if test='sttsCode != null'>
+       stts_code = #{sttsCode, jdbcType=VARCHAR},
+       </if>
+       <if test='dpstYmdInfo != null'>
+       dpst_ymd_info = #{dpstYmdInfo, jdbcType=VARCHAR},
+       </if>
+       <if test='eduYmdInfo != null'>
+       edu_ymd_info = #{eduYmdInfo, jdbcType=VARCHAR},
+       </if>
+       <if test='lcncIssuCode != null'>
+       lcnc_issu_code = #{lcncIssuCode, jdbcType=VARCHAR},
+       </if>
+       <if test='lcncCode != null'>
+       lcnc_code = #{lcncCode, jdbcType=VARCHAR},
+       </if>
+       <if test='acqsGrd != null'>
+       acqs_grd = #{acqsGrd, jdbcType=VARCHAR},
+       </if>
+       <if test='acqsgrdcode != null'>
+       acqsgrdcode = #{acqsgrdcode, jdbcType=VARCHAR},
+       </if>
+       <if test='qlfcAcqsYmd != null'>
+       qlfc_acqs_ymd = #{qlfcAcqsYmd, jdbcType=VARCHAR},
+       </if>
+       <if test='issuYmd != null'>
+       issu_ymd = #{issuYmd, jdbcType=VARCHAR},
+       </if>
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss')
+ WHERE
+       member_srl = #{memberSrl}
+	AND  rcpt_code = #{rcptCode}
+    </update>
+</mapper>

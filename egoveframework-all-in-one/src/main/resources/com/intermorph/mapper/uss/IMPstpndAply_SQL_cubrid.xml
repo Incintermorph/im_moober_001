@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.intermorph.uss.pstpnd.service.IMPstpndAplyMapper">
+
+    <insert id="insert" parameterType="com.intermorph.uss.pstpnd.service.IMPstpndAplyVO" useGeneratedKeys="false">
+/* IMPstpndAplyMapper.insert */
+INSERT INTO im_pstpnd_aply (
+    pstpnd_aply_id,
+    esntl_id,
+    dvsn_cdv,
+    crs_grd_cdv,
+    qlfc_rslt_code,
+    lcnc_issu_code,
+    lcnc_acqs_ymd,
+    mber_nm,
+    mmbr_id,
+    mmbr_telno,
+    brdt,
+    trgt_year,
+    pstpnd_rsn_cdv,
+    pstpnd_rsn,
+    zipc,
+    addr,
+    addr_dtl,
+    evddoc_id,
+    stts_cdv,
+	lcnc_end_ymd,
+	
+	<if test='sttsCdv != null and !sttsCdv.equals("")'>
+ 			<if test='sttsCdv.equals("01")'>
+ 			aply_ymd,
+ 			</if>
+ 			<if test='sttsCdv.equals("02")'>
+ 			aply_ymd,
+ 			idnty_ymd,
+ 			</if>
+ 	</if>
+	pstpnd_end_ymd,
+    del_yn,
+    frst_reger_id,
+    frst_reg_dt,
+    frst_reger_ip
+) VALUES (
+    #{pstpndAplyId, jdbcType=VARCHAR},
+    #{esntlId, jdbcType=VARCHAR},
+    #{dvsnCdv, jdbcType=VARCHAR},
+    #{crsGrdCdv, jdbcType=VARCHAR},
+    #{qlfcRsltCode, jdbcType=VARCHAR},
+    #{lcncIssuCode, jdbcType=VARCHAR},
+    #{lcncAcqsYmd, jdbcType=VARCHAR},
+    #{mberNm, jdbcType=VARCHAR},
+    #{mmbrId, jdbcType=VARCHAR},
+    #{mmbrTelnoDB, jdbcType=VARCHAR},
+    #{brdt, jdbcType=VARCHAR},
+    #{trgtYear, jdbcType=VARCHAR},
+    #{pstpndRsnCdv, jdbcType=VARCHAR},
+    #{pstpndRsn, jdbcType=VARCHAR},
+    #{zipc, jdbcType=VARCHAR},
+    #{addr, jdbcType=VARCHAR},
+    #{addrDtl, jdbcType=VARCHAR},
+    #{evddocId, jdbcType=VARCHAR},
+    #{sttsCdv, jdbcType=VARCHAR},
+    #{lcncEndYmd, jdbcType=VARCHAR},
+
+    <if test='sttsCdv != null and !sttsCdv.equals("")'>
+ 			<if test='sttsCdv.equals("01")'>
+ 		 TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+ 			</if>
+ 			<if test='sttsCdv.equals("02")'>
+ 		 TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+ 		 TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+ 		 
+ 			</if>
+ 	</if>
+     #{pstpndRndYmd, jdbcType=VARCHAR},
+     'N',
+    #{frstRegerId, jdbcType=VARCHAR},
+    TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+    #{frstRegerIp, jdbcType=VARCHAR}
+) 
+    </insert>
+
+    <update id="update" parameterType="com.intermorph.uss.pstpnd.service.IMPstpndAplyVO">
+/* IMPstpndAplyMapper.update */
+UPDATE im_pstpnd_aply
+   SET 
+   
+   	    <if test='mmbrTelnoDB != null'>	
+       mmbr_telno = #{mmbrTelnoDB, jdbcType=VARCHAR},
+       </if>
+   	    <if test='brdt != null'>	
+       brdt = #{brdt, jdbcType=VARCHAR},
+       </if>
+   	    <if test='trgtYear != null'>
+       trgt_year = #{trgtYear, jdbcType=VARCHAR},
+       </if>
+   	    <if test='pstpndRsnCdv != null'>
+       pstpnd_rsn_cdv = #{pstpndRsnCdv, jdbcType=VARCHAR},
+       </if>
+   	    <if test='pstpndRsn != null'>
+       pstpnd_rsn = #{pstpndRsn, jdbcType=VARCHAR},
+       </if>
+   	   <if test='zipc != null'>
+       zipc = #{zipc, jdbcType=VARCHAR},
+       </if>
+       <if test='addr != null'>
+       addr = #{addr, jdbcType=VARCHAR},
+       </if>
+       <if test='addrDtl != null'>
+       addr_dtl = #{addrDtl, jdbcType=VARCHAR},
+       </if>
+       <if test='evddocId != null'>
+       evddoc_id = #{evddocId, jdbcType=VARCHAR},
+       </if>
+       <if test='sttsCdv != null'>
+       stts_cdv = #{sttsCdv, jdbcType=VARCHAR},
+		</if>
+       <if test='prcsRmks != null'>
+       prcs_rmks = #{prcsRmks, jdbcType=VARCHAR},
+		</if>
+      
+		<if test='sttsCdv != null and !sttsCdv.equals("")'>
+ 			<if test='sttsCdv.equals("01")'>
+ 			aply_ymd = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+ 			</if>
+ 			
+ 			
+ 			<if test='sttsCdv.equals("02") or sttsCdv.equals("04")'>
+ 		 	idnty_ymd = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'), 		 	
+ 			</if>
+ 		</if>
+	   last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR}
+ WHERE
+       pstpnd_aply_id = #{pstpndAplyId}
+
+   AND del_yn = 'N' 
+    </update>
+
+    <update id="delete" parameterType="com.intermorph.uss.pstpnd.service.IMPstpndAplyVO">
+/* IMPstpndAplyMapper.delete */
+UPDATE im_pstpnd_aply 
+   SET last_mdfer_id = #{lastMdferId, jdbcType=VARCHAR},
+       last_mdfcn_dt = TO_CHAR(SYSDATETIME, 'yyyymmddhh24miss'),
+       last_mdfer_ip = #{lastMdferIp, jdbcType=VARCHAR},
+       del_yn = 'Y' 
+ WHERE 
+       pstpnd_aply_id = #{pstpndAplyId}
+
+   AND del_yn = 'N'
+    </update>
+
+    <resultMap id="selectDetailResultMap" type="com.intermorph.uss.pstpnd.service.IMPstpndAplyResultSet">
+        <result column="A.pstpndAplyId" property="pstpndAply.pstpndAplyId"/>
+        <result column="A.esntlId" property="pstpndAply.esntlId"/>
+        <result column="A.crsGrdCdv" property="pstpndAply.crsGrdCdv"/>
+        <result column="A.dvsnCdv" property="pstpndAply.dvsnCdv"/>
+        <result column="A.qlfcRsltCode" property="pstpndAply.qlfcRsltCode"/>
+        <result column="A.lcncIssuCode" property="pstpndAply.lcncIssuCode"/>
+        <result column="A.lcncAcqsYmd" property="pstpndAply.lcncAcqsYmd"/>
+        <result column="A.mberNm" property="pstpndAply.mberNm"/>
+        <result column="A.mmbrId" property="pstpndAply.mmbrId"/>
+        <result column="A.mmbrTelno" property="pstpndAply.mmbrTelno"/>
+        <result column="A.brdt" property="pstpndAply.brdt"/>
+        <result column="A.trgtYear" property="pstpndAply.trgtYear"/>
+        <result column="A.pstpndRsnCdv" property="pstpndAply.pstpndRsnCdv"/>
+        <result column="A.pstpndRsn" property="pstpndAply.pstpndRsn"/>
+        <result column="A.zipc" property="pstpndAply.zipc"/>
+        <result column="A.addr" property="pstpndAply.addr"/>
+        <result column="A.addrDtl" property="pstpndAply.addrDtl"/>
+        <result column="evddocId" property="pstpndAply.evddocId"/>
+        <result column="A.sttsCdv" property="pstpndAply.sttsCdv"/>
+        <result column="A.aplyYmd" property="pstpndAply.aplyYmd"/>
+        <result column="A.idntyYmd" property="pstpndAply.idntyYmd"/>
+        <result column="A.lcncEndYmd" property="pstpndAply.lcncEndYmd"/>
+        <result column="A.pstpndRndYmd" property="pstpndAply.pstpndRndYmd"/>
+        <result column="A.prcsRmks" property="pstpndAply.prcsRmks"/>
+        <result column="A.delYn" property="pstpndAply.delYn"/>
+        <result column="A.frstRegerId" property="pstpndAply.frstRegerId"/>
+        <result column="A.frstRegDt" property="pstpndAply.frstRegDt"/>
+        <result column="A.frstRegerIp" property="pstpndAply.frstRegerIp"/>
+        <result column="A.lastMdferId" property="pstpndAply.lastMdferId"/>
+        <result column="A.lastMdfcnDt" property="pstpndAply.lastMdfcnDt"/>
+        <result column="A.lastMdferIp" property="pstpndAply.lastMdferIp"/>
+        <result column="B.mberId" property="mberManage.mberId"/>
+        <result column="B.mberNm" property="mberManage.mberNm"/>
+        <result column="B.mberEmailAdres" property="mberManage.mberEmailAdres"/>
+        <result column="B.mbtlnum" property="mberManage.moblphonNo"/>
+			<collection column="{atchFileId=evddocId}" property="fileList" javaType="List" 
+            ofType="egovframework.com.cmm.service.FileVO" select="com.intermorph.cmmn.egov.service.IMEgovMapper.selectFileList"/>
+    </resultMap>
+    <select id="selectDetail" parameterType="com.intermorph.uss.pstpnd.service.IMPstpndAplyVO" resultMap="selectDetailResultMap">
+        /* IMPstpndAplyMapper.selectDetail */
+SELECT 
+       A.pstpnd_aply_id AS "A.pstpndAplyId",
+       A.esntl_id AS "A.esntlId",
+       A.crs_grd_cdv AS "A.crsGrdCdv",
+       A.dvsn_cdv AS "A.dvsnCdv",
+       A.qlfc_rslt_code AS "A.qlfcRsltCode",
+       A.lcnc_issu_code  AS "A.lcncIssuCode",
+       A.lcnc_acqs_ymd AS "A.lcncAcqsYmd",
+       A.mber_nm AS "A.mberNm",
+       A.mmbr_id AS "A.mmbrId",
+       A.mmbr_telno AS "A.mmbrTelno",
+       A.brdt AS "A.brdt",
+       A.trgt_year AS "A.trgtYear",
+       A.pstpnd_rsn_cdv AS "A.pstpndRsnCdv",
+       A.pstpnd_rsn AS "A.pstpndRsn",
+       A.zipc AS "A.zipc",
+       A.addr AS "A.addr",
+       A.addr_dtl AS "A.addrDtl",
+       A.evddoc_id AS "evddocId",
+       A.stts_cdv AS "A.sttsCdv",
+       A.lcnc_end_ymd AS "A.lcncEndYmd",
+	   A.pstpnd_end_ymd AS "A.pstpndRndYmd",
+	   A.aply_ymd AS "A.aplyYmd",
+       A.idnty_ymd AS "A.idntyYmd",
+       A.prcs_rmks AS "A.prcsRmks",
+       A.del_yn AS "A.delYn",
+       A.frst_reger_id AS "A.frstRegerId",
+       A.frst_reg_dt AS "A.frstRegDt",
+       A.frst_reger_ip AS "A.frstRegerIp",
+       A.last_mdfer_id AS "A.lastMdferId",
+       A.last_mdfcn_dt AS "A.lastMdfcnDt",
+       A.last_mdfer_ip AS "A.lastMdferIp",
+  	   B.mber_id AS "B.mberId",
+       B.mber_nm AS "B.mberNm",
+       B.mber_email_adres AS "B.mberEmailAdres",
+       B.mbtlnum AS "B.mbtlnum"
+       
+  FROM im_pstpnd_aply A
+  INNER JOIN comtngnrlmber B ON A.esntl_id=B.esntl_id
+ WHERE
+       A.pstpnd_aply_id = #{pstpndAplyId}
+
+   AND A.del_yn = 'N'
+    </select>
+
+
+    <resultMap id="selectListResultMap" type="com.intermorph.uss.pstpnd.service.IMPstpndAplyResultSet">
+        <result column="A.pstpndAplyId" property="pstpndAply.pstpndAplyId"/>
+        <result column="A.esntlId" property="pstpndAply.esntlId"/>
+        <result column="A.crsGrdCdv" property="pstpndAply.crsGrdCdv"/>
+        <result column="A.dvsnCdv" property="pstpndAply.dvsnCdv"/>
+        <result column="A.qlfcRsltCode" property="pstpndAply.qlfcRsltCode"/>
+        <result column="A.lcncIssuCode" property="pstpndAply.lcncIssuCode"/>
+        <result column="A.lcncAcqsYmd" property="pstpndAply.lcncAcqsYmd"/>
+        <result column="A.mberNm" property="pstpndAply.mberNm"/>
+        <result column="A.mmbrId" property="pstpndAply.mmbrId"/>
+        <result column="A.mmbrTelno" property="pstpndAply.mmbrTelno"/>
+        <result column="A.brdt" property="pstpndAply.brdt"/>
+        <result column="A.trgtYear" property="pstpndAply.trgtYear"/>
+        <result column="A.pstpndRsnCdv" property="pstpndAply.pstpndRsnCdv"/>
+        <result column="A.pstpndRsn" property="pstpndAply.pstpndRsn"/>
+        <result column="A.zipc" property="pstpndAply.zipc"/>
+        <result column="A.addr" property="pstpndAply.addr"/>
+        <result column="A.addrDtl" property="pstpndAply.addrDtl"/>
+        <result column="A.evddocId" property="pstpndAply.evddocId"/>
+        <result column="A.sttsCdv" property="pstpndAply.sttsCdv"/>
+        <result column="A.aplyYmd" property="pstpndAply.aplyYmd"/>
+        <result column="A.idntyYmd" property="pstpndAply.idntyYmd"/>
+        <result column="A.lcncEndYmd" property="pstpndAply.lcncEndYmd"/>
+        <result column="A.pstpndRndYmd" property="pstpndAply.pstpndRndYmd"/>
+        <result column="A.prcsRmks" property="pstpndAply.prcsRmks"/>
+        <result column="A.delYn" property="pstpndAply.delYn"/>
+        <result column="A.frstRegerId" property="pstpndAply.frstRegerId"/>
+        <result column="A.frstRegDt" property="pstpndAply.frstRegDt"/>
+        <result column="A.frstRegerIp" property="pstpndAply.frstRegerIp"/>
+        <result column="A.lastMdferId" property="pstpndAply.lastMdferId"/>
+        <result column="A.lastMdfcnDt" property="pstpndAply.lastMdfcnDt"/>
+        <result column="A.lastMdferIp" property="pstpndAply.lastMdferIp"/>
+        <result column="B.mberId" property="mberManage.mberId"/>
+        <result column="B.mberNm" property="mberManage.mberNm"/>
+        <result column="B.mberEmailAdres" property="mberManage.mberEmailAdres"/>
+        <result column="B.mbtlnum" property="mberManage.moblphonNo"/>
+
+    </resultMap>
+    <select id="selectList" parameterType="com.intermorph.uss.pstpnd.service.IMPstpndAplyCondition" resultMap="selectListResultMap">
+/* IMPstpndAplyMapper.selectList */
+         <if test='currentPageNo != 0'>
+SELECT * FROM ( SELECT rownum rn, TB.* FROM (
+        </if>
+SELECT
+       A.pstpnd_aply_id AS "A.pstpndAplyId",
+       A.esntl_id AS "A.esntlId",
+       A.crs_grd_cdv AS "A.crsGrdCdv",
+       A.dvsn_cdv AS "A.dvsnCdv",
+       A.qlfc_rslt_code AS "A.qlfcRsltCode",
+       A.lcnc_issu_code  AS "A.lcncIssuCode",
+       A.lcnc_acqs_ymd AS "A.lcncAcqsYmd",
+       A.mber_nm AS "A.mberNm",
+       A.mmbr_id AS "A.mmbrId",
+       A.mmbr_telno AS "A.mmbrTelno",
+       A.brdt AS "A.brdt",
+       A.trgt_year AS "A.trgtYear",
+       A.pstpnd_rsn_cdv AS "A.pstpndRsnCdv",
+       A.pstpnd_rsn AS "A.pstpndRsn",
+       A.zipc AS "A.zipc",
+       A.addr AS "A.addr",
+       A.addr_dtl AS "A.addrDtl",
+       A.evddoc_id AS "A.evddocId",
+       A.stts_cdv AS "A.sttsCdv",
+	   A.aply_ymd AS "A.aplyYmd",
+       A.idnty_ymd AS "A.idntyYmd",
+       A.lcnc_end_ymd AS "A.lcncEndYmd",
+	   A.pstpnd_end_ymd AS "A.pstpndRndYmd",
+       A.prcs_rmks AS "A.prcsRmks",
+       A.del_yn AS "A.delYn",
+       A.frst_reger_id AS "A.frstRegerId",
+       A.frst_reg_dt AS "A.frstRegDt",
+       A.frst_reger_ip AS "A.frstRegerIp",
+       A.last_mdfer_id AS "A.lastMdferId",
+       A.last_mdfcn_dt AS "A.lastMdfcnDt",
+       A.last_mdfer_ip AS "A.lastMdferIp",
+  	   B.mber_id AS "B.mberId",
+       B.mber_nm AS "B.mberNm",
+       B.mber_email_adres AS "B.mberEmailAdres",
+       B.mbtlnum AS "B.mbtlnum"
+
+  FROM im_pstpnd_aply A
+  INNER JOIN comtngnrlmber B ON A.esntl_id=B.esntl_id
+ WHERE A.del_yn = 'N'
+ 
+ 
+ 	<if test='scWord != null and !scWord.equals("")'>
+		    <if test='scKey.equals("mberId")'>
+				AND B.mber_id LIKE CONCAT('%', #{scWord}, '%')
+		    </if>
+		    <if test='scKey.equals("mberNm")'>
+				AND B.mber_nm LIKE CONCAT('%', #{scWord}, '%')
+		    </if>
+		    <if test='scKey.equals("moblphonNo")'>
+				AND A.mmbr_telno LIKE CONCAT('%', #{scWord}, '%')
+		    </if>
+	</if>
+	
+	 <if test='scNotSttsCdv != null and !scNotSttsCdv.equals("")'>
+ 			<choose>
+	            <when test='scNotSttsCdv.equals("9903")'>
+	            		AND A.stts_cdv NOT IN ('99','03')
+	            </when>
+	            <otherwise>
+	            	AND A.stts_cdv  !=#{scNotSttsCdv}
+	            </otherwise>
+        	</choose>
+	  
+	 </if> 			
+	 
+	 <if test='scSttsCdv != null and !scSttsCdv.equals("")'>
+		 AND A.stts_cdv  =#{scSttsCdv} 
+	 </if> 
+		
+	 <if test='scDvsnCdv != null and !scDvsnCdv.equals("")'>
+		 AND A.dvsn_cdv = #{scDvsnCdv} 
+	 </if> 		
+ 
+	 <if test='scEduYear != null and !scEduYear.equals("")'>
+		 AND A.lcnc_acqs_ymd  LIKE CONCAT (#{scEduYear}, '%')
+	 </if> 		
+	 
+ 
+ <if test='scEsntlId != null and !scEsntlId.equals("")'>
+	 AND A.esntl_id  =#{scEsntlId} 
+ </if> 			
+ 
+ <if test='scCrsGrdCdv != null and !scCrsGrdCdv.equals("")'>
+	 AND A.crs_grd_cdv  =#{scCrsGrdCdv} 
+ </if> 			
+ 
+ 
+  		<choose>
+            <when test='orderbyKey == 3'>ORDER BY B.mber_nm ASC</when>
+            <when test='orderbyKey == -3'>ORDER BY B.mber_nm DESC</when>
+            <when test='orderbyKey == 2'>ORDER BY B.mber_id ASC</when>
+            <when test='orderbyKey == -2'>ORDER BY B.mber_id DESC</when>
+            <when test='orderbyKey == 1'>ORDER BY A.frst_reg_dt ASC</when>
+            <when test='orderbyKey == -1'>ORDER BY A.frst_reg_dt DESC</when>
+            <otherwise>ORDER BY A.frst_reg_dt DESC</otherwise>
+        </choose>
+
+        <if test='currentPageNo != 0'>
+        ) TB ) WHERE rn BETWEEN #{firstItemNo}+1  AND #{firstItemNo} + #{recordCountPerPage}
+        </if>
+    </select>
+
+    <select id="selectListCount" parameterType="com.intermorph.uss.pstpnd.service.IMPstpndAplyCondition" resultType="int">
+/* IMPstpndAplyMapper.selectListCount */
+SELECT COUNT(*) 
+  FROM im_pstpnd_aply A
+  INNER JOIN comtngnrlmber B ON A.esntl_id=B.esntl_id
+ WHERE A.del_yn = 'N'  
+ 
+ 	<if test='scWord != null and !scWord.equals("")'>
+		    <if test='scKey.equals("mberId")'>
+				AND B.mber_id LIKE CONCAT('%', #{scWord}, '%')
+		    </if>
+		    <if test='scKey.equals("mberNm")'>
+				AND B.mber_nm LIKE CONCAT('%', #{scWord}, '%')
+		    </if>
+		    <if test='scKey.equals("moblphonNo")'>
+				AND A.mmbr_telno LIKE CONCAT('%', #{scWord}, '%')
+		    </if>
+		</if>
+		
+	 <if test='scNotSttsCdv != null and !scNotSttsCdv.equals("")'>
+ 			<choose>
+	            <when test='scNotSttsCdv.equals("9903")'>
+	            		AND A.stts_cdv NOT IN ('99','03')
+	            </when>
+	            <otherwise>
+	            	AND A.stts_cdv  !=#{scNotSttsCdv}
+	            </otherwise>
+        	</choose>
+	  
+	 </if> 			
+	 
+	 <if test='scSttsCdv != null and !scSttsCdv.equals("")'>
+		 AND A.stts_cdv  =#{scSttsCdv} 
+	 </if> 
+	 <if test='scDvsnCdv != null and !scDvsnCdv.equals("")'>
+		 AND A.dvsn_cdv = #{scDvsnCdv} 
+	 </if> 		
+ 
+	 <if test='scEduYear != null and !scEduYear.equals("")'>
+		 AND A.lcnc_acqs_ymd  LIKE CONCAT (#{scEduYear}, '%')
+	 </if> 		
+	 
+ 
+ <if test='scEsntlId != null and !scEsntlId.equals("")'>
+	 AND A.esntl_id  =#{scEsntlId} 
+ </if> 			
+ 
+ <if test='scCrsGrdCdv != null and !scCrsGrdCdv.equals("")'>
+	 AND A.crs_grd_cdv  =#{scCrsGrdCdv} 
+ </if> 			
+ 	
+ 
+    </select>
+</mapper>

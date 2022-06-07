@@ -1,0 +1,200 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/jsp/inc/imConfigTaglib.jspf" %>
+<c:if test="${!empty imLogin_uniqId}">
+<div class="ct_dialog2" id="timerLog" style="display: none;">
+	<div class="tb">
+		<div class="inner">
+			<div class="outer" style="max-width:480px;"><!-- max-width 값 필수 -->
+				<div class="top">
+					<div class="bowl">
+						<p class="title">자동 로그아웃 알림</p>
+					</div>
+				</div>
+				<div class="ct">
+					<!-- 콘텐츠 -->
+					<div class="auto_log">
+						<div class="guide">
+							로그인 시간이 <span class="em">30분</span>경과하여 <span class="em">5분 후</span>에 <span class="caut">자동로그아웃</span> 됩니다.
+							<br><span class="em">30분</span> 더 연장 하시겠습니까?
+							<div class="vspace"></div>
+							<span class="em">[연장]</span> 버튼 클릭시 30분 연장되며,
+							<br><span class="em">[로그아웃]</span> 버튼 클릭시 로그아웃 됩니다.
+						</div>
+						<div class="time">
+							<i class="m_icon_out timer"></i>남은시간: <span class="count" id="leftTimeInfo"></span>
+						</div>
+					</div>
+					<div class="ft_box">
+						<a href="#" onclick="reqTimeAjax();" class="c_btn d_gray md">연장</a>
+						<a href="<c:url value='/uat/uia/actionLogout.do'/>" class="c_btn d_gray md">로그아웃</a>
+					</div>
+					<!-- //콘텐츠 -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javaScript" language="javascript" defer="defer">
+
+jQuery(document).ready(function(){
+	init();
+});
+	function getCookie(cname) {
+ 	  var name = cname + "=";
+ 	  var decodedCookie = decodeURIComponent(document.cookie);
+ 	  var ca = decodedCookie.split(';');
+ 	  for(var i = 0; i <ca.length; i++) {
+ 	    var c = ca[i];
+ 	    while (c.charAt(0) == ' ') {
+ 	      c = c.substring(1);
+ 	    }
+ 	    if (c.indexOf(name) == 0) {
+ 	      return c.substring(name.length, c.length);
+ 	    }
+ 	  }
+ 	  return "";
+ 	}
+  
+  	function pad(n, width) {
+  	  n = n + '';
+  	  return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+  	}
+  
+	var objLeftTime;
+	//var objClickInfo;
+	var latestTime;
+	var expireTime;
+	var timeInterval = 1000; // 1초 간격 호출
+	var firstLocalTime = 0;
+	var elapsedLocalTime = 0;
+	var stateExpiredTime = false;
+	var logoutUrl = "<c:url value='/uat/uia/actionLogout.do'/>";
+	var timer;
+    <%-- web.xml에 세션 만료 시간 참조 처리  session-timeout --%>
+	function init() {
+		objLeftTime = document.getElementById("leftTimeInfo");
+		
+		if (objLeftTime == null) {
+			console.log("'leftTimeInfo' ID is not exist!");
+			return;
+		}
+		//objClickInfo = document.getElementById("clickInfo");
+		//console.log(objLeftTime.textContent);
+
+		latestTime = getCookie("egovLatestServerTime");
+		expireTime = getCookie("egovExpireSessionTime");
+		//console.log("latestServerTime = "+latestTime);
+		//console.log("expireSessionTime = "+expireTime);
+		elapsedTime = 0;
+		firstLocalTime = (new Date()).getTime();
+		showRemaining();
+		$("#timerLog").hide();
+
+
+		timer = setInterval(showRemaining, timeInterval); // 1초 간격 호출
+	}
+
+	function showRemaining() {
+		elapsedLocalTime = (new Date()).getTime() - firstLocalTime;
+		
+		var timeRemaining = expireTime - latestTime - elapsedLocalTime;
+		if ( timeRemaining < timeInterval ) {
+			clearInterval(timer);
+			objLeftTime.innerHTML = "00:00:00";
+			//objClickInfo.text = '<spring:message code="comCmm.top.expiredSessionTime"/>'; //시간만료
+			stateExpiredTime = true;
+			alert('<spring:message code="comCmm.top.expireSessionTimeInfo"/>');//로그인 세션시간이 만료 되었습니다.
+			// reload content main page
+			$("#sessionInfo").hide();
+
+			window.location.href = logoutUrl;
+			//parent.frames["_content"].location.reload();
+
+			return;
+		}
+
+		//console.log("timeRemaining = "+timeRemaining);
+		var timeHour = Math.floor(timeRemaining/1000/60 / 60); 
+		var timeMin = Math.floor((timeRemaining/1000/60) % 60);
+		var timeSec = Math.floor((timeRemaining/1000) % 60);
+		if(timeHour>0){
+			objLeftTime.innerHTML = pad(timeHour,2) +":"+ pad(timeMin,2) +":"+ pad(timeSec,2);	
+		}else{
+			objLeftTime.innerHTML = pad(timeMin,2) +":"+ pad(timeSec,2);
+		}
+		if(timeMin==5 && timeSec==0 && timeHour==0){ <%--5분인경우 레이어 적용--%>
+			$("#timerLog").show();
+		}
+		if(timeSec%10 == 0 ){
+			if (stateExpiredTime!=true) {
+				chekLoginAjax();
+			}
+		}
+	}
+  
+	function reqTimeAjax() {
+	  	
+	  	if (stateExpiredTime==true) {
+	  		alert('<spring:message code="comCmm.top.cantIncSessionTime"/>');//시간을 연장할수 없습니다.
+	  		return;
+	  	}
+	  	
+		$.ajax({
+		    url:'${pageContext.request.contextPath}/uat/uia/refreshSessionTimeout.do', //request 보낼 서버의 경로
+		    type:'get', // 메소드(get, post, put 등)
+		    data:{}, //보낼 데이터
+		    success: function(data) {
+		        //서버로부터 정상적으로 응답이 왔을 때 실행
+	        	latestTime = getCookie("egovLatestServerTime");
+	        	expireTime = getCookie("egovExpireSessionTime");
+	        	//console.log("latestServerTime = "+latestTime);
+	        	//console.log("expireSessionTime = "+expireTime);
+	        	init();
+		        //alert("정상수신 , data = "+data);
+		    },
+		    error: function(err) {
+		    	alert("err : "+err);
+		        //서버로부터 응답이 정상적으로 처리되지 못햇을 때 실행
+		    	//alert("오류발생 , error="+err.state());
+		    }
+		});
+		return false;
+	}
+	
+	function chekLoginAjax() {
+	  	
+	  	if (stateExpiredTime==true) {
+	  		return;
+	  	}
+	  	
+		$.ajax({
+		    url:'${pageContext.request.contextPath}/cmmn/chek/session.do', //request 보낼 서버의 경로
+		    type:'post', // 메소드(get, post, put 등)
+		    data:{enEsntlId: "<c:out value="${imfunc:encryptString(IMLoginUser.uniqId)}"/>",sesinId:"<c:out value="${IMLoginUser.sesinId}"/>"}, //보낼 데이터
+		    dataType: "json" ,
+		    success: function(data) {
+		    	//console.log("result = "+data.result);
+		    	if(data.result==0){
+		    		stateExpiredTime=true;
+		    		alert(data.lastMdfcnDt+'('+data.lastMdferIp+')에서\n\n중복 접속 되어 로그아웃 됩니다.');
+		    		location.reload();
+		    	}else if(data.result==-2){
+				    stateExpiredTime=true;
+		    		alert('로그아웃 되었습니다.');
+		    		location.reload();
+		    	}
+		    	
+		    },
+		    error: function(err) {
+		    	//alert("err : "+err);
+		        //서버로부터 응답이 정상적으로 처리되지 못햇을 때 실행
+		    	//alert("오류발생 , error="+err.state());
+		    }
+		});
+		return false;
+	}
+	
+		
+</script>
+</c:if>
